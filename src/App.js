@@ -9,7 +9,7 @@ const useStore = create((set) => ({
   code: '# Her er det litt pythonkode\n\na = 1\nprint(a + 2, "test")\n',
   setCode: (code) => set(() => ({ code })),
   log: [],
-  addLog: (item) => set((state) => ({ log: [item, ...state.log] })),
+  addLog: (content, error = false) => set((state) => ({ log: [{ content, error }, ...state.log] })),
 }))
 
 const Container = styled.div`
@@ -58,10 +58,11 @@ function App() {
   useEffect(() => {
     setOptions({
       output: (item) => addLog(item),
+      error: (item) => addLog(item, true),
       onLoading: () => setLoadingPython(true),
       onLoaded: () => setLoadingPython(false),
     })
-  }, [])
+  }, [addLog])
 
   return (
     <Container>
@@ -79,7 +80,14 @@ function App() {
         <Button onClick={() => runCode(code)}>Kjør koden!</Button>
         {loadingPython && <h3>Laster inn Python ... Det kan ta noen sekunder</h3>}
         {log.length > 0 && <h3>Dette ble printet:</h3>}
-        <Output>{log}</Output>
+        <Output>
+          {log.map(({ content, error }) => {
+            if (error) {
+              return <span style={{ color: 'red' }}>{content.message + '\n'}</span>
+            }
+            return content
+          })}
+        </Output>
         <h3>Python-koden:</h3>
         <Output>{code}</Output>
       </Header>
