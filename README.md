@@ -17,6 +17,7 @@ Gjerne også installer [VSCode](https://code.visualstudio.com/) for å redigere 
 
 - Prettier - Code formatter (for å formatere kode, så slepper man å tenke på det)
 - GitLens (gjør Git hakket enklere, men den ikke nødvendig!)
+- styled-components (så får man farge på CSS'en fra styled-components)
 
 Her er litt ekstra som jeg bare må ha, men som egentlig ikke er så viktig:
 
