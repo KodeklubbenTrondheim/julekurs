@@ -8,6 +8,8 @@ Om du vil bidra er det bare å sende inn en issue [her](https://github.com/nikla
 
 _Dette må bare gjøres en gang per maskin._
 
+**TL;DR: Installer [Node.js](https://nodejs.org/en/), [Git](https://git-scm.com/downloads) og [VSCode](https://code.visualstudio.com/). Klon prosjektet fra GitHub og kjør `npm install` så `npm start` i VSCode-terminalen.**
+
 Det eneste du trenger er [Node.js](https://nodejs.org/en/), ellers så er [Git](https://git-scm.com/downloads) veldig hendig om du vil bidra. Video om Git [her](https://www.youtube.com/watch?v=HkdAHXoRtos&ab_channel=Fireship) om du er usikker på hvordan det brukes.
 
 Gjerne også installer [VSCode](https://code.visualstudio.com/) for å redigere filer. Den er veldig godt integrert med Git, så den kan virkelig anbefales!
@@ -49,7 +51,7 @@ npm install # Må kjøres av og til om nye pakker i `package.json` er lagt til
 npm start # Denne vil åpne nettleseren og auto-refreshe når du endrer og lagrer en fil :)
 ```
 
-# Plan for prosjektet
+# :date: Plan for prosjektet
 
 Julekurset skal inneholde:
 
