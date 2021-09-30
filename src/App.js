@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { Demo } from './pages/demo'
 import { Prosjekt } from './pages/project'
+import { BlocklyEditor } from './pages/blockly'
 
 const Container = styled.div`
   background-color: #282c34;
@@ -29,6 +30,7 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Link to="/demo">Gå til demosiden</Link>
+              <Link to="/blockly">Test ut Blockly</Link>
               <Link to="/project">Gå til prosjekt-siden</Link>
               Her er det ingenting :) Prøv å gå til demosiden
             </Route>
@@ -41,6 +43,11 @@ function App() {
               <Link to="/">Gå tilbake til hjem</Link>
               <h2>Prosjekt</h2>
               <Prosjekt />
+            </Route>
+            <Route path="/blockly">
+              <Link to="/">Gå tilbake til hjem</Link>
+              <h2>Tester ut Blockly</h2>
+              <BlocklyEditor />
             </Route>
           </Switch>
         </Header>
