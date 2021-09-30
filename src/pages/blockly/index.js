@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { BlocklyWorkspace } from 'react-blockly'
 import Blockly from 'blockly'
 import 'blockly/python'
@@ -56,24 +56,18 @@ const workspaceConfiguration = {
 }
 
 export function BlocklyEditor(props) {
-  const [xml, onXmlChange] = useState(initialXml)
-  const workspace = useRef()
   const [javascript, setJavascript] = useState('')
   const [python, setPython] = useState('')
 
-  const onWorkspaceChange = (xml) => {
-    console.log(Blockly)
-    onXmlChange(xml)
+  const onWorkspaceChange = () => {
     setJavascript(Blockly.JavaScript.workspaceToCode(props.workspace))
     setPython(Blockly.Python.workspaceToCode(props.workspace))
   }
 
-  const onInject = (workspace) => (workspace.current = workspace)
-
   return (
     <>
       <StyledBlocklyWorkspace
-        {...{ initialXml, toolboxConfiguration, onXmlChange, workspaceConfiguration, onWorkspaceChange, onInject }}
+        {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange, onInject }}
         {...props}
       />
       <h3>JavaScript</h3>
