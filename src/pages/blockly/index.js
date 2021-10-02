@@ -67,7 +67,7 @@ export function BlocklyEditor(props) {
   return (
     <>
       <StyledBlocklyWorkspace
-        {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange, onInject }}
+        {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange }}
         {...props}
       />
       <h3>JavaScript</h3>
