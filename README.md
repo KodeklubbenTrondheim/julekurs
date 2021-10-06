@@ -73,8 +73,10 @@ Første versjon:
 
 - Kunne se en liste med oppgaver.
 - Kunne gå inn på hver oppgave og få instruksjoner om hvordan man kommer videre.
+  - Dette må ikke legges inn i selve GUIet hvor man koder julekort. Dette kan være på papir.
 - Kunne skrive i en editor og få opp resultat i et grensesnitt (p5.js eller noe ala det)
 - Kunne lage oppgaver i et format. Kan starte med JSON, må se an om vi rekker Markdown her.
+- Kunne laste ned oppgaver og bilde med en knapp (midlertidig mens vi ikke bruker database)
 
 Senere:
 
@@ -84,3 +86,49 @@ Senere:
 - Finpusse på design. Gjøre alt både kult og intuitivt - ikke for mye ting som stjeler fokus.
 - Teste på brukere mens vi utvikler for å styre retningen.
 - Lage et slags system for å lage oppgaver enkelt.
+
+Ideer fra tegne-workshop for GUI:
+
+- 1:
+  - To vinduer: Editor og oppgaver.
+  - Knapp over editor for å velge Python / Blockly / JavaScript
+  - Lagreknapp for å laste ned julekort
+  - Unngå kommentarfelt
+- 2:
+  - Hovedside med "Lag kort"
+  - Sender deg til en slags side med alle funksjonene til et julekort
+    - Del kort
+    - Kode
+    - Tutorial
+- 3:
+  - Galleri hvor man kan se julekortene
+  - Trykker man på kortet kan man se koden
+- 4:
+  - Koden på den ene siden og julekort på den andre.
+  - Knapp for å kjøre
+  - Et sted for feilmeldinger
+  - Deleknapp
+  - En embedded-versjon av julekortet (altså fullscreen-støtte, sånn man kan dele uten alt ekstra)
+- 5:
+- 6:
+  - Nivåer (Lett, middels og vanskelig)
+  - Oppgaver til hvert nivå. Kanskje Blockly til første nivå?
+  - Bar øverst med login og info
+  - Galleri
+    - Trykker man på bildet så kommer man til en side med hele julekortet (embedded-versjon)
+  - Evt kunne få opp video / tutorial
+
+Diskusjon:
+
+- Video eller tekst?
+  - Kanskje tekst først, så erstatte med video
+  - Kanskje ha begge deler kombinert noe sted?
+- Fint å separere oppgaver og julekort m/kodeeditor
+
+Plan videre:
+
+- Bli ferdig med MVP til neste onsdag (14.10.2021)
+  - Ref "Første versjon" over.
+- Starte med oppgavelaging neste onsdag.
+- Kursstart den 10. November 2021.
+- 4 kurskvelder, 1 uke mellomrom.
