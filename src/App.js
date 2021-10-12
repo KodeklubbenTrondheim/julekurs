@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { JulekortSide } from './pages/julekort'
-import { OppgaveSide } from './pages/oppgaver'
+import { OppgaveSide, OppgaveOversiktSide } from './pages/oppgaver'
 
 const Container = styled.div`
   background-color: #282c34;
@@ -37,7 +37,12 @@ function App() {
               <JulekortSide />
               <Link to="/oppgaver">Finn ut hva du kan lage her!</Link>
             </Route>
-            <Route path="/oppgaver">
+            <Route path="/oppgaver" exact>
+              <Link to="/">Gå tilbake til forsiden</Link>
+              <h2>Velg hva du vil lage</h2>
+              <OppgaveOversiktSide />
+            </Route>
+            <Route path="/oppgaver/:oppgaveId">
               <Link to="/">Gå tilbake til forsiden</Link>
               <h2>Velg hva du vil lage</h2>
               <OppgaveSide />
