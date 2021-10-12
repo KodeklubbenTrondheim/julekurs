@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import { Demo } from './pages/demo'
-import { Prosjekt } from './pages/project'
-import { BlocklyEditor } from './pages/blockly'
+import { JulekortSide } from './pages/julekort'
+import { OppgaveSide } from './pages/oppgaver'
 
 const Container = styled.div`
   background-color: #282c34;
@@ -25,29 +24,23 @@ function App() {
     <Router>
       <Container>
         <Header>
-          <h1>Julekortverkstedet</h1>
-          <p>Lyst til å lage julekort? Da har du kommet til riktig sted!</p>
           <Switch>
             <Route path="/" exact>
-              <Link to="/demo">Gå til demosiden</Link>
-              <Link to="/blockly">Test ut Blockly</Link>
-              <Link to="/project">Gå til prosjekt-siden</Link>
-              Her er det ingenting :) Prøv å gå til demosiden
+              <h1>Julekortverkstedet</h1>
+              <p>Lyst til å lage julekort? Da har du kommet til riktig sted!</p>
+              <Link to="/julekort">Trykk her for å lage et julekort!</Link>
+              <Link to="/oppgaver">Finn ut hva du kan lage her!</Link>
             </Route>
-            <Route path="/demo">
-              <Link to="/">Gå tilbake til hjem</Link>
-              <h2>Demo</h2>
-              <Demo />
+            <Route path="/julekort">
+              <Link to="/">Gå tilbake til forsiden</Link>
+              <h2>Lag ditt eget julekort</h2>
+              <JulekortSide />
+              <Link to="/oppgaver">Finn ut hva du kan lage her!</Link>
             </Route>
-            <Route path="/project">
-              <Link to="/">Gå tilbake til hjem</Link>
-              <h2>Prosjekt</h2>
-              <Prosjekt />
-            </Route>
-            <Route path="/blockly">
-              <Link to="/">Gå tilbake til hjem</Link>
-              <h2>Tester ut Blockly</h2>
-              <BlocklyEditor />
+            <Route path="/oppgaver">
+              <Link to="/">Gå tilbake til forsiden</Link>
+              <h2>Velg hva du vil lage</h2>
+              <OppgaveSide />
             </Route>
           </Switch>
         </Header>
