@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { setOptions, setEngine, getVariables, runCode } from 'client-side-python-runner'
-import { CodeEditor } from '../../components/CodeEditor'
+import { setOptions, setEngine, runCode } from 'client-side-python-runner'
+import { CodeEditor, BlocklyEditor } from '../../components/CodeEditor'
 import { Graphics } from '../../components/Graphics'
 import { useStore } from '../../store'
 
@@ -17,14 +17,28 @@ const Container = styled.div`
   gap: 32px;
 `
 
-const RunButton = styled.button`
+const StyledEditorHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const Button = styled.button`
   border: none;
   border-radius: 4px;
-  background-color: #080;
+  background-color: #666;
   color: #fff;
   padding: 8px 12px;
-  align-self: flex-end;
   cursor: pointer;
+
+  :hover {
+    background-color: #444;
+  }
+`
+
+const RunButton = styled(Button)`
+  background-color: #080;
+  color: #fff;
 
   :hover {
     background-color: #060;
@@ -32,9 +46,12 @@ const RunButton = styled.button`
 `
 
 export function JulekortSide() {
-  const code = useStore((state) => state.code)
+  const pythonCode = useStore((state) => state.pythonCode)
+  //const blocklyCode = useStore((state) => state.blocklyCode)
   const addLog = useStore((state) => state.addLog)
   const [pythonEngineLoading, setLoadingPython] = useState(false)
+  const editorMode = useStore((state) => state.editorMode)
+  const setEditorMode = useStore((state) => state.setEditorMode)
 
   useEffect(() => {
     setOptions({
@@ -56,25 +73,61 @@ export function JulekortSide() {
     setEngine('skulpt')
   }, [addLog])
 
+  const EditorHeader = ({ runCodeFunction }) => (
+    <StyledEditorHeader>
+      {editorMode === 'python' && (
+        <Button onClick={() => setEditorMode('blockly')}>
+          Kode med blokker <i className="fas fa-shapes" />
+        </Button>
+      )}
+      {editorMode === 'blockly' && (
+        <Button onClick={() => setEditorMode('python')}>
+          Kode i Python <i className="fas fa-code" />
+        </Button>
+      )}
+      <RunButton onClick={runCodeFunction}>
+        Kjør koden <i className="fas fa-play" />
+      </RunButton>
+    </StyledEditorHeader>
+  )
+
   return (
     <Container>
-      <CodeEditor
-        above={
-          <RunButton
-            onClick={async () => {
-              await setEngine('skulpt')
-              await runCode(code, {
-                canvasParentId: 'julekort-grafikk-turtle',
-                canvasWidth: 400,
-                canvasHeight: 400,
-              })
-              console.log(await getVariables())
-            }}
-          >
-            Kjør koden
-          </RunButton>
-        }
-      />
+      {editorMode === 'python' ? (
+        <CodeEditor
+          language="python"
+          above={
+            <EditorHeader
+              runCodeFunction={async () => {
+                await setEngine('skulpt')
+                await runCode(pythonCode, {
+                  canvasParentId: 'julekort-grafikk-turtle',
+                  canvasWidth: 400,
+                  canvasHeight: 400,
+                })
+                //console.log(await getVariables())
+              }}
+            />
+          }
+        />
+      ) : (
+        <BlocklyEditor
+          language="python"
+          above={
+            <EditorHeader
+              runCodeFunction={async () => {
+                await setEngine('skulpt')
+                await runCode(pythonCode, {
+                  canvasParentId: 'julekort-grafikk-turtle',
+                  canvasWidth: 400,
+                  canvasHeight: 400,
+                })
+                //console.log(await getVariables())
+              }}
+            />
+          }
+        />
+      )}
       <Graphics />
       {pythonEngineLoading ? `Laster inn Python (${pythonEngineLoading}) ...` : ''}
     </Container>

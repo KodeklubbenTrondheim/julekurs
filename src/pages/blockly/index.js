@@ -11,6 +11,27 @@ const StyledBlocklyWorkspace = styled(BlocklyWorkspace)`
 `
 
 const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
+const toolboxXml = `<xml id="toolbox" xmlns="https://developers.google.com/blockly/xml">
+  <category name="Turtle">
+    <block type="turtle_move_internal">
+      <field name="VALUE">100</field>
+    </block>
+    <block type="turtle_turn_internal">
+      <field name="VALUE">90</field>
+    </block>
+  </category>
+  
+  <category name="Colour">
+    <block type="turtle_colour_internal">
+    </block>
+  </category>
+
+  <category name="Loops">
+    <block type="turtle_repeat_internal">
+    <field name="TIMES">4</field>
+    </block>
+  </category>
+</xml>`
 
 const toolboxConfiguration = {
   kind: 'flyoutToolbox',

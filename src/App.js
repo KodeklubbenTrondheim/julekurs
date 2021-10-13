@@ -19,6 +19,15 @@ const Header = styled.div`
   color: white;
 `
 
+const ButtonLink = styled.button`
+  color: #61dafb;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: calc(10px + 2vmin);
+`
+
 function App() {
   return (
     <Router>
@@ -35,7 +44,14 @@ function App() {
               <Link to="/">Gå tilbake til forsiden</Link>
               <h2>Lag ditt eget julekort</h2>
               <JulekortSide />
-              <Link to="/oppgaver">Finn ut hva du kan lage her!</Link>
+              <ButtonLink
+                onClick={() => {
+                  window.open(window.location.origin + '/oppgaver', '_blank', 'toolbar=0,location=0,menubar=0')
+                }}
+                style={{ cursor: 'pointer', textDecoration: 'underline' }}
+              >
+                Finn ut hva du kan lage her!
+              </ButtonLink>
             </Route>
             <Route path="/oppgaver" exact>
               <Link to="/">Gå tilbake til forsiden</Link>

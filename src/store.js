@@ -1,19 +1,33 @@
 import create from 'zustand'
 
 export const useStore = create((set) => ({
-  code:
-    localStorage.getItem('code') ??
+  pythonCode:
+    localStorage.getItem('pythonCode') ||
     `from turtle import *
 
-t = Turtle()
-t.color("red")
-t.forward(100)
-t.left(45)
-t.forward(100)
+color("red")
+forward(100)
+left(45)
+forward(100)
 `,
-  setCode: (code) => {
-    localStorage.setItem('code', code)
-    set(() => ({ code }))
+  setPythonCode: (pythonCode) => {
+    localStorage.setItem('pythonCode', pythonCode)
+    set(() => ({ pythonCode }))
+  },
+  javascriptCode: localStorage.getItem('javascriptCode') || ``,
+  setJavascriptCode: (javascriptCode) => {
+    localStorage.setItem('javascriptCode', javascriptCode)
+    set(() => ({ javascriptCode }))
+  },
+  blocklyCode: localStorage.getItem('blocklyCode') || ``,
+  setBlocklyCode: (blocklyCode) => {
+    localStorage.setItem('blocklyCode', blocklyCode)
+    set(() => ({ blocklyCode }))
+  },
+  editorMode: localStorage.getItem('editorMode') || 'python',
+  setEditorMode: (editorMode) => {
+    localStorage.setItem('editorMode', editorMode)
+    set(() => ({ editorMode }))
   },
   canvas: null, // Grafikk
   setCanvas: (canvas) => set(() => ({ canvas })),
