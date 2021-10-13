@@ -27,7 +27,7 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <h1>Julekortverkstedet</h1>
-              <p>Lyst til å lage julekort? Da har du kommet til riktig sted!</p>
+              <p>Lyst til å programmere julekort? Da har du kommet til riktig sted!</p>
               <Link to="/julekort">Trykk her for å lage et julekort!</Link>
               <Link to="/oppgaver">Finn ut hva du kan lage her!</Link>
             </Route>
