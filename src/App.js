@@ -4,7 +4,7 @@ import { JulekortSide } from './pages/julekort'
 import { OppgaveSide, OppgaveOversiktSide } from './pages/oppgaver'
 
 const Container = styled.div`
-  background-color: #282c34;
+  background-color: #4c1616;
   text-align: center;
   padding: 0 2rem 2rem;
 `
@@ -22,7 +22,6 @@ const Header = styled.div`
 const ButtonLink = styled.button`
   color: #61dafb;
   cursor: pointer;
-  text-decoration: underline;
   background: none;
   border: none;
   font-size: calc(10px + 2vmin);
@@ -48,9 +47,9 @@ function App() {
                 onClick={() => {
                   window.open(window.location.origin + '/oppgaver', '_blank', 'toolbar=0,location=0,menubar=0')
                 }}
-                style={{ cursor: 'pointer', textDecoration: 'underline' }}
               >
-                Finn ut hva du kan lage her!
+                <span style={{ textDecoration: 'underline' }}>Finn ut hva du kan lage her!</span>{' '}
+                <i className="fas fa-external-link-alt" />
               </ButtonLink>
             </Route>
             <Route path="/oppgaver" exact>

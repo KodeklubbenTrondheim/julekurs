@@ -19,18 +19,31 @@ forward(100)
     localStorage.setItem('javascriptCode', javascriptCode)
     set(() => ({ javascriptCode }))
   },
-  blocklyCode: localStorage.getItem('blocklyCode') || ``,
-  setBlocklyCode: (blocklyCode) => {
-    localStorage.setItem('blocklyCode', blocklyCode)
-    set(() => ({ blocklyCode }))
+  blocklyPythonCode: localStorage.getItem('blocklyPythonCode') || ``,
+  setBlocklyPythonCode: (blocklyPythonCode) => {
+    localStorage.setItem('blocklyPythonCode', blocklyPythonCode)
+    set(() => ({ blocklyPythonCode }))
   },
+  blocklyXml: localStorage.getItem('blocklyXml') || '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>',
+  setBlocklyXml: (blocklyXml) => {
+    localStorage.setItem('blocklyXml', blocklyXml)
+    set(() => ({ blocklyXml }))
+  },
+
   editorMode: localStorage.getItem('editorMode') || 'python',
   setEditorMode: (editorMode) => {
     localStorage.setItem('editorMode', editorMode)
     set(() => ({ editorMode }))
   },
+
   canvas: null, // Grafikk
   setCanvas: (canvas) => set(() => ({ canvas })),
+  canvasColor: localStorage.getItem('canvasColor') || '#fff',
+  setCanvasColor: (canvasColor) => {
+    localStorage.setItem('canvasColor', canvasColor)
+    set(() => ({ canvasColor }))
+  },
+
   log: [],
   addLog: (content, error = false) => set((state) => ({ log: [{ content, error }, ...state.log] })),
 }))

@@ -1,9 +1,11 @@
+import { useCallback } from 'react'
 import Editor from '@monaco-editor/react'
 import styled from 'styled-components'
 import { BlocklyWorkspace } from 'react-blockly'
-//import Blockly from 'blockly'
+import Blockly from 'blockly'
 import 'blockly/python'
 import { useStore } from '../store'
+import { CSSShadows } from '../constants'
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +15,7 @@ const Container = styled.div`
   .monaco-editor {
     overflow: hidden;
     border-radius: 8px;
+    ${CSSShadows.large}
   }
 `
 
@@ -52,8 +55,6 @@ const StyledBlocklyWorkspace = styled(BlocklyWorkspace)`
   overflow: hidden;
   border-radius: 8px;
 `
-
-const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
 
 const toolboxConfiguration = {
   kind: 'flyoutToolbox',
@@ -104,19 +105,22 @@ const workspaceConfiguration = {
 }
 
 export function BlocklyEditor({ above, ...props }) {
-  //const setPythonCode = useStore((state) => state.setPythonCode)
+  const setBlocklyPythonCode = useStore((state) => state.setBlocklyPythonCode)
+  const initialXml = useStore((state) => state.blocklyXml)
+  const onXmlChange = useStore((state) => state.setBlocklyXml)
 
-  const onWorkspaceChange = () => {
-    //setJavascriptCode(Blockly.JavaScript.workspaceToCode(props.workspace))
-    //console.log(props.workspace)
-    //setPythonCode(Blockly.Python.workspaceToCode(props.workspace))
-  }
+  const onWorkspaceChange = useCallback(
+    (workspace) => {
+      setBlocklyPythonCode(Blockly.Python.workspaceToCode(workspace))
+    },
+    [setBlocklyPythonCode]
+  )
 
   return (
     <Container>
       {above}
       <StyledBlocklyWorkspace
-        {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange }}
+        {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange, onXmlChange }}
         {...props}
       />
     </Container>

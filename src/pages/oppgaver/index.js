@@ -21,7 +21,6 @@ const md = mdIt({
 })
 
 const Container = styled.div`
-  background-color: #282c34;
   text-align: center;
   padding: 0 2rem 2rem;
   display: flex;

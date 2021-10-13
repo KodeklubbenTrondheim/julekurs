@@ -6,7 +6,6 @@ import { Graphics } from '../../components/Graphics'
 import { useStore } from '../../store'
 
 const Container = styled.div`
-  background-color: #282c34;
   text-align: center;
   padding: 0 2rem 2rem;
   display: flex;
@@ -47,7 +46,7 @@ const RunButton = styled(Button)`
 
 export function JulekortSide() {
   const pythonCode = useStore((state) => state.pythonCode)
-  //const blocklyCode = useStore((state) => state.blocklyCode)
+  const blocklyPythonCode = useStore((state) => state.blocklyPythonCode)
   const addLog = useStore((state) => state.addLog)
   const [pythonEngineLoading, setLoadingPython] = useState(false)
   const editorMode = useStore((state) => state.editorMode)
@@ -105,7 +104,6 @@ export function JulekortSide() {
                   canvasWidth: 400,
                   canvasHeight: 400,
                 })
-                //console.log(await getVariables())
               }}
             />
           }
@@ -117,12 +115,12 @@ export function JulekortSide() {
             <EditorHeader
               runCodeFunction={async () => {
                 await setEngine('skulpt')
-                await runCode(pythonCode, {
+                console.log(blocklyPythonCode)
+                await runCode(blocklyPythonCode, {
                   canvasParentId: 'julekort-grafikk-turtle',
                   canvasWidth: 400,
                   canvasHeight: 400,
                 })
-                //console.log(await getVariables())
               }}
             />
           }
