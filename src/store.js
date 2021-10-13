@@ -1,7 +1,16 @@
 import create from 'zustand'
 
 export const useStore = create((set) => ({
-  code: localStorage.getItem('code') ?? '# Her er det litt pythonkode\n\na = 1\nprint(a + 2, "test")\n',
+  code:
+    localStorage.getItem('code') ??
+    `from turtle import *
+
+t = Turtle()
+t.color("red")
+t.forward(100)
+t.left(45)
+t.forward(100)
+`,
   setCode: (code) => {
     localStorage.setItem('code', code)
     set(() => ({ code }))
