@@ -83,6 +83,7 @@ const ColorPicker = styled.input.attrs({ type: 'color' })`
   width: 30px;
   height: 30px;
   margin-left: 30px;
+  ${CSSShadows.medium}
 
   ::-webkit-color-swatch-wrapper {
     padding: 0;

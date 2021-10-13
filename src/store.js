@@ -38,7 +38,7 @@ forward(100)
 
   canvas: null, // Grafikk
   setCanvas: (canvas) => set(() => ({ canvas })),
-  canvasColor: localStorage.getItem('canvasColor') || '#fff',
+  canvasColor: localStorage.getItem('canvasColor') || '#ffffff',
   setCanvasColor: (canvasColor) => {
     localStorage.setItem('canvasColor', canvasColor)
     set(() => ({ canvasColor }))
