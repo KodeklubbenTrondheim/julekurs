@@ -32,6 +32,7 @@ export function CodeEditor({ above, ...props }) {
         options={{
           scrollBeyondLastLine: false,
           wordWrap: true,
+          renderWhitespace: 'boundary',
           ...(props.options || {}),
         }}
       />
