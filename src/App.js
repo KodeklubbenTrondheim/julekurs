@@ -43,7 +43,7 @@ function App() {
               <OppgaveOversiktSide />
             </Route>
             <Route path="/oppgaver/:oppgaveId">
-              <Link to="/">Gå tilbake til forsiden</Link>
+              <Link to="/oppgaver">Gå tilbake til oppgavesiden</Link>
               <h2>Velg hva du vil lage</h2>
               <OppgaveSide />
             </Route>
