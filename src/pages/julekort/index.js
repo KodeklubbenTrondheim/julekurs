@@ -46,6 +46,7 @@ const RunButton = styled(Button)`
 
 export function JulekortSide() {
   const pythonCode = useStore((state) => state.pythonCode)
+  const setPythonCode = useStore((state) => state.setPythonCode)
   const blocklyPythonCode = useStore((state) => state.blocklyPythonCode)
   const addLog = useStore((state) => state.addLog)
   const [pythonEngineLoading, setLoadingPython] = useState(false)
@@ -63,7 +64,7 @@ export function JulekortSide() {
         console.log(item)
       },
       onLoading: (engine) => setLoadingPython(engine),
-      onLoaded: (engine) => {
+      onLoaded: () => {
         setLoadingPython(false)
       },
       loadVariablesBeforeRun: true,
@@ -75,9 +76,12 @@ export function JulekortSide() {
   const EditorHeader = ({ runCodeFunction }) => (
     <StyledEditorHeader>
       {editorMode === 'python' && (
-        <Button onClick={() => setEditorMode('blockly')}>
-          Kode med blokker <i className="fas fa-shapes" />
-        </Button>
+        <>
+          <Button onClick={() => setEditorMode('blockly')}>
+            Kode med blokker <i className="fas fa-shapes" />
+          </Button>
+          <Button onClick={() => setPythonCode(blocklyPythonCode)}>Overfør blokkene til Python</Button>
+        </>
       )}
       {editorMode === 'blockly' && (
         <Button onClick={() => setEditorMode('python')}>
@@ -116,7 +120,7 @@ export function JulekortSide() {
               runCodeFunction={async () => {
                 await setEngine('skulpt')
                 console.log(blocklyPythonCode)
-                await runCode(`from turtle import *\n` + blocklyPythonCode, {
+                await runCode(blocklyPythonCode, {
                   canvasParentId: 'julekort-grafikk-turtle',
                   canvasWidth: 400,
                   canvasHeight: 400,

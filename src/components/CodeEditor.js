@@ -99,7 +99,7 @@ export function BlocklyEditor({ above, ...props }) {
 
   const onWorkspaceChange = useCallback(
     (workspace) => {
-      setBlocklyPythonCode(Blockly.Python.workspaceToCode(workspace))
+      setBlocklyPythonCode(`from turtle import *\n` + Blockly.Python.workspaceToCode(workspace))
     },
     [setBlocklyPythonCode]
   )
