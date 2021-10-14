@@ -6,6 +6,7 @@ import Blockly from 'blockly'
 import 'blockly/python'
 import { useStore } from '../store'
 import { CSSShadows } from '../constants'
+import './blockly-custom-blocks'
 
 const Container = styled.div`
   display: flex;
@@ -61,36 +62,23 @@ const toolboxConfiguration = {
   contents: [
     {
       kind: 'block',
-      //blockxml: '<block type="turtle_move_internal"><field name="VALUE">100</field></block>',
-      type: 'controls_if',
+      type: 'fremover',
     },
     {
       kind: 'block',
-      type: 'controls_if',
+      type: 'høyre',
     },
     {
       kind: 'block',
-      type: 'controls_whileUntil',
+      type: 'venstre',
     },
     {
       kind: 'block',
-      type: 'controls_for',
+      type: 'farge',
     },
     {
       kind: 'block',
-      type: 'logic_compare',
-    },
-    {
-      kind: 'block',
-      type: 'logic_operation',
-    },
-    {
-      kind: 'block',
-      type: 'logic_boolean',
-    },
-    {
-      kind: 'block',
-      type: 'math_number',
+      type: 'controls_repeat',
     },
   ],
 }

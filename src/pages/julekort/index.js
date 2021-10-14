@@ -116,7 +116,7 @@ export function JulekortSide() {
               runCodeFunction={async () => {
                 await setEngine('skulpt')
                 console.log(blocklyPythonCode)
-                await runCode(blocklyPythonCode, {
+                await runCode(`from turtle import *\n` + blocklyPythonCode, {
                   canvasParentId: 'julekort-grafikk-turtle',
                   canvasWidth: 400,
                   canvasHeight: 400,
