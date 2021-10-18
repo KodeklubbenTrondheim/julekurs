@@ -3,11 +3,14 @@ import styled from 'styled-components'
 import { useThrottleFn } from 'react-use'
 import { useStore } from '../store'
 import { CSSShadows } from '../constants'
+import { LinkButton } from './Button'
 
 const colors = ['#ffffff', '#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#000000']
 
 export function Graphics({ props }) {
   const canvasRef = useRef()
+  const canvasCtxRef = useRef()
+  const turtleCanvasContainerRef = useRef()
   const setCanvas = useStore((state) => state.setCanvas)
 
   const canvasColor = useStore((state) => state.canvasColor)
@@ -24,12 +27,43 @@ export function Graphics({ props }) {
   useEffect(() => {
     if (canvasRef.current !== null) {
       setCanvas(canvasRef.current)
+      canvasCtxRef.current = canvasRef.current.getContext('2d')
     }
   }, [setCanvas])
 
+  useEffect(() => {
+    if (canvasRef.current !== null) {
+      canvasCtxRef.current.fillStyle = canvasColor
+      canvasCtxRef.current.fillRect(0, 0, 400, 400)
+    }
+  }, [canvasColor])
+
+  const BottomSettings = () => (
+    <BottomContainer>
+      <LinkButton
+        onClick={() => {
+          if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
+            const turtleCanvas = turtleCanvasContainerRef.current.children[1]
+            canvasCtxRef.current.drawImage(turtleCanvas, 0, 0, 400, 400)
+
+            const linkElement = document.createElement('a')
+            linkElement.download = 'julekort.png'
+            linkElement.href = canvasRef.current.toDataURL('image/png;base64')
+            linkElement.click()
+
+            canvasCtxRef.current.fillStyle = canvasColor
+            canvasCtxRef.current.fillRect(0, 0, 400, 400)
+          }
+        }}
+      >
+        Last ned bilde <i className="fas fa-download" />
+      </LinkButton>
+    </BottomContainer>
+  )
+
   return (
-    <GraphicsContainer style={{ backgroundColor: canvasColor }}>
-      <ChangeColorContainer>
+    <GraphicsContainer>
+      <TopContainer>
         {colors.map((color) => (
           <ChangeColorButton
             key={color}
@@ -40,10 +74,11 @@ export function Graphics({ props }) {
           />
         ))}
         <ColorPicker value={canvasColor || '#ffffff'} onChange={(e) => setThrottledCanvasColor(e.target.value)} />
-      </ChangeColorContainer>
-      <CanvasContainer id="julekort-grafikk-turtle" />
+      </TopContainer>
+      <Canvas height="400px" width="400px" ref={canvasRef} {...props} />
+      <CanvasContainer id="julekort-grafikk-turtle" ref={turtleCanvasContainerRef} />
       <CanvasContainer id="julekort-grafikk-p5" />
-      <canvas height="400px" width="400px" ref={canvasRef} {...props} />
+      <BottomSettings />
     </GraphicsContainer>
   )
 }
@@ -62,11 +97,26 @@ const CanvasContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  border-radius: 8px;
 `
 
-const ChangeColorContainer = styled.div`
+const Canvas = styled.canvas`
+  border-radius: 8px;
+`
+
+const TopContainer = styled.div`
   position: absolute;
   bottom: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 8px;
+`
+
+const BottomContainer = styled.div`
+  position: absolute;
+  top: calc(100% + 8px);
   right: 0;
   display: flex;
   flex-direction: row;

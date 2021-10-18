@@ -8,23 +8,12 @@ import { useStore } from '../store'
 import { CSSShadows } from '../constants'
 import './blockly-custom-blocks'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  .monaco-editor {
-    overflow: hidden;
-    border-radius: 8px;
-    ${CSSShadows.large}
-  }
-`
-
-export function CodeEditor({ above, language = 'python', ...props }) {
+export function CodeEditor({ above, below, language = 'python', ...props }) {
   const pythonCode = useStore((state) => state.pythonCode)
   const setPythonCode = useStore((state) => state.setPythonCode)
   const javascriptCode = useStore((state) => state.javascriptCode)
   const setJavascriptCode = useStore((state) => state.setJavascriptCode)
+  const isPythonCodeEditable = useStore((state) => state.isPythonCodeEditable)
 
   return (
     <Container>
@@ -37,44 +26,76 @@ export function CodeEditor({ above, language = 'python', ...props }) {
         value={language === 'python' ? pythonCode : javascriptCode}
         onChange={(code) => (language === 'python' ? setPythonCode(code) : setJavascriptCode(code))}
         className="monaco-editor"
+        onMount={(editor) => {
+          const messageContribution = editor.getContribution('editor.contrib.messageController')
+          editor.onDidAttemptReadOnlyEdit(() => {
+            messageContribution.showMessage(`Du kan ikke endre koden akkurat nå`, editor.getPosition())
+          })
+        }}
         {...props}
         options={{
           scrollBeyondLastLine: false,
           wordWrap: true,
           renderWhitespace: 'boundary',
+          readOnly: !isPythonCodeEditable,
           ...(props.options || {}),
         }}
       />
+      {below}
     </Container>
   )
 }
-
-const StyledBlocklyWorkspace = styled(BlocklyWorkspace)`
-  width: 100%;
-  min-width: 640px;
-  height: 400px;
-  overflow: hidden;
-  border-radius: 8px;
-`
 
 const toolboxConfiguration = {
   kind: 'flyoutToolbox',
   contents: [
     {
       kind: 'block',
-      type: 'fremover',
+      type: 'speed',
+      gap: '4px',
     },
     {
       kind: 'block',
-      type: 'høyre',
+      type: 'forward',
+      gap: '4px',
     },
     {
       kind: 'block',
-      type: 'venstre',
+      type: 'backward',
+      gap: '4px',
     },
     {
       kind: 'block',
-      type: 'farge',
+      type: 'right',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'left',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'goto',
+    },
+    {
+      kind: 'block',
+      type: 'color',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'randomColor',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'penUp',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'penDown',
     },
     {
       kind: 'block',
@@ -92,16 +113,17 @@ const workspaceConfiguration = {
   },
 }
 
-export function BlocklyEditor({ above, ...props }) {
+export function BlocklyEditor({ above, below, ...props }) {
+  const preDefinedPythonCode = useStore((state) => state.preDefinedPythonCode)
   const setBlocklyPythonCode = useStore((state) => state.setBlocklyPythonCode)
   const initialXml = useStore((state) => state.blocklyXml)
   const onXmlChange = useStore((state) => state.setBlocklyXml)
 
   const onWorkspaceChange = useCallback(
     (workspace) => {
-      setBlocklyPythonCode(`from turtle import *\n` + Blockly.Python.workspaceToCode(workspace))
+      setBlocklyPythonCode(preDefinedPythonCode + Blockly.Python.workspaceToCode(workspace))
     },
-    [setBlocklyPythonCode]
+    [preDefinedPythonCode, setBlocklyPythonCode]
   )
 
   return (
@@ -111,6 +133,28 @@ export function BlocklyEditor({ above, ...props }) {
         {...{ initialXml, toolboxConfiguration, workspaceConfiguration, onWorkspaceChange, onXmlChange }}
         {...props}
       />
+      {below}
     </Container>
   )
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+
+  .monaco-editor {
+    overflow: hidden;
+    border-radius: 8px;
+    ${CSSShadows.large}
+  }
+`
+
+const StyledBlocklyWorkspace = styled(BlocklyWorkspace)`
+  width: 100%;
+  min-width: 640px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+`

@@ -3,46 +3,8 @@ import styled from 'styled-components'
 import { setOptions, setEngine, runCode } from 'client-side-python-runner'
 import { CodeEditor, BlocklyEditor } from '../../components/CodeEditor'
 import { Graphics } from '../../components/Graphics'
+import { Button } from '../../components/Button'
 import { useStore } from '../../store'
-
-const Container = styled.div`
-  text-align: center;
-  padding: 0 2rem 2rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 32px;
-`
-
-const StyledEditorHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const Button = styled.button`
-  border: none;
-  border-radius: 4px;
-  background-color: #666;
-  color: #fff;
-  padding: 8px 12px;
-  cursor: pointer;
-
-  :hover {
-    background-color: #444;
-  }
-`
-
-const RunButton = styled(Button)`
-  background-color: #080;
-  color: #fff;
-
-  :hover {
-    background-color: #060;
-  }
-`
 
 export function JulekortSide() {
   const pythonCode = useStore((state) => state.pythonCode)
@@ -78,14 +40,18 @@ export function JulekortSide() {
       {editorMode === 'python' && (
         <>
           <Button onClick={() => setEditorMode('blockly')}>
-            Kode med blokker <i className="fas fa-shapes" />
+            Gå tilbake til blokker <i className="fas fa-shapes" />
           </Button>
-          <Button onClick={() => setPythonCode(blocklyPythonCode)}>Overfør blokkene til Python</Button>
         </>
       )}
       {editorMode === 'blockly' && (
-        <Button onClick={() => setEditorMode('python')}>
-          Kode i Python <i className="fas fa-code" />
+        <Button
+          onClick={() => {
+            setEditorMode('python')
+            setPythonCode(blocklyPythonCode)
+          }}
+        >
+          Gjør om til Python <i className="fas fa-code" />
         </Button>
       )}
       <RunButton onClick={runCodeFunction}>
@@ -135,3 +101,29 @@ export function JulekortSide() {
     </Container>
   )
 }
+
+const Container = styled.div`
+  text-align: center;
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 32px;
+`
+
+const StyledEditorHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const RunButton = styled(Button)`
+  background-color: #080;
+  color: #fff;
+
+  :hover {
+    background-color: #060;
+  }
+`

@@ -4,20 +4,6 @@ import 'prismjs/components/prism-python.min.js'
 import './prism-dark-vsc-theme.css'
 import styled from 'styled-components'
 
-const Container = styled.pre`
-  background-color: #1d1f21;
-  border-radius: 4px;
-
-  > code {
-    display: block;
-    padding: 10px 20px;
-
-    :empty {
-      display: none;
-    }
-  }
-`
-
 export function CodePreview({ code, language = 'python' }) {
   const [HTML, setHTML] = useState('')
 
@@ -31,3 +17,17 @@ export function CodePreview({ code, language = 'python' }) {
     </Container>
   )
 }
+
+const Container = styled.pre`
+  background-color: #1d1f21;
+  border-radius: 4px;
+
+  > code {
+    display: block;
+    padding: 10px 20px;
+
+    :empty {
+      display: none;
+    }
+  }
+`

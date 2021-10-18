@@ -1,9 +1,14 @@
 import create from 'zustand'
 
 export const useStore = create((set) => ({
+  preDefinedPythonCode: `from random import *
+from turtle import *
+
+`,
   pythonCode:
     localStorage.getItem('pythonCode') ||
-    `from turtle import *
+    `from random import *
+from turtle import *
 
 color("red")
 forward(100)
@@ -36,6 +41,11 @@ forward(100)
   setEditorMode: (editorMode) => {
     localStorage.setItem('editorMode', editorMode)
     set(() => ({ editorMode }))
+  },
+  isPythonCodeEditable: localStorage.getItem('isPythonCodeEditable') || true,
+  setIsPythonCodeEditable: (isPythonCodeEditable) => {
+    localStorage.setItem('isPythonCodeEditable', isPythonCodeEditable)
+    set(() => ({ isPythonCodeEditable }))
   },
 
   canvas: null, // Grafikk

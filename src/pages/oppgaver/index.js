@@ -20,15 +20,6 @@ const md = mdIt({
   },
 })
 
-const Container = styled.div`
-  text-align: center;
-  padding: 0 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`
-
 export function OppgaveOversiktSide() {
   const [tasks, setTasks] = useState([])
 
@@ -70,16 +61,6 @@ export function OppgaveSide() {
   )
 }
 
-const RenderedMarkdown = styled.div`
-  text-align: left;
-  width: 100%;
-  max-width: 640px;
-
-  img {
-    max-width: 100%;
-  }
-`
-
 function Markdown({ children, ...props }) {
   const [renderedMarkdown, setRenderedMarkdown] = useState('')
 
@@ -89,3 +70,22 @@ function Markdown({ children, ...props }) {
 
   return <RenderedMarkdown dangerouslySetInnerHTML={{ __html: renderedMarkdown }} {...props} />
 }
+
+const Container = styled.div`
+  text-align: center;
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`
+
+const RenderedMarkdown = styled.div`
+  text-align: left;
+  width: 100%;
+  max-width: 640px;
+
+  img {
+    max-width: 100%;
+  }
+`
