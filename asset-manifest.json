@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/julekurs/static/css/main.78bde465.chunk.css",
-    "main.js": "/julekurs/static/js/main.2e14c35e.chunk.js",
-    "main.js.map": "/julekurs/static/js/main.2e14c35e.chunk.js.map",
+    "main.js": "/julekurs/static/js/main.90e8ec14.chunk.js",
+    "main.js.map": "/julekurs/static/js/main.90e8ec14.chunk.js.map",
     "runtime-main.js": "/julekurs/static/js/runtime-main.294b0aed.js",
     "runtime-main.js.map": "/julekurs/static/js/runtime-main.294b0aed.js.map",
     "static/css/2.5e49b50a.chunk.css": "/julekurs/static/css/2.5e49b50a.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.5e49b50a.chunk.css",
     "static/js/2.e83643d5.chunk.js",
     "static/css/main.78bde465.chunk.css",
-    "static/js/main.2e14c35e.chunk.js"
+    "static/js/main.90e8ec14.chunk.js"
   ]
 }
