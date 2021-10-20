@@ -153,6 +153,16 @@ const toolboxConfiguration = {
     {
       kind: 'block',
       type: 'penDown',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'begin_fill',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'end_fill',
     },
     {
       kind: 'label',

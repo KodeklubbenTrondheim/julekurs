@@ -210,6 +210,34 @@ Blockly.Python['penDown'] = function () {
   return `down()\n`
 }
 
+Blockly.Blocks['begin_fill'] = {
+  init: function () {
+    this.appendDummyInput().appendField('start fyll')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Start å fylle et område med farge')
+  },
+}
+
+Blockly.Python['begin_fill'] = function () {
+  return `begin_fill()\n`
+}
+
+Blockly.Blocks['end_fill'] = {
+  init: function () {
+    this.appendDummyInput().appendField('slutt fyll')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Slutt å fylle et område med farge')
+  },
+}
+
+Blockly.Python['end_fill'] = function () {
+  return `end_fill()\n`
+}
+
 Blockly.Blocks['hideturtle'] = {
   init: function () {
     this.appendDummyInput().appendField('skjul nissen')
