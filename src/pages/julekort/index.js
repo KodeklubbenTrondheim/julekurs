@@ -9,7 +9,11 @@ import { useStore } from '../../store'
 export function JulekortSide() {
   const pythonCode = useStore((state) => state.pythonCode)
   const setPythonCode = useStore((state) => state.setPythonCode)
+  const preDefinedPythonCode = useStore((state) => state.preDefinedPythonCode)
+  const extraPythonCodeForTheBrowserRendering = useStore((state) => state.extraPythonCodeForTheBrowserRendering)
   const blocklyPythonCode = useStore((state) => state.blocklyPythonCode)
+  const downloadablePythonCode = useStore((state) => state.downloadablePythonCode)
+  const blocklyXml = useStore((state) => state.blocklyXml)
   const addLog = useStore((state) => state.addLog)
   const [pythonEngineLoading, setLoadingPython] = useState(false)
   const editorMode = useStore((state) => state.editorMode)
@@ -32,7 +36,7 @@ export function JulekortSide() {
       loadVariablesBeforeRun: true,
       storeVariablesAfterRun: true,
     })
-    setEngine('skulpt')
+    setEngine('skulpt', '1.0.0')
   }, [addLog])
 
   const EditorHeader = ({ runCodeFunction }) => (
@@ -48,7 +52,7 @@ export function JulekortSide() {
         <Button
           onClick={() => {
             setEditorMode('python')
-            setPythonCode(blocklyPythonCode)
+            setPythonCode(downloadablePythonCode)
           }}
         >
           Gjør om til Python <i className="fas fa-code" />
@@ -60,6 +64,35 @@ export function JulekortSide() {
     </StyledEditorHeader>
   )
 
+  const download = (filename, text) => {
+    const linkElement = document.createElement('a')
+    linkElement.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+    linkElement.download = filename
+    linkElement.click()
+  }
+
+  const EditorFooter = () => (
+    <StyledEditorFooter>
+      {editorMode === 'python' && (
+        <>
+          <Button onClick={() => download('julekort.py', pythonCode)}>
+            Last ned Python-koden som en fil <i className="fas fa-download" />
+          </Button>
+        </>
+      )}
+      {editorMode === 'blockly' && (
+        <>
+          <Button onClick={() => download('julekort-blockly.xml', blocklyXml)}>
+            Last ned blokkene som en fil <i className="fas fa-download" />
+          </Button>
+          <Button onClick={() => download('julekort.py', downloadablePythonCode)}>
+            Last ned blokkene som Python-kode <i className="fas fa-code" /> <i className="fas fa-download" />
+          </Button>
+        </>
+      )}
+    </StyledEditorFooter>
+  )
+
   return (
     <Container>
       {editorMode === 'python' ? (
@@ -68,32 +101,44 @@ export function JulekortSide() {
           above={
             <EditorHeader
               runCodeFunction={async () => {
-                await setEngine('skulpt')
-                await runCode(pythonCode, {
-                  canvasParentId: 'julekort-grafikk-turtle',
-                  canvasWidth: 400,
-                  canvasHeight: 400,
+                await setEngine('skulpt', '1.0.0')
+                await runCode(preDefinedPythonCode + extraPythonCodeForTheBrowserRendering + pythonCode, {
+                  turtleGraphics: {
+                    target: 'julekort-grafikk-turtle',
+                    width: 1600,
+                    height: 1600,
+                    assets: {
+                      'nisse-old-female': '/nisse-old-female.png',
+                      'nisse-old-male': '/nisse-old-male.png',
+                    },
+                  },
                 })
               }}
             />
           }
+          below={<EditorFooter />}
         />
       ) : (
         <BlocklyEditor
-          language="python"
           above={
             <EditorHeader
               runCodeFunction={async () => {
-                await setEngine('skulpt')
-                console.log(blocklyPythonCode)
+                await setEngine('skulpt', '1.0.0')
                 await runCode(blocklyPythonCode, {
-                  canvasParentId: 'julekort-grafikk-turtle',
-                  canvasWidth: 400,
-                  canvasHeight: 400,
+                  turtleGraphics: {
+                    target: 'julekort-grafikk-turtle',
+                    width: 1600,
+                    height: 1600,
+                    assets: {
+                      'nisse-old-female': '/nisse-old-female.png',
+                      'nisse-old-male': '/nisse-old-male.png',
+                    },
+                  },
                 })
               }}
             />
           }
+          below={<EditorFooter />}
         />
       )}
       <Graphics />
@@ -103,17 +148,24 @@ export function JulekortSide() {
 }
 
 const Container = styled.div`
+  position: relative;
   text-align: center;
-  padding: 0 2rem 2rem;
+  padding: 0 0 4rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: 32px;
 `
 
 const StyledEditorHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const StyledEditorFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

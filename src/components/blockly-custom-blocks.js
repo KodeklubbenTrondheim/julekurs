@@ -7,7 +7,7 @@ Blockly.Blocks['speed'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Endre hastigheten på skilpadden (0 er superraskt)')
+    this.setTooltip('Endre hastigheten på nissen (0 er superraskt)')
   },
 }
 
@@ -22,7 +22,7 @@ Blockly.Blocks['forward'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt skilpadden fremover')
+    this.setTooltip('Flytt nissen fremover')
   },
 }
 
@@ -37,7 +37,7 @@ Blockly.Blocks['backward'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt skilpadden bakover')
+    this.setTooltip('Flytt nissen bakover')
   },
 }
 
@@ -56,7 +56,7 @@ Blockly.Blocks['goto'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt skilpadden til en posisjon')
+    this.setTooltip('Flytt nissen til en posisjon')
   },
 }
 
@@ -64,6 +64,57 @@ Blockly.Python['goto'] = function (block) {
   const x = block.getFieldValue('X')
   const y = block.getFieldValue('Y')
   return `goto(${x}, ${y})\n`
+}
+
+Blockly.Blocks['gotoRandom'] = {
+  init: function () {
+    this.appendDummyInput().appendField('gå til tilfeldig posisjon:')
+    this.appendDummyInput()
+      .appendField('mellom x:')
+      .appendField(new Blockly.FieldNumber(-200), 'X1')
+      .appendField(' y:')
+      .appendField(new Blockly.FieldNumber(-200), 'Y1')
+    this.appendDummyInput()
+      .appendField('og x:')
+      .appendField(new Blockly.FieldNumber(200), 'X2')
+      .appendField(' y:')
+      .appendField(new Blockly.FieldNumber(200), 'Y2')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(900)
+    this.setTooltip('Flytt nissen til en tilfeldig posisjon mellom to punkter')
+  },
+}
+
+Blockly.Python['gotoRandom'] = function (block) {
+  const x1 = block.getFieldValue('X1')
+  const y1 = block.getFieldValue('Y1')
+  const x2 = block.getFieldValue('X2')
+  const y2 = block.getFieldValue('Y2')
+  return `goto(int(${x1} + ${x2 - x1} * random()), int(${y1} + ${y2 - y1} * random()))\n`
+}
+
+Blockly.Blocks['circle'] = {
+  init: function () {
+    this.appendDummyInput().appendField('gå i sirkel')
+    this.appendDummyInput().appendField('radius:').appendField(new Blockly.FieldNumber(100), 'RADIUS')
+    this.appendDummyInput()
+      .appendField('vinkel:')
+      .appendField(new Blockly.FieldNumber(360), 'ANGLE')
+      .appendField('grader')
+    this.appendDummyInput().appendField('med klokka ↻').appendField(new Blockly.FieldCheckbox(true), 'DIRECTION')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(900)
+    this.setTooltip('Flytt nissen i en sirkel')
+  },
+}
+
+Blockly.Python['circle'] = function (block) {
+  const r = block.getFieldValue('RADIUS')
+  const a = block.getFieldValue('ANGLE')
+  const dir = block.getFieldValue('DIRECTION') === 'TRUE' ? -1 : 1
+  return `circle(${dir * r},${a})\n`
 }
 
 Blockly.Blocks['right'] = {
@@ -75,7 +126,7 @@ Blockly.Blocks['right'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter skilpadden til høyre')
+    this.setTooltip('Roter nissen til høyre')
   },
 }
 
@@ -93,7 +144,7 @@ Blockly.Blocks['left'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter skilpadden til venstre')
+    this.setTooltip('Roter nissen til venstre')
   },
 }
 
@@ -137,7 +188,7 @@ Blockly.Blocks['penUp'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
-    this.setTooltip('Ikke tegne mens skilpadden beveger seg')
+    this.setTooltip('Ikke tegne mens nissen beveger seg')
   },
 }
 
@@ -151,12 +202,68 @@ Blockly.Blocks['penDown'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
-    this.setTooltip('Tegne mens skilpadden beveger seg')
+    this.setTooltip('Tegne mens nissen beveger seg')
   },
 }
 
 Blockly.Python['penDown'] = function () {
   return `down()\n`
+}
+
+Blockly.Blocks['hideturtle'] = {
+  init: function () {
+    this.appendDummyInput().appendField('skjul nissen')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(40)
+    this.setTooltip('Ikke vis nissen mens den tegner')
+  },
+}
+
+Blockly.Python['hideturtle'] = function () {
+  return `hideturtle()\n`
+}
+
+Blockly.Blocks['showturtle'] = {
+  init: function () {
+    this.appendDummyInput().appendField('vis nissen')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(40)
+    this.setTooltip('Vis nissen mens den tegner')
+  },
+}
+
+Blockly.Python['showturtle'] = function () {
+  return `showturtle()\n`
+}
+
+Blockly.Blocks['female'] = {
+  init: function () {
+    this.appendDummyInput().appendField('endre til kvinne 🤶')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(320)
+    this.setTooltip('Endre nissen sitt kjønn til kvinne')
+  },
+}
+
+Blockly.Python['female'] = function () {
+  return `shape("nisse-old-female")\n`
+}
+
+Blockly.Blocks['male'] = {
+  init: function () {
+    this.appendDummyInput().appendField('endre til mann 🎅')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(220)
+    this.setTooltip('Endre nissen sitt kjønn til mann')
+  },
+}
+
+Blockly.Python['male'] = function () {
+  return `shape("nisse-old-male")\n`
 }
 
 Blockly.Msg.CONTROLS_REPEAT_TITLE = 'gjenta %1 ganger'

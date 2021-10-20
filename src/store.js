@@ -5,6 +5,14 @@ export const useStore = create((set) => ({
 from turtle import *
 
 `,
+  extraPythonCodeForTheBrowserRendering: `screen = Screen()
+screen.setworldcoordinates(-200,-200,200,200)
+screen.register_shape("nisse-old-female")
+screen.register_shape("nisse-old-male")
+shape("nisse-old-male")
+pensize(4 * pensize())
+
+`,
   pythonCode:
     localStorage.getItem('pythonCode') ||
     `from random import *
@@ -29,6 +37,11 @@ forward(100)
     localStorage.setItem('blocklyPythonCode', blocklyPythonCode)
     set(() => ({ blocklyPythonCode }))
   },
+  downloadablePythonCode: localStorage.getItem('downloadablePythonCode') || ``,
+  setDownloadablePythonCode: (downloadablePythonCode) => {
+    localStorage.setItem('downloadablePythonCode', downloadablePythonCode)
+    set(() => ({ downloadablePythonCode }))
+  },
   blocklyXml:
     localStorage.getItem('blocklyXml') ||
     `<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat" id="*Q4b-j2Gk=+EI9YKue+?" x="70" y="50"><field name="TIMES">3</field><statement name="DO"><block type="farge" id="m_}Q/PVE/?FoO*BP)l,H"><field name="COLOR">#ff0000</field><next><block type="fremover" id="ZlXa=;^K)n33zp(9fl)~"><field name="DISTANCE">100</field><next><block type="venstre" id=",zS%5o$YQQm8/-Sya8-n"><field name="DEGREES">90</field><next><block type="fremover" id="it;=-):3J-?U/!lQU.7U"><field name="DISTANCE">100</field><next><block type="farge" id="U0k:h\`P{X[8Ed0X^i$_F"><field name="COLOR">#000000</field><next><block type="venstre" id="=o)rvJ_(}bB(;q?9X3RQ"><field name="DEGREES">90</field><next><block type="fremover" id="Z],D3OV-w|#N_wDG(eW}"><field name="DISTANCE">100</field></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>`,
@@ -37,7 +50,7 @@ forward(100)
     set(() => ({ blocklyXml }))
   },
 
-  editorMode: localStorage.getItem('editorMode') || 'python',
+  editorMode: localStorage.getItem('editorMode') || 'blockly',
   setEditorMode: (editorMode) => {
     localStorage.setItem('editorMode', editorMode)
     set(() => ({ editorMode }))
@@ -52,6 +65,7 @@ forward(100)
   setCanvas: (canvas) => set(() => ({ canvas })),
   canvasColor: localStorage.getItem('canvasColor') || '#ffffff',
   setCanvasColor: (canvasColor) => {
+    if (canvasColor === null || canvasColor === 'null') canvasColor = '#ffffff'
     localStorage.setItem('canvasColor', canvasColor)
     set(() => ({ canvasColor }))
   },

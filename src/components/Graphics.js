@@ -4,6 +4,7 @@ import { useThrottleFn } from 'react-use'
 import { useStore } from '../store'
 import { CSSShadows } from '../constants'
 import { LinkButton } from './Button'
+import { useBreakpoint } from './CodeEditor'
 
 const colors = ['#ffffff', '#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#000000']
 
@@ -12,6 +13,8 @@ export function Graphics({ props }) {
   const canvasCtxRef = useRef()
   const turtleCanvasContainerRef = useRef()
   const setCanvas = useStore((state) => state.setCanvas)
+
+  const size = useBreakpoint()
 
   const canvasColor = useStore((state) => state.canvasColor)
   const setCanvasColor = useStore((state) => state.setCanvasColor)
@@ -34,7 +37,7 @@ export function Graphics({ props }) {
   useEffect(() => {
     if (canvasRef.current !== null) {
       canvasCtxRef.current.fillStyle = canvasColor
-      canvasCtxRef.current.fillRect(0, 0, 400, 400)
+      canvasCtxRef.current.fillRect(0, 0, 1600, 1600)
     }
   }, [canvasColor])
 
@@ -44,7 +47,21 @@ export function Graphics({ props }) {
         onClick={() => {
           if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
             const turtleCanvas = turtleCanvasContainerRef.current.children[1]
-            canvasCtxRef.current.drawImage(turtleCanvas, 0, 0, 400, 400)
+            const width = turtleCanvas.width
+            const height = turtleCanvas.height
+            canvasRef.current.width = width
+            canvasRef.current.height = height
+            canvasCtxRef.current.fillStyle = canvasColor
+            canvasCtxRef.current.fillRect(0, 0, width, height)
+
+            let first = true
+            for (const canvas of turtleCanvasContainerRef.current.children) {
+              if (first) {
+                first = false
+                continue
+              }
+              canvasCtxRef.current.drawImage(canvas, 0, 0, width, height)
+            }
 
             const linkElement = document.createElement('a')
             linkElement.download = 'julekort.png'
@@ -52,7 +69,7 @@ export function Graphics({ props }) {
             linkElement.click()
 
             canvasCtxRef.current.fillStyle = canvasColor
-            canvasCtxRef.current.fillRect(0, 0, 400, 400)
+            canvasCtxRef.current.fillRect(0, 0, width, height)
           }
         }}
       >
@@ -62,7 +79,7 @@ export function Graphics({ props }) {
   )
 
   return (
-    <GraphicsContainer>
+    <GraphicsContainer fixedPosition={size === 'L'}>
       <TopContainer>
         {colors.map((color) => (
           <ChangeColorButton
@@ -73,9 +90,13 @@ export function Graphics({ props }) {
             onClick={() => setThrottledCanvasColor(color)}
           />
         ))}
-        <ColorPicker value={canvasColor || '#ffffff'} onChange={(e) => setThrottledCanvasColor(e.target.value)} />
+        <ColorPicker
+          isSelected={!colors.includes(canvasColor || '#ffffff')}
+          value={canvasColor || '#ffffff'}
+          onChange={(e) => setThrottledCanvasColor(e.target.value)}
+        />
       </TopContainer>
-      <Canvas height="400px" width="400px" ref={canvasRef} {...props} />
+      <Canvas height="1600px" width="1600px" ref={canvasRef} {...props} />
       <CanvasContainer id="julekort-grafikk-turtle" ref={turtleCanvasContainerRef} />
       <CanvasContainer id="julekort-grafikk-p5" />
       <BottomSettings />
@@ -84,13 +105,24 @@ export function Graphics({ props }) {
 }
 
 const GraphicsContainer = styled.div`
-  position: relative;
+  position: ${(props) => (props.fixedPosition ? 'absolute' : 'relative')};
+  top: ${(props) => (props.fixedPosition ? '51px' : 'unset')};
+  right: ${(props) => (props.fixedPosition ? '16px' : 'unset')};
   width: 400px;
   height: 400px;
   background-color: transparent;
   border-radius: 8px;
   margin-top: 44px;
   ${CSSShadows.large}
+
+  canvas {
+    width: 400px !important;
+    height: 400px !important;
+  }
+
+  canvas + canvas {
+    margin-top: -400px !important;
+  }
 `
 
 const CanvasContainer = styled.div`
@@ -133,7 +165,9 @@ const ColorPicker = styled.input.attrs({ type: 'color' })`
   width: 30px;
   height: 30px;
   margin-left: 30px;
+  border: 3px solid ${(props) => (props.isSelected ? 'black' : 'transparent')};
   ${CSSShadows.medium}
+  cursor: pointer;
 
   ::-webkit-color-swatch-wrapper {
     padding: 0;
@@ -147,9 +181,9 @@ const ChangeColorButton = styled.div`
   width: 24px;
   height: 24px;
   background-color: ${(props) => props.color};
-  opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
-  border: 3px solid ${(props) => (props.isSelected ? 'white' : 'transparent')};
-  ${(props) => (props.isSelected ? CSSShadows.medium : '')}
+  opacity: ${(props) => (props.isSelected ? 1 : 0.75)};
+  border: 3px solid ${(props) => (props.isSelected ? 'black' : 'transparent')};
+  ${CSSShadows.medium}
   border-radius: 8px;
   cursor: pointer;
 `

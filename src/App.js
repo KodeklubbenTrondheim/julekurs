@@ -3,30 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { JulekortSide } from './pages/julekort'
 import { OppgaveSide, OppgaveOversiktSide } from './pages/oppgaver'
 
-const Container = styled.div`
-  background-color: #4c1616;
-  text-align: center;
-  padding: 0 2rem 2rem;
-`
-
-const Header = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-`
-
-const ButtonLink = styled.button`
-  color: #61dafb;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: calc(10px + 2vmin);
-`
-
 function App() {
   return (
     <Router>
@@ -70,3 +46,27 @@ function App() {
 }
 
 export default App
+
+const Container = styled.div`
+  background-color: #4c1616;
+  text-align: center;
+  padding: 0 2rem 2rem;
+`
+
+const Header = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+`
+
+const ButtonLink = styled.button`
+  color: #61dafb;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: calc(10px + 2vmin);
+`
