@@ -7,7 +7,7 @@ Blockly.Blocks['speed'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Endre hastigheten på nissen (0 er superraskt)')
+    this.setTooltip('Endre hastigheten på avataren (0 er superraskt)')
   },
 }
 
@@ -22,7 +22,7 @@ Blockly.Blocks['forward'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen fremover')
+    this.setTooltip('Flytt avataren fremover')
   },
 }
 
@@ -37,7 +37,7 @@ Blockly.Blocks['backward'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen bakover')
+    this.setTooltip('Flytt avataren bakover')
   },
 }
 
@@ -56,7 +56,7 @@ Blockly.Blocks['goto'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen til en posisjon')
+    this.setTooltip('Flytt avataren til en posisjon')
   },
 }
 
@@ -72,7 +72,7 @@ Blockly.Blocks['gotoRandom'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen til en tilfeldig posisjon på bildet')
+    this.setTooltip('Flytt avataren til en tilfeldig posisjon på bildet')
   },
 }
 
@@ -92,7 +92,7 @@ Blockly.Blocks['circle'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen i en sirkel')
+    this.setTooltip('Flytt avataren i en sirkel')
   },
 }
 
@@ -112,7 +112,7 @@ Blockly.Blocks['right'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter nissen til høyre')
+    this.setTooltip('Roter avataren til høyre')
   },
 }
 
@@ -130,7 +130,7 @@ Blockly.Blocks['left'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter nissen til venstre')
+    this.setTooltip('Roter avataren til venstre')
   },
 }
 
@@ -174,7 +174,7 @@ Blockly.Blocks['penUp'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
-    this.setTooltip('Ikke tegne mens nissen beveger seg')
+    this.setTooltip('Ikke tegne mens avataren beveger seg')
   },
 }
 
@@ -188,7 +188,7 @@ Blockly.Blocks['penDown'] = {
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
-    this.setTooltip('Tegne mens nissen beveger seg')
+    this.setTooltip('Tegne mens avataren beveger seg')
   },
 }
 
@@ -241,11 +241,11 @@ Blockly.Python['end_fill'] = function () {
 
 Blockly.Blocks['hideturtle'] = {
   init: function () {
-    this.appendDummyInput().appendField('skjul nissen')
+    this.appendDummyInput().appendField('skjul avatar')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(40)
-    this.setTooltip('Ikke vis nissen mens den tegner')
+    this.setTooltip('Ikke vis avataren mens den tegner')
   },
 }
 
@@ -255,11 +255,11 @@ Blockly.Python['hideturtle'] = function () {
 
 Blockly.Blocks['showturtle'] = {
   init: function () {
-    this.appendDummyInput().appendField('vis nissen')
+    this.appendDummyInput().appendField('vis avatar')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(40)
-    this.setTooltip('Vis nissen mens den tegner')
+    this.setTooltip('Vis avataren mens den tegner')
   },
 }
 
@@ -269,11 +269,11 @@ Blockly.Python['showturtle'] = function () {
 
 Blockly.Blocks['female'] = {
   init: function () {
-    this.appendDummyInput().appendField('endre til kvinne 🤶')
+    this.appendDummyInput().appendField('endre til 🤶')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(320)
-    this.setTooltip('Endre nissen sitt kjønn til kvinne')
+    this.setTooltip('Endre avataren sitt kjønn til kvinne')
   },
 }
 
@@ -283,11 +283,11 @@ Blockly.Python['female'] = function () {
 
 Blockly.Blocks['male'] = {
   init: function () {
-    this.appendDummyInput().appendField('endre til mann 🎅')
+    this.appendDummyInput().appendField('endre til 🎅')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(220)
-    this.setTooltip('Endre nissen sitt kjønn til mann')
+    this.setTooltip('Endre avataren sitt kjønn til mann')
   },
 }
 

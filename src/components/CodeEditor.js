@@ -179,7 +179,7 @@ const toolboxConfiguration = {
     },
     {
       kind: 'label',
-      text: 'Nissen 🤶🎅',
+      text: 'Endre avatar 🤶🎅',
     },
     {
       kind: 'block',
