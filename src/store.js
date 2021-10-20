@@ -13,6 +13,7 @@ shape("nisse-old-male")
 pensize(4 * pensize())
 
 `,
+  pythonErrorLineNumberOffset: 10,
   pythonCode:
     localStorage.getItem('pythonCode') ||
     `from random import *
@@ -55,6 +56,8 @@ forward(100)
     localStorage.setItem('editorMode', editorMode)
     set(() => ({ editorMode }))
   },
+  editor: null,
+  setEditor: (editor) => set(() => ({ editor })),
   isPythonCodeEditable: localStorage.getItem('isPythonCodeEditable') || true,
   setIsPythonCodeEditable: (isPythonCodeEditable) => {
     localStorage.setItem('isPythonCodeEditable', isPythonCodeEditable)
@@ -72,4 +75,8 @@ forward(100)
 
   log: [],
   addLog: (content, error = false) => set((state) => ({ log: [{ content, error }, ...state.log] })),
+
+  error: null,
+  setError: (error) => set(() => ({ error })),
+  clearError: () => set(() => ({ error: null })),
 }))

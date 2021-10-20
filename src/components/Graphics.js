@@ -5,6 +5,7 @@ import { useStore } from '../store'
 import { CSSShadows } from '../constants'
 import { LinkButton } from './Button'
 import { useBreakpoint } from './CodeEditor'
+import { CodePreview } from './CodePreview'
 
 const colors = ['#ffffff', '#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#000000']
 
@@ -13,6 +14,8 @@ export function Graphics({ props }) {
   const canvasCtxRef = useRef()
   const turtleCanvasContainerRef = useRef()
   const setCanvas = useStore((state) => state.setCanvas)
+  const error = useStore((state) => state.error)
+  const pythonErrorLineNumberOffset = useStore((state) => state.pythonErrorLineNumberOffset)
 
   const size = useBreakpoint()
 
@@ -100,6 +103,33 @@ export function Graphics({ props }) {
       <CanvasContainer id="julekort-grafikk-turtle" ref={turtleCanvasContainerRef} />
       <CanvasContainer id="julekort-grafikk-p5" />
       <BottomSettings />
+      {error && (
+        <ShowError>
+          <h2>Du fikk en feilmelding 😬</h2>
+          <h4>
+            MEN det er ingen grunn til panikk!
+            <br />
+            Dette skjer hele tiden 🤗
+          </h4>
+          <pre>
+            {error.type}: {error.message}
+          </pre>
+          {error.lineNumber && (
+            <>
+              <h4>Tips: Feilen ligger på linje {error.lineNumber - pythonErrorLineNumberOffset} 😉:</h4>
+              <CodePreview
+                code={
+                  error.getNLinesAbove(2).join('\n') +
+                  '\n' +
+                  error.line +
+                  ' # <- Se her 🧐\n' +
+                  error.getNLinesBelow(2).join('\n')
+                }
+              />
+            </>
+          )}
+        </ShowError>
+      )}
     </GraphicsContainer>
   )
 }
@@ -186,4 +216,23 @@ const ChangeColorButton = styled.div`
   ${CSSShadows.medium}
   border-radius: 8px;
   cursor: pointer;
+`
+
+const ShowError = styled.div`
+  border-radius: 7px;
+  z-index: 999;
+  background: #000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  font-family: monospace;
+  font-size: 16px;
+  text-align: left;
+
+  pre {
+    color: red;
+  }
 `

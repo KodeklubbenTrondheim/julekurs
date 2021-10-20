@@ -17,7 +17,11 @@ export function JulekortSide() {
   const addLog = useStore((state) => state.addLog)
   const [pythonEngineLoading, setLoadingPython] = useState(false)
   const editorMode = useStore((state) => state.editorMode)
+  const editor = useStore((state) => state.editor)
   const setEditorMode = useStore((state) => state.setEditorMode)
+  const setError = useStore((state) => state.setError)
+  const clearError = useStore((state) => state.clearError)
+  const pythonErrorLineNumberOffset = useStore((state) => state.pythonErrorLineNumberOffset)
 
   useEffect(() => {
     setOptions({
@@ -25,10 +29,7 @@ export function JulekortSide() {
         addLog(item)
         console.log(item)
       },
-      error: (item) => {
-        addLog(item, true)
-        console.log(item)
-      },
+      error: null,
       onLoading: (engine) => setLoadingPython(engine),
       onLoaded: () => {
         setLoadingPython(false)
@@ -102,17 +103,48 @@ export function JulekortSide() {
             <EditorHeader
               runCodeFunction={async () => {
                 await setEngine('skulpt', '1.0.0')
-                await runCode(preDefinedPythonCode + extraPythonCodeForTheBrowserRendering + pythonCode, {
-                  turtleGraphics: {
-                    target: 'julekort-grafikk-turtle',
-                    width: 1600,
-                    height: 1600,
-                    assets: {
-                      'nisse-old-female': '/nisse-old-female.png',
-                      'nisse-old-male': '/nisse-old-male.png',
+                clearError()
+                if (editor) {
+                  window.monaco.editor.setModelMarkers(
+                    'getModel' in editor ? editor.getModel() : editor,
+                    'python-editor',
+                    []
+                  )
+                }
+                try {
+                  await runCode(preDefinedPythonCode + extraPythonCodeForTheBrowserRendering + pythonCode, {
+                    turtleGraphics: {
+                      target: 'julekort-grafikk-turtle',
+                      width: 1600,
+                      height: 1600,
+                      assets: {
+                        'nisse-old-female': '/nisse-old-female.png',
+                        'nisse-old-male': '/nisse-old-male.png',
+                      },
                     },
-                  },
-                })
+                  })
+                } catch (error) {
+                  setError(error)
+                  console.error(error)
+                  if (error.lineNumber && editor) {
+                    const line = error.lineNumber - pythonErrorLineNumberOffset
+                    window.monaco.editor.setModelMarkers(
+                      'getModel' in editor ? editor.getModel() : editor,
+                      'python-editor',
+                      [
+                        {
+                          startLineNumber: line,
+                          startColumn: 0,
+                          endLineNumber: line + 1,
+                          endColumn: 0,
+                          message: error.message,
+                          severity: 3,
+                          source: '',
+                        },
+                      ]
+                    )
+                  }
+                }
               }}
             />
           }
@@ -124,17 +156,23 @@ export function JulekortSide() {
             <EditorHeader
               runCodeFunction={async () => {
                 await setEngine('skulpt', '1.0.0')
-                await runCode(blocklyPythonCode, {
-                  turtleGraphics: {
-                    target: 'julekort-grafikk-turtle',
-                    width: 1600,
-                    height: 1600,
-                    assets: {
-                      'nisse-old-female': '/nisse-old-female.png',
-                      'nisse-old-male': '/nisse-old-male.png',
+                clearError()
+                try {
+                  await runCode(blocklyPythonCode, {
+                    turtleGraphics: {
+                      target: 'julekort-grafikk-turtle',
+                      width: 1600,
+                      height: 1600,
+                      assets: {
+                        'nisse-old-female': '/nisse-old-female.png',
+                        'nisse-old-male': '/nisse-old-male.png',
+                      },
                     },
-                  },
-                })
+                  })
+                } catch (error) {
+                  setError(error)
+                  console.error(error)
+                }
               }}
             />
           }

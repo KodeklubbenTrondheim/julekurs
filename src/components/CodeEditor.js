@@ -35,6 +35,7 @@ export function CodeEditor({ above, below, language = 'python', ...props }) {
   const javascriptCode = useStore((state) => state.javascriptCode)
   const setJavascriptCode = useStore((state) => state.setJavascriptCode)
   const isPythonCodeEditable = useStore((state) => state.isPythonCodeEditable)
+  const setEditor = useStore((state) => state.setEditor)
 
   const size = useBreakpoint()
 
@@ -57,6 +58,7 @@ export function CodeEditor({ above, below, language = 'python', ...props }) {
         }}
         className="monaco-editor"
         onMount={(editor) => {
+          setEditor(editor)
           const messageContribution = editor.getContribution('editor.contrib.messageController')
           editor.onDidAttemptReadOnlyEdit(() => {
             messageContribution.showMessage(`Du kan ikke endre koden akkurat nå`, editor.getPosition())
@@ -176,12 +178,12 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'male',
+      type: 'female',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'female',
+      type: 'male',
     },
   ],
 }
