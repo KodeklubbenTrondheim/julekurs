@@ -24,7 +24,7 @@ export function OppgaveOversiktSide() {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-    fetch('/oppgaver/index.json')
+    fetch(process.env.PUBLIC_URL + '/oppgaver/index.json')
       .then((r) => r.json())
       .then((index) => {
         setTasks(index.oppgaver)
@@ -47,7 +47,7 @@ export function OppgaveSide() {
   const { oppgaveId = null } = useParams()
 
   useEffect(() => {
-    fetch(`/oppgaver/${oppgaveId}.md`)
+    fetch(process.env.PUBLIC_URL + `/oppgaver/${oppgaveId}.md`)
       .then((r) => r.text())
       .then((markdown) => {
         setTask(markdown)

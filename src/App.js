@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { JulekortSide } from './pages/julekort'
 import { OppgaveSide, OppgaveOversiktSide } from './pages/oppgaver'
 
@@ -21,7 +21,11 @@ function App() {
               <JulekortSide />
               <ButtonLink
                 onClick={() => {
-                  window.open(window.location.origin + '/oppgaver', '_blank', 'toolbar=0,location=0,menubar=0')
+                  window.open(
+                    window.location.origin + process.env.PUBLIC_URL + '#/oppgaver',
+                    '_blank',
+                    'toolbar=0,location=0,menubar=0'
+                  )
                 }}
               >
                 <span style={{ textDecoration: 'underline' }}>Finn ut hva du kan lage her!</span>{' '}

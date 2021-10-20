@@ -118,8 +118,8 @@ export function JulekortSide() {
                       width: 1600,
                       height: 1600,
                       assets: {
-                        'nisse-old-female': '/nisse-old-female.png',
-                        'nisse-old-male': '/nisse-old-male.png',
+                        'nisse-old-female': process.env.PUBLIC_URL + '/nisse-old-female.png',
+                        'nisse-old-male': process.env.PUBLIC_URL + '/nisse-old-male.png',
                       },
                     },
                   })
@@ -164,8 +164,8 @@ export function JulekortSide() {
                       width: 1600,
                       height: 1600,
                       assets: {
-                        'nisse-old-female': '/nisse-old-female.png',
-                        'nisse-old-male': '/nisse-old-male.png',
+                        'nisse-old-female': process.env.PUBLIC_URL + '/nisse-old-female.png',
+                        'nisse-old-male': process.env.PUBLIC_URL + '/nisse-old-male.png',
                       },
                     },
                   })
