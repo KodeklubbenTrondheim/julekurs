@@ -68,30 +68,16 @@ Blockly.Python['goto'] = function (block) {
 
 Blockly.Blocks['gotoRandom'] = {
   init: function () {
-    this.appendDummyInput().appendField('gå til tilfeldig posisjon:')
-    this.appendDummyInput()
-      .appendField('mellom x:')
-      .appendField(new Blockly.FieldNumber(-200), 'X1')
-      .appendField(' y:')
-      .appendField(new Blockly.FieldNumber(-200), 'Y1')
-    this.appendDummyInput()
-      .appendField('og x:')
-      .appendField(new Blockly.FieldNumber(200), 'X2')
-      .appendField(' y:')
-      .appendField(new Blockly.FieldNumber(200), 'Y2')
+    this.appendDummyInput().appendField('gå til tilfeldig posisjon')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Flytt nissen til en tilfeldig posisjon mellom to punkter')
+    this.setTooltip('Flytt nissen til en tilfeldig posisjon på bildet')
   },
 }
 
-Blockly.Python['gotoRandom'] = function (block) {
-  const x1 = block.getFieldValue('X1')
-  const y1 = block.getFieldValue('Y1')
-  const x2 = block.getFieldValue('X2')
-  const y2 = block.getFieldValue('Y2')
-  return `goto(int(${x1} + ${x2 - x1} * random()), int(${y1} + ${y2 - y1} * random()))\n`
+Blockly.Python['gotoRandom'] = function () {
+  return `goto(int(400 * random() - 200), int(400 * random() - 200))\n`
 }
 
 Blockly.Blocks['circle'] = {
