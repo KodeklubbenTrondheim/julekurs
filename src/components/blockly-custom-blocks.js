@@ -210,6 +210,21 @@ Blockly.Python['penDown'] = function () {
   return `down()\n`
 }
 
+Blockly.Blocks['penSize'] = {
+  init: function () {
+    this.appendDummyInput().appendField('set penstørrelse til').appendField(new Blockly.FieldNumber(5), 'SIZE')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Endre størrelsen på pennen')
+  },
+}
+
+Blockly.Python['penSize'] = function (block) {
+  const size = block.getFieldValue('SIZE') * 4
+  return `pensize(${size})\n`
+}
+
 Blockly.Blocks['begin_fill'] = {
   init: function () {
     this.appendDummyInput().appendField('start fyll')

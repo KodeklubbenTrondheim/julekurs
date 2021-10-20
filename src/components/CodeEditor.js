@@ -147,6 +147,11 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
+      type: 'penSize',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
       type: 'penUp',
       gap: '4px',
     },
