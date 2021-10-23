@@ -10,21 +10,22 @@ import { useStore } from '../store'
 import { CSSShadows } from '../constants'
 
 export const useBreakpoint = createBreakpoint({ L: 1016, S: 1015 })
+
 const getHeight = (size) => {
   switch (size) {
     case 'L':
       return 'calc(100vh - 240px)'
     default:
-      return 'max(400px, calc(50vh - 100px))'
+      return 'max(400px, calc(50vh - 32px - 14px))'
   }
 }
 
 const getWidth = (size) => {
   switch (size) {
     case 'L':
-      return 'max(400px, calc(100vw - 100px))'
+      return 'max(400px, calc(100vw - 32px - 14px))'
     default:
-      return 'max(400px, calc(100vw - 100px))'
+      return 'max(400px, calc(100vw - 32px - 14px))'
   }
 }
 

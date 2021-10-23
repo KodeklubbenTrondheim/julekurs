@@ -59,6 +59,23 @@ export function JulekortSide() {
           Gjør om til Python <i className="fas fa-code" />
         </Button>
       )}
+      {editorMode === 'python' && false && (
+        <>
+          <Button onClick={() => download('julekort.py', pythonCode)}>
+            Last ned Python-koden som en fil <i className="fas fa-download" />
+          </Button>
+        </>
+      )}
+      {editorMode === 'blockly' && false && (
+        <>
+          <Button onClick={() => download('julekort-blockly.xml', blocklyXml)}>
+            Last ned blokkene som en fil <i className="fas fa-download" />
+          </Button>
+          <Button onClick={() => download('julekort.py', downloadablePythonCode)}>
+            Last ned blokkene som Python-kode <i className="fas fa-code" /> <i className="fas fa-download" />
+          </Button>
+        </>
+      )}
       <RunButton onClick={runCodeFunction}>
         Kjør koden <i className="fas fa-play" />
       </RunButton>
@@ -72,30 +89,9 @@ export function JulekortSide() {
     linkElement.click()
   }
 
-  const EditorFooter = () => (
-    <StyledEditorFooter>
-      {editorMode === 'python' && (
-        <>
-          <Button onClick={() => download('julekort.py', pythonCode)}>
-            Last ned Python-koden som en fil <i className="fas fa-download" />
-          </Button>
-        </>
-      )}
-      {editorMode === 'blockly' && (
-        <>
-          <Button onClick={() => download('julekort-blockly.xml', blocklyXml)}>
-            Last ned blokkene som en fil <i className="fas fa-download" />
-          </Button>
-          <Button onClick={() => download('julekort.py', downloadablePythonCode)}>
-            Last ned blokkene som Python-kode <i className="fas fa-code" /> <i className="fas fa-download" />
-          </Button>
-        </>
-      )}
-    </StyledEditorFooter>
-  )
-
   return (
     <Container>
+      <Graphics />
       {editorMode === 'python' ? (
         <CodeEditor
           language="python"
@@ -148,7 +144,6 @@ export function JulekortSide() {
               }}
             />
           }
-          below={<EditorFooter />}
         />
       ) : (
         <BlocklyEditor
@@ -176,10 +171,8 @@ export function JulekortSide() {
               }}
             />
           }
-          below={<EditorFooter />}
         />
       )}
-      <Graphics />
       {pythonEngineLoading ? `Laster inn Python (${pythonEngineLoading}) ...` : ''}
     </Container>
   )
@@ -188,25 +181,19 @@ export function JulekortSide() {
 const Container = styled.div`
   position: relative;
   text-align: center;
-  padding: 0 0 4rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 16px;
 `
 
 const StyledEditorHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
-
-const StyledEditorFooter = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  gap: 8px;
 `
 
 const RunButton = styled(Button)`
