@@ -25,6 +25,7 @@ const Container = styled.pre`
   > code {
     display: block;
     padding: 10px 20px;
+    overflow-x: auto;
 
     :empty {
       display: none;
