@@ -3,7 +3,15 @@ import 'blockly/python'
 
 Blockly.Blocks['speed'] = {
   init: function () {
-    this.appendDummyInput().appendField('hastighet').appendField(new Blockly.FieldNumber(5), 'SPEED')
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(5, 'NUM')
+
+    this.appendValueInput('SPEED')
+      .setCheck('Number')
+      .appendField('hastighet')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -12,13 +20,21 @@ Blockly.Blocks['speed'] = {
 }
 
 Blockly.Python['speed'] = function (block) {
-  const value = block.getFieldValue('SPEED')
+  const value = Blockly.Python.valueToCode(block, 'SPEED', Blockly.Python.ORDER_ATOMIC) || '0'
   return `speed(${value})\n`
 }
 
 Blockly.Blocks['forward'] = {
   init: function () {
-    this.appendDummyInput().appendField('fremover').appendField(new Blockly.FieldNumber(100), 'DISTANCE')
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(100, 'NUM')
+
+    this.appendValueInput('DISTANCE')
+      .setCheck('Number')
+      .appendField('fremover')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -27,13 +43,21 @@ Blockly.Blocks['forward'] = {
 }
 
 Blockly.Python['forward'] = function (block) {
-  const value = block.getFieldValue('DISTANCE')
+  const value = Blockly.Python.valueToCode(block, 'DISTANCE', Blockly.Python.ORDER_ATOMIC) || '0'
   return `forward(${value})\n`
 }
 
 Blockly.Blocks['backward'] = {
   init: function () {
-    this.appendDummyInput().appendField('bakover').appendField(new Blockly.FieldNumber(100), 'DISTANCE')
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(100, 'NUM')
+
+    this.appendValueInput('DISTANCE')
+      .setCheck('Number')
+      .appendField('bakover')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -42,17 +66,25 @@ Blockly.Blocks['backward'] = {
 }
 
 Blockly.Python['backward'] = function (block) {
-  const value = block.getFieldValue('DISTANCE')
+  const value = Blockly.Python.valueToCode(block, 'DISTANCE', Blockly.Python.ORDER_ATOMIC) || '0'
   return `backward(${value})\n`
 }
 
 Blockly.Blocks['goto'] = {
   init: function () {
+    const shadowX = this.workspace.newBlock('math_number')
+    shadowX.setShadow(true)
+    shadowX.setFieldValue(0, 'NUM')
+    const shadowY = this.workspace.newBlock('math_number')
+    shadowY.setShadow(true)
+    shadowY.setFieldValue(0, 'NUM')
+
+    this.appendDummyInput().appendField('gå til x:')
+    this.appendValueInput('X').setCheck('Number').connection.connect(shadowX.outputConnection)
+    this.appendDummyInput().appendField('y:')
+    this.appendValueInput('Y').setCheck('Number').connection.connect(shadowY.outputConnection)
     this.appendDummyInput()
-      .appendField('gå til x:')
-      .appendField(new Blockly.FieldNumber(0), 'X')
-      .appendField('y:')
-      .appendField(new Blockly.FieldNumber(0), 'Y')
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -61,8 +93,8 @@ Blockly.Blocks['goto'] = {
 }
 
 Blockly.Python['goto'] = function (block) {
-  const x = block.getFieldValue('X')
-  const y = block.getFieldValue('Y')
+  const x = Blockly.Python.valueToCode(block, 'X', Blockly.Python.ORDER_ATOMIC) || '0'
+  const y = Blockly.Python.valueToCode(block, 'Y', Blockly.Python.ORDER_ATOMIC) || '0'
   return `goto(${x}, ${y})\n`
 }
 
@@ -82,13 +114,24 @@ Blockly.Python['gotoRandom'] = function () {
 
 Blockly.Blocks['circle'] = {
   init: function () {
+    const shadowRadius = this.workspace.newBlock('math_number')
+    shadowRadius.setShadow(true)
+    shadowRadius.setFieldValue(100, 'NUM')
+    const shadowAngle = this.workspace.newBlock('math_number')
+    shadowAngle.setShadow(true)
+    shadowAngle.setFieldValue(360, 'NUM')
+
     this.appendDummyInput().appendField('gå i sirkel')
-    this.appendDummyInput().appendField('radius:').appendField(new Blockly.FieldNumber(100), 'RADIUS')
-    this.appendDummyInput()
-      .appendField('vinkel:')
-      .appendField(new Blockly.FieldNumber(360), 'ANGLE')
-      .appendField('grader')
     this.appendDummyInput().appendField('med klokka ↻').appendField(new Blockly.FieldCheckbox(true), 'DIRECTION')
+    this.appendValueInput('RADIUS')
+      .setCheck('Number')
+      .appendField('radius:')
+      .connection.connect(shadowRadius.outputConnection)
+    this.appendValueInput('ANGLE')
+      .setCheck('Number')
+      .appendField('vinkel:')
+      .connection.connect(shadowAngle.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -97,51 +140,69 @@ Blockly.Blocks['circle'] = {
 }
 
 Blockly.Python['circle'] = function (block) {
-  const r = block.getFieldValue('RADIUS')
-  const a = block.getFieldValue('ANGLE')
   const dir = block.getFieldValue('DIRECTION') === 'TRUE' ? -1 : 1
-  return `circle(${dir * r},${a})\n`
+  const r = Blockly.Python.valueToCode(block, 'RADIUS', Blockly.Python.ORDER_ATOMIC) || '0'
+  const a = Blockly.Python.valueToCode(block, 'ANGLE', Blockly.Python.ORDER_ATOMIC) || '0'
+  return `circle(${dir} * ${r}, ${a})\n`
 }
 
 Blockly.Blocks['right'] = {
   init: function () {
-    this.appendDummyInput()
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(90, 'NUM')
+
+    this.appendValueInput('DEGREES')
+      .setCheck('Number')
       .appendField('roter ↻')
-      .appendField(new Blockly.FieldNumber(90), 'DEGREES')
-      .appendField('grader')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter avataren til høyre')
+    this.setTooltip('Roter avataren antall grader til høyre (med klokka)')
   },
 }
 
 Blockly.Python['right'] = function (block) {
-  const value = block.getFieldValue('DEGREES')
+  const value = Blockly.Python.valueToCode(block, 'DEGREES', Blockly.Python.ORDER_ATOMIC) || '0'
   return `right(${value})\n`
 }
 
 Blockly.Blocks['left'] = {
   init: function () {
-    this.appendDummyInput()
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(90, 'NUM')
+
+    this.appendValueInput('DEGREES')
+      .setCheck('Number')
       .appendField('roter ↺')
-      .appendField(new Blockly.FieldNumber(90), 'DEGREES')
-      .appendField('grader')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
-    this.setTooltip('Roter avataren til venstre')
+    this.setTooltip('Roter avataren antall grader til venstre (mot klokka)')
   },
 }
 
 Blockly.Python['left'] = function (block) {
-  const value = block.getFieldValue('DEGREES')
+  const value = Blockly.Python.valueToCode(block, 'DEGREES', Blockly.Python.ORDER_ATOMIC) || '0'
   return `left(${value})\n`
 }
 
 Blockly.Blocks['sideways'] = {
   init: function () {
-    this.appendDummyInput().appendField('sidelengs').appendField(new Blockly.FieldNumber(100), 'DISTANCE')
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(100, 'NUM')
+
+    this.appendValueInput('DISTANCE')
+      .setCheck('Number')
+      .appendField('sidelengs')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(900)
@@ -150,7 +211,7 @@ Blockly.Blocks['sideways'] = {
 }
 
 Blockly.Python['sideways'] = function (block) {
-  const value = block.getFieldValue('DISTANCE')
+  const value = Blockly.Python.valueToCode(block, 'DISTANCE', Blockly.Python.ORDER_ATOMIC) || '0'
   return `sideways(${value})\n`
 }
 
@@ -213,7 +274,15 @@ Blockly.Python['penDown'] = function () {
 
 Blockly.Blocks['penSize'] = {
   init: function () {
-    this.appendDummyInput().appendField('set penstørrelse til').appendField(new Blockly.FieldNumber(5), 'SIZE')
+    const shadow = this.workspace.newBlock('math_number')
+    shadow.setShadow(true)
+    shadow.setFieldValue(5, 'NUM')
+
+    this.appendValueInput('SIZE')
+      .setCheck('Number')
+      .appendField('set penstørrelse til')
+      .connection.connect(shadow.outputConnection)
+
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
@@ -222,8 +291,8 @@ Blockly.Blocks['penSize'] = {
 }
 
 Blockly.Python['penSize'] = function (block) {
-  const size = block.getFieldValue('SIZE') * 4
-  return `pensize(${size})\n`
+  const size = Blockly.Python.valueToCode(block, 'SIZE', Blockly.Python.ORDER_ATOMIC) || '1'
+  return `pensize(${size} * 4)\n`
 }
 
 Blockly.Blocks['begin_fill'] = {
@@ -323,19 +392,9 @@ Blockly.Python['stamp'] = function () {
   return `stamp()\n`
 }
 
-Blockly.Blocks['male'] = {
-  init: function () {
-    this.appendDummyInput().appendField('endre til 🎅')
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(220)
-    this.setTooltip('Endre avataren sitt kjønn til mann')
-  },
-}
-
-Blockly.Python['male'] = function () {
-  return `shape("nisse-old-male")\n`
-}
-
 Blockly.Msg.CONTROLS_REPEAT_TITLE = 'gjenta %1 ganger'
 Blockly.Msg.CONTROLS_REPEAT_TOOLTIP = 'Kjør blokkene inne i denne blokken gjentatte ganger'
+Blockly.Msg.VARIABLES_SET = 'sett %1 til %2'
+Blockly.Msg.MATH_CHANGE_TITLE = 'endre %1 med %2'
+Blockly.Msg.CONTROLS_FOREACH_INPUT_DO = 'gjør'
+Blockly.Msg.CONTROLS_FOR_INPUT_DO = 'gjør'

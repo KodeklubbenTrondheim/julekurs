@@ -181,7 +181,33 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'controls_repeat',
+      blockxml:
+        '<block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+    },
+    {
+      kind: 'label',
+      text: 'Variabler og verdier 📐',
+    },
+    {
+      kind: 'block',
+      type: 'math_number',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'variables_get',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      blockxml:
+        '<block type="variables_set"><field name="VAR">item</field><value name="VALUE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      blockxml:
+        '<block type="math_change"><field name="VAR">item</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
     },
     {
       kind: 'label',
