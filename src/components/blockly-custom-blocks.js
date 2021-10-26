@@ -139,6 +139,21 @@ Blockly.Python['left'] = function (block) {
   return `left(${value})\n`
 }
 
+Blockly.Blocks['sideways'] = {
+  init: function () {
+    this.appendDummyInput().appendField('sidelengs').appendField(new Blockly.FieldNumber(100), 'DISTANCE')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(900)
+    this.setTooltip('Flytt avataren sidelengs')
+  },
+}
+
+Blockly.Python['sideways'] = function (block) {
+  const value = block.getFieldValue('DISTANCE')
+  return `sideways(${value})\n`
+}
+
 Blockly.Blocks['color'] = {
   init: function () {
     this.appendDummyInput().appendField('sett farge').appendField(new Blockly.FieldColour('#ff0000'), 'COLOR')
@@ -244,7 +259,7 @@ Blockly.Blocks['hideturtle'] = {
     this.appendDummyInput().appendField('skjul avatar')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
-    this.setColour(40)
+    this.setColour(180)
     this.setTooltip('Ikke vis avataren mens den tegner')
   },
 }
@@ -258,7 +273,7 @@ Blockly.Blocks['showturtle'] = {
     this.appendDummyInput().appendField('vis avatar')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
-    this.setColour(40)
+    this.setColour(180)
     this.setTooltip('Vis avataren mens den tegner')
   },
 }
@@ -267,18 +282,45 @@ Blockly.Python['showturtle'] = function () {
   return `showturtle()\n`
 }
 
-Blockly.Blocks['female'] = {
+Blockly.Blocks['shape'] = {
   init: function () {
-    this.appendDummyInput().appendField('endre til 🤶')
+    this.appendDummyInput()
+      .appendField('endre avatar til')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['🤶', 'nisse-old-female'],
+          ['🎅', 'nisse-old-male'],
+          ['🐢', 'turtle'],
+          ['▶', 'triangle'],
+          ['⚪', 'circle'],
+          ['⬜', 'square'],
+        ]),
+        'SHAPE'
+      )
     this.setPreviousStatement(true)
     this.setNextStatement(true)
-    this.setColour(320)
-    this.setTooltip('Endre avataren sitt kjønn til kvinne')
+    this.setColour(180)
+    this.setTooltip('Endre avataren')
   },
 }
 
-Blockly.Python['female'] = function () {
-  return `shape("nisse-old-female")\n`
+Blockly.Python['shape'] = function (block) {
+  const shape = block.getFieldValue('SHAPE')
+  return `shape("${shape}")\n`
+}
+
+Blockly.Blocks['stamp'] = {
+  init: function () {
+    this.appendDummyInput().appendField('stemple avataren')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(180)
+    this.setTooltip('Stemple en kopi av avataren på tegningen på nåværende posisjon')
+  },
+}
+
+Blockly.Python['stamp'] = function () {
+  return `stamp()\n`
 }
 
 Blockly.Blocks['male'] = {

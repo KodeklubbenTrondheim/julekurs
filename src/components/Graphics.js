@@ -50,6 +50,7 @@ export function Graphics({ props }) {
         onClick={() => {
           if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
             const turtleCanvas = turtleCanvasContainerRef.current.children[1]
+            if (!turtleCanvas) return
             const width = turtleCanvas.width
             const height = turtleCanvas.height
             canvasRef.current.width = width
@@ -136,6 +137,7 @@ export function Graphics({ props }) {
 
 const GraphicsContainer = styled.div`
   position: ${(props) => (props.fixedPosition ? 'absolute' : 'relative')};
+  z-index: 999;
   top: ${(props) => (props.fixedPosition ? '51px' : 'unset')};
   right: ${(props) => (props.fixedPosition ? '16px' : 'unset')};
   width: 400px;
@@ -143,6 +145,7 @@ const GraphicsContainer = styled.div`
   background-color: transparent;
   border-radius: 8px;
   margin-top: 44px;
+  margin-bottom: 44px;
   ${CSSShadows.large}
 
   canvas {

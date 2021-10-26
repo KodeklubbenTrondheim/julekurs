@@ -19,8 +19,6 @@ function App() {
             </Route>
             <Route path="/julekort">
               <Link to="/">Gå tilbake til forsiden</Link>
-              <h2>Lag ditt eget julekort</h2>
-              <JulekortSide />
               <ButtonLink
                 onClick={() => {
                   window.open(
@@ -33,6 +31,8 @@ function App() {
                 <span style={{ textDecoration: 'underline' }}>Finn ut hva du kan lage her!</span>{' '}
                 <i className="fas fa-external-link-alt" />
               </ButtonLink>
+              <h2>Lag ditt eget julekort</h2>
+              <JulekortSide />
             </Route>
             <Route path="/oppgaver" exact>
               <Link to="/">Gå tilbake til forsiden</Link>
@@ -57,7 +57,6 @@ const Container = styled.div`
   background-color: #4c1616;
   text-align: center;
 
-`
 
 const Header = styled.div`
   min-height: 80vh;
