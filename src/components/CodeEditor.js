@@ -110,6 +110,11 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
+      type: 'sideways',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
       type: 'right',
       gap: '4px',
     },
@@ -194,12 +199,12 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'female',
+      type: 'shape',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'male',
+      type: 'stamp',
     },
   ],
 }

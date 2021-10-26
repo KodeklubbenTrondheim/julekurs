@@ -50,6 +50,7 @@ export function Graphics({ props }) {
         onClick={() => {
           if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
             const turtleCanvas = turtleCanvasContainerRef.current.children[1]
+            if (!turtleCanvas) return
             const width = turtleCanvas.width
             const height = turtleCanvas.height
             canvasRef.current.width = width

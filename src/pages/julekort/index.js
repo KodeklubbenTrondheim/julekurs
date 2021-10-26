@@ -133,7 +133,7 @@ export function JulekortSide() {
                           startColumn: 0,
                           endLineNumber: line + 1,
                           endColumn: 0,
-                          message: error.message,
+                          message: error.type + ': ' + error.message,
                           severity: 3,
                           source: '',
                         },
