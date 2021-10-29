@@ -325,7 +325,7 @@ Blockly.Python['end_fill'] = function () {
 
 Blockly.Blocks['hideturtle'] = {
   init: function () {
-    this.appendDummyInput().appendField('skjul avatar')
+    this.appendDummyInput().appendField('skjul avatar 🙈')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(180)
@@ -339,7 +339,7 @@ Blockly.Python['hideturtle'] = function () {
 
 Blockly.Blocks['showturtle'] = {
   init: function () {
-    this.appendDummyInput().appendField('vis avatar')
+    this.appendDummyInput().appendField('vis avatar 🙉')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(180)
@@ -394,7 +394,12 @@ Blockly.Python['stamp'] = function () {
 
 Blockly.Msg.CONTROLS_REPEAT_TITLE = 'gjenta %1 ganger'
 Blockly.Msg.CONTROLS_REPEAT_TOOLTIP = 'Kjør blokkene inne i denne blokken gjentatte ganger'
-Blockly.Msg.VARIABLES_SET = 'sett %1 til %2'
 Blockly.Msg.MATH_CHANGE_TITLE = 'endre %1 med %2'
-Blockly.Msg.CONTROLS_FOREACH_INPUT_DO = 'gjør'
-Blockly.Msg.CONTROLS_FOR_INPUT_DO = 'gjør'
+Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = ''
+
+Blockly.Msg.VARIABLES_SET = 'sett %1 til %2'
+Blockly.Msg.NEW_VARIABLE_TITLE = 'Navn på den nye variabelen:'
+Blockly.Msg.DELETE_VARIABLE = "Fjern '%1' variabelen"
+Blockly.Msg.DELETE_VARIABLE_CONFIRMATION = "Fjern %1 bruk av '%2' variabelen?"
+Blockly.Msg.RENAME_VARIABLE = 'Endre navn på variabelen...'
+Blockly.Msg.RENAME_VARIABLE_TITLE = "Endre navn på alle '%1' variabler til:"

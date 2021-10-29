@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import Editor from '@monaco-editor/react'
 import { createBreakpoint } from 'react-use'
 import styled from 'styled-components'
@@ -189,25 +189,30 @@ const toolboxConfiguration = {
       text: 'Variabler og verdier 📐',
     },
     {
+      kind: 'button',
+      text: 'Lag en ny variabel...',
+      callbackKey: 'createVariable',
+    },
+    {
       kind: 'block',
       type: 'math_number',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'variables_get',
+      blockxml: '<block type="variables_get"><field name="VAR">variabel</field></block>',
       gap: '4px',
     },
     {
       kind: 'block',
       blockxml:
-        '<block type="variables_set"><field name="VAR">item</field><value name="VALUE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+        '<block type="variables_set"><field name="VAR">variabel</field><value name="VALUE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
       blockxml:
-        '<block type="math_change"><field name="VAR">item</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+        '<block type="math_change"><field name="VAR">variabel</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
     },
     {
       kind: 'label',
@@ -243,6 +248,8 @@ export function BlocklyEditor({ above, below, ...props }) {
   const initialXml = useStore((state) => state.blocklyXml)
   const onXmlChange = useStore((state) => state.setBlocklyXml)
 
+  const workspaceRef = useRef()
+
   const size = useBreakpoint()
 
   const onWorkspaceChange = useCallback(
@@ -273,6 +280,13 @@ export function BlocklyEditor({ above, below, ...props }) {
           },
           collapse: false,
           scrollbars: true,
+        }}
+        onInject={(workspace) => {
+          workspaceRef.current = workspace
+          workspaceRef.current.createVariable('variabel', 'int')
+          workspaceRef.current.registerButtonCallback('createVariable', () => {
+            Blockly.Variables.createVariableButtonHandler(workspaceRef.current, null, 'int')
+          })
         }}
         {...{ initialXml, toolboxConfiguration, onWorkspaceChange, onXmlChange }}
         {...props}
