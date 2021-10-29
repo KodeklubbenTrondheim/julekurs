@@ -45,6 +45,7 @@ const Image = styled.img`
   top: 0;
   left: 0;
   right: 0;
+  width: 100vw;
   object-fit: cover;
   opacity: 0.5;
 `
@@ -53,5 +54,5 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
-  padding-top: 12rem;
+  padding-top: 10rem;
 `
