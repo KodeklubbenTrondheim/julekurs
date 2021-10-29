@@ -16,7 +16,7 @@ export const Header = () => {
         <StyledLink to="/julekort" $active={path === '/julekort'}>
           Julekortverkstedet 🔨
         </StyledLink>
-        <StyledLink to="/oppgaver" $active={path === '/oppgaver'}>
+        <StyledLink to="/oppgaver" $active={path.startsWith('/oppgaver')}>
           Finn oppgaver her 📃
         </StyledLink>
       </TextContainer>
