@@ -26,7 +26,6 @@ function App() {
               <OppgaveOversiktSide />
             </Route>
             <Route path="/oppgaver/:oppgaveId">
-              <h2>Velg hva du vil lage</h2>
               <OppgaveSide />
             </Route>
           </Switch>
