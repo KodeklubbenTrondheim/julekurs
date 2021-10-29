@@ -1,5 +1,8 @@
 import Blockly from 'blockly'
 import 'blockly/python'
+import * as Nb from 'blockly/msg/nb'
+
+Blockly.setLocale(Nb)
 
 Blockly.Blocks['speed'] = {
   init: function () {
@@ -392,14 +395,5 @@ Blockly.Python['stamp'] = function () {
   return `stamp()\n`
 }
 
-Blockly.Msg.CONTROLS_REPEAT_TITLE = 'gjenta %1 ganger'
-Blockly.Msg.CONTROLS_REPEAT_TOOLTIP = 'Kjør blokkene inne i denne blokken gjentatte ganger'
 Blockly.Msg.MATH_CHANGE_TITLE = 'endre %1 med %2'
 Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = ''
-
-Blockly.Msg.VARIABLES_SET = 'sett %1 til %2'
-Blockly.Msg.NEW_VARIABLE_TITLE = 'Navn på den nye variabelen:'
-Blockly.Msg.DELETE_VARIABLE = "Fjern '%1' variabelen"
-Blockly.Msg.DELETE_VARIABLE_CONFIRMATION = "Fjern %1 bruk av '%2' variabelen?"
-Blockly.Msg.RENAME_VARIABLE = 'Endre navn på variabelen...'
-Blockly.Msg.RENAME_VARIABLE_TITLE = "Endre navn på alle '%1' variabler til:"

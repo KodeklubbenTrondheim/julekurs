@@ -186,17 +186,12 @@ const toolboxConfiguration = {
     },
     {
       kind: 'label',
-      text: 'Variabler og verdier 📐',
+      text: 'Variabler 🧪',
     },
     {
       kind: 'button',
       text: 'Lag en ny variabel...',
       callbackKey: 'createVariable',
-    },
-    {
-      kind: 'block',
-      type: 'math_number',
-      gap: '4px',
     },
     {
       kind: 'block',
@@ -213,6 +208,63 @@ const toolboxConfiguration = {
       kind: 'block',
       blockxml:
         '<block type="math_change"><field name="VAR">variabel</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+    },
+    {
+      kind: 'label',
+      text: 'Logikk 🤓',
+    },
+    {
+      kind: 'block',
+      type: 'controls_if',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'logic_compare',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'logic_operation',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'logic_negate',
+    },
+    {
+      kind: 'label',
+      text: 'Matematikk 📐',
+    },
+    {
+      kind: 'block',
+      type: 'math_number',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      blockxml:
+        '<block type="math_arithmetic"><field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value></block>',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'math_random_int',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'math_number_property',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'math_modulo',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'math_trig',
     },
     {
       kind: 'label',
