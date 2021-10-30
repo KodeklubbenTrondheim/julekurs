@@ -158,6 +158,11 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
+      type: 'dot',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
       type: 'penUp',
       gap: '4px',
     },

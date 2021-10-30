@@ -325,7 +325,7 @@ const ChangeColorButton = styled.div`
 
 const ShowError = styled.div`
   border-radius: 7px;
-  z-index: 999;
+  z-index: 1001;
   background: #000;
   position: absolute;
   top: 0;

@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-const preDefinedPythonCode = `from random import *
+const preDefinedPythonCode = `import random
 from math import *
 from turtle import *
 

@@ -112,7 +112,7 @@ Blockly.Blocks['gotoRandom'] = {
 }
 
 Blockly.Python['gotoRandom'] = function () {
-  return `goto(int(400 * random() - 200), int(400 * random() - 200))\n`
+  return `goto(int(400 * random.random() - 200), int(400 * random.random() - 200))\n`
 }
 
 Blockly.Blocks['circle'] = {
@@ -244,7 +244,7 @@ Blockly.Blocks['randomColor'] = {
 }
 
 Blockly.Python['randomColor'] = function () {
-  return `color(random(), random(), random())\n`
+  return `color(random.random(), random.random(), random.random())\n`
 }
 
 Blockly.Blocks['penUp'] = {
@@ -296,6 +296,20 @@ Blockly.Blocks['penSize'] = {
 Blockly.Python['penSize'] = function (block) {
   const size = Blockly.Python.valueToCode(block, 'SIZE', Blockly.Python.ORDER_ATOMIC) || '1'
   return `pensize(${size} * scale)\n`
+}
+
+Blockly.Blocks['dot'] = {
+  init: function () {
+    this.appendDummyInput().appendField('tegn en prikk ⚪')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Tegn en prikk i nåværende farge og pen-størrelse. Fin til å tegne snø ❄')
+  },
+}
+
+Blockly.Python['dot'] = function (block) {
+  return `dot()\n`
 }
 
 Blockly.Blocks['write'] = {
