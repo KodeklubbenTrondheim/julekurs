@@ -27,6 +27,7 @@ export const Header = () => {
 const Container = styled.div`
   position: relative;
   text-align: center;
+  margin-bottom: 2rem;
 `
 
 const StyledLink = styled(Link)`

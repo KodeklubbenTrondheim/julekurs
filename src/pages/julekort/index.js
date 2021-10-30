@@ -191,6 +191,11 @@ const Container = styled.div`
 `
 
 const StyledEditorHeader = styled.div`
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 6px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

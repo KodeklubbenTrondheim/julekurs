@@ -18,11 +18,9 @@ function App() {
               <Link to="/oppgaver">Finn ut hva du kan lage her 📃</Link>
             </Route>
             <Route path="/julekort">
-              <h2>Lag ditt eget julekort</h2>
               <JulekortSide />
             </Route>
             <Route path="/oppgaver" exact>
-              <h2>Velg hva du vil lage</h2>
               <OppgaveOversiktSide />
             </Route>
             <Route path="/oppgaver/:oppgaveId">

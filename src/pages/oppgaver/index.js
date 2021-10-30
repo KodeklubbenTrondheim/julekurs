@@ -33,6 +33,7 @@ export function OppgaveOversiktSide() {
 
   return (
     <Container>
+      <h2>Velg hva du vil lage</h2>
       {tasks.map((task) => (
         <Link key={task.id} to={'/oppgaver/' + task.id}>
           {task.tittel}

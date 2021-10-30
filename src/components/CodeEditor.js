@@ -14,7 +14,7 @@ export const useBreakpoint = createBreakpoint({ L: 1016, S: 1015 })
 const getHeight = (size) => {
   switch (size) {
     case 'L':
-      return 'calc(100vh - 32px)'
+      return 'calc(100vh - 64px)'
     default:
       return 'max(400px, calc(50vh - 32px - 14px))'
   }
@@ -390,10 +390,12 @@ export function BlocklyEditor({ above, below, ...props }) {
 }
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
   font-size: 16px;
+  margin-top: 40px;
 
   .monaco-editor {
     overflow: hidden;
