@@ -27,13 +27,12 @@ export const Header = () => {
 const Container = styled.div`
   position: relative;
   text-align: center;
-  height: 20vh;
 `
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   text-align: center;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, calc(10px + 2vmin), 2rem);
   color: ${(props) => (props.$active ? '#fff' : '#61dafb')};
   flex-basis: 300px;
   white-space: nowrap;
@@ -46,6 +45,7 @@ const Image = styled.img`
   left: 0;
   right: 0;
   width: 100%;
+  min-height: 200px;
   object-fit: cover;
   opacity: 0.5;
 `
@@ -54,5 +54,5 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
-  padding-top: 10rem;
+  padding-top: 10vw;
 `
