@@ -38,10 +38,13 @@ export default App
 const Container = styled.div`
   background-color: #4c1616;
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `
 
 const Content = styled.div`
-  min-height: 80vh;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
