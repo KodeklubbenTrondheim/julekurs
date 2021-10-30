@@ -82,7 +82,7 @@ forward(100)
   },
   editor: null,
   setEditor: (editor) => set(() => ({ editor })),
-  isPythonCodeEditable: localStorage.getItem('isPythonCodeEditable') || true,
+  isPythonCodeEditable: (localStorage.getItem('isPythonCodeEditable') || 'true') === 'true',
   setIsPythonCodeEditable: (isPythonCodeEditable) => {
     localStorage.setItem('isPythonCodeEditable', isPythonCodeEditable)
     set(() => ({ isPythonCodeEditable }))
@@ -95,6 +95,11 @@ forward(100)
     if (canvasColor === null || canvasColor === 'null') canvasColor = '#ffffff'
     localStorage.setItem('canvasColor', canvasColor)
     set(() => ({ canvasColor }))
+  },
+  showGrid: (localStorage.getItem('showGrid') || 'false') === 'true',
+  setShowGrid: (showGrid) => {
+    localStorage.setItem('showGrid', showGrid)
+    set(() => ({ showGrid }))
   },
 
   log: [],
