@@ -16,6 +16,7 @@ export function Graphics({ props }) {
   const setCanvas = useStore((state) => state.setCanvas)
   const error = useStore((state) => state.error)
   const pythonErrorLineNumberOffset = useStore((state) => state.pythonErrorLineNumberOffset)
+  const editorMode = useStore((state) => state.editorMode)
 
   const size = useBreakpoint()
 
@@ -106,27 +107,40 @@ export function Graphics({ props }) {
       <BottomSettings />
       {error && (
         <ShowError>
-          <h2>Du fikk en feilmelding 😬</h2>
-          <h4>
-            MEN det er ingen grunn til panikk!
-            <br />
-            Dette skjer hele tiden 🤗
-          </h4>
-          <pre>
-            {error.type}: {error.message}
-          </pre>
-          {error.lineNumber && (
+          {editorMode === 'python' ? (
             <>
-              <h4>Tips: Feilen ligger på linje {error.lineNumber - pythonErrorLineNumberOffset} 😉:</h4>
-              <CodePreview
-                code={
-                  error.getNLinesAbove(2).join('\n') +
-                  '\n' +
-                  error.line +
-                  ' # <- Se her 🧐\n' +
-                  error.getNLinesBelow(2).join('\n')
-                }
-              />
+              <h2>Du fikk en feilmelding 😬</h2>
+              <h4>
+                MEN det er ingen grunn til panikk!
+                <br />
+                Dette skjer hele tiden 🤗
+              </h4>
+              <pre style={{ whiteSpace: 'pre-wrap' }}>
+                {error.type}: {error.message}
+              </pre>
+              {error.lineNumber && (
+                <>
+                  <h4>Tips: Feilen ligger på linje {error.lineNumber - pythonErrorLineNumberOffset} 😉:</h4>
+                  <CodePreview
+                    code={
+                      error.getNLinesAbove(2).join('\n') +
+                      '\n' +
+                      error.line +
+                      ' # <- Se her 🧐\n' +
+                      error.getNLinesBelow(2).join('\n')
+                    }
+                  />
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <h1 style={{ textAlign: 'center' }}>Obs!</h1>
+              <h2>Det kom en feilmelding 😬 Gjerne huk tak i noen fra kodeklubben om du står fast!</h2>
+              <h4>
+                (Om du vil finne ut av feilen selv kan du trykke på "Gjør om til Python <i className="fas fa-code" />
+                "-knappen, så får du en mer detaljert tilbakemelding)
+              </h4>
             </>
           )}
         </ShowError>
