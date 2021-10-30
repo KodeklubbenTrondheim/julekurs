@@ -315,7 +315,7 @@ Blockly.Python['write'] = function (block) {
 
 Blockly.Blocks['fontsize'] = {
   init: function () {
-    this.appendDummyInput().appendField('sett størrelse på tekst').appendField(new Blockly.FieldNumber(24), 'SIZE')
+    this.appendDummyInput().appendField('sett størrelse på tekst til').appendField(new Blockly.FieldNumber(24), 'SIZE')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
