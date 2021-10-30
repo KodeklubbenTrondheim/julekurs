@@ -71,12 +71,12 @@ Saker som ikke er diskutert enda:
 
 Første versjon:
 
-- Kunne se en liste med oppgaver.
-- Kunne gå inn på hver oppgave og få instruksjoner om hvordan man kommer videre.
+- [x] Kunne se en liste med oppgaver.
+- [x] Kunne gå inn på hver oppgave og få instruksjoner om hvordan man kommer videre.
   - Dette må ikke legges inn i selve GUIet hvor man koder julekort. Dette kan være på papir.
-- Kunne skrive i en editor og få opp resultat i et grensesnitt (p5.js eller noe ala det)
-- Kunne lage oppgaver i et format. Kan starte med JSON, må se an om vi rekker Markdown her.
-- Kunne laste ned oppgaver og bilde med en knapp (midlertidig mens vi ikke bruker database)
+- [x] Kunne skrive i en editor og få opp resultat i et grensesnitt (p5.js eller noe ala det)
+- [x] Kunne lage oppgaver i et format. Kan starte med JSON, må se an om vi rekker Markdown her.
+- [x] Kunne laste ned oppgaver og bilde med en knapp (midlertidig mens vi ikke bruker database)
 
 Senere:
 
