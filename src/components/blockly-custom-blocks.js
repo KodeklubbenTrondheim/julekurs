@@ -295,7 +295,116 @@ Blockly.Blocks['penSize'] = {
 
 Blockly.Python['penSize'] = function (block) {
   const size = Blockly.Python.valueToCode(block, 'SIZE', Blockly.Python.ORDER_ATOMIC) || '1'
-  return `pensize(${size} * 4)\n`
+  return `pensize(${size} * scale)\n`
+}
+
+Blockly.Blocks['write'] = {
+  init: function () {
+    this.appendDummyInput().appendField('skriv').appendField(new Blockly.FieldTextInput('Hei'), 'TEXT')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Skriv tekst på bildet')
+  },
+}
+
+Blockly.Python['write'] = function (block) {
+  const text = block.getFieldValue('TEXT')
+  return `write("${text}", move=False, align=textalign, font=(fontname, fontsize, fonttype))\n`
+}
+
+Blockly.Blocks['fontsize'] = {
+  init: function () {
+    this.appendDummyInput().appendField('sett størrelse på tekst').appendField(new Blockly.FieldNumber(16), 'SIZE')
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Endre størrelse på teksten')
+  },
+}
+
+Blockly.Python['fontsize'] = function (block) {
+  const size = block.getFieldValue('SIZE')
+  return `fontsize = ${size}\n`
+}
+
+Blockly.Blocks['fontname'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('velg font')
+      .appendField(
+        new Blockly.FieldDropdown([
+          [{ src: process.env.PUBLIC_URL + '/helvetica.png', width: 100, height: 28, alt: 'Helvetica' }, 'Helvetica'],
+          [
+            { src: process.env.PUBLIC_URL + '/comic-sans-ms.png', width: 90, height: 28, alt: 'Comic Sans MS' },
+            'Comic Sans MS',
+          ],
+          [
+            { src: process.env.PUBLIC_URL + '/handwritten.png', width: 120, height: 28, alt: 'Monotype Corsiva' },
+            'Monotype Corsiva',
+          ],
+          [{ src: process.env.PUBLIC_URL + '/monospace.png', width: 100, height: 28, alt: 'Monospace' }, 'Monospace'],
+        ]),
+        'NAME'
+      )
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Endre hvilken type font som blir brukt')
+  },
+}
+
+Blockly.Python['fontname'] = function (block) {
+  const name = block.getFieldValue('NAME')
+  return `fontname = "${name}"\n`
+}
+
+Blockly.Blocks['fonttype'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('velg fonttype')
+      .appendField(
+        new Blockly.FieldDropdown([
+          [{ src: process.env.PUBLIC_URL + '/normal.png', width: 60, height: 24, alt: 'normal' }, 'normal'],
+          [{ src: process.env.PUBLIC_URL + '/bold.png', width: 60, height: 24, alt: 'bold' }, 'bold'],
+          [{ src: process.env.PUBLIC_URL + '/italic.png', width: 60, height: 24, alt: 'italic' }, 'italic'],
+        ]),
+        'TYPE'
+      )
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Endre hvilken fonttype som blir brukt')
+  },
+}
+
+Blockly.Python['fonttype'] = function (block) {
+  const type = block.getFieldValue('TYPE')
+  return `fonttype = "${type}"\n`
+}
+
+Blockly.Blocks['textalign'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('juster tekst til')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['høyre ➡', 'left'],
+          ['midten', 'center'],
+          ['⬅ venstre', 'right'],
+        ]),
+        'ALIGN'
+      )
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(280)
+    this.setTooltip('Velge hvor teksten blir skrevet i forhold til avataren')
+  },
+}
+
+Blockly.Python['textalign'] = function (block) {
+  const align = block.getFieldValue('ALIGN')
+  return `textalign = "${align}"\n`
 }
 
 Blockly.Blocks['begin_fill'] = {
@@ -393,6 +502,36 @@ Blockly.Blocks['stamp'] = {
 
 Blockly.Python['stamp'] = function () {
   return `stamp()\n`
+}
+
+Blockly.Blocks['commentStart'] = {
+  init: function () {
+    this.appendDummyInput().appendField('deaktiver kode etter denne 🚫')
+
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(0)
+    this.setTooltip('Legge til starten på en kommentar (brukes til å hoppe over kode)')
+  },
+}
+
+Blockly.Python['commentStart'] = function () {
+  return `"""\n`
+}
+
+Blockly.Blocks['commentEnd'] = {
+  init: function () {
+    this.appendDummyInput().appendField('aktiver koden etter denne ▶')
+
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+    this.setColour(80)
+    this.setTooltip('Legge til slutten på en kommentar (brukes til å fortsette å kjøre koden)')
+  },
+}
+
+Blockly.Python['commentEnd'] = function () {
+  return `#"""\n`
 }
 
 Blockly.Msg.MATH_CHANGE_TITLE = 'endre %1 med %2'

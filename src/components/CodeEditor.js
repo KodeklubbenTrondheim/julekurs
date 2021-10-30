@@ -177,6 +177,34 @@ const toolboxConfiguration = {
     },
     {
       kind: 'label',
+      text: 'Tekst 🔤',
+    },
+    {
+      kind: 'block',
+      type: 'write',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'fontsize',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'fontname',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'fonttype',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'textalign',
+    },
+    {
+      kind: 'label',
       text: 'Repetisjon 🔁',
     },
     {
@@ -288,6 +316,19 @@ const toolboxConfiguration = {
     {
       kind: 'block',
       type: 'stamp',
+    },
+    {
+      kind: 'label',
+      text: 'Ekstra',
+    },
+    {
+      kind: 'block',
+      type: 'commentStart',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'commentEnd',
     },
   ],
 }

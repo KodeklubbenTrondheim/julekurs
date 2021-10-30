@@ -12,7 +12,7 @@ def sideways(distance):
   [x, y] = pos()
   goto(x + distance * cos(direction), y + distance * sin(direction))
 
-fontname, fontsize, fonttype = "Arial", 24, "normal"
+fontname, fontsize, fonttype, textalign = "Arial", 24, "normal", "left"
 pensize(scale)
 
 `
