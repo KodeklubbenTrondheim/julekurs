@@ -45,7 +45,7 @@ const Image = styled.img`
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw;
+  width: 100%;
   object-fit: cover;
   opacity: 0.5;
 `
