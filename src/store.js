@@ -4,10 +4,16 @@ const preDefinedPythonCode = `from random import *
 from math import *
 from turtle import *
 
+try: scale
+except NameError: scale = 1
+
 def sideways(distance):
   direction = (heading() + 90) * pi / 180
   [x, y] = pos()
   goto(x + distance * cos(direction), y + distance * sin(direction))
+
+fontname, fontsize, fonttype = "Arial", 24, "normal"
+pensize(scale)
 
 `
 
@@ -23,7 +29,7 @@ screen.register_shape("classic", scale([[0,0],[-5,-9],[0,-7],[5,-9]]))
 screen.register_shape("turtle", scale([[0,16],[-2,14],[-1,10],[-4,7],[-7,9],[-9,8],[-6,5],[-7,1],[-5,-3],[-8,-6],[-6,-8],[-4,-5],[0,-7],[4,-5],[6,-8],[8,-6],[5,-3],[7,1],[6,5],[9,8],[7,9],[4,7],[1,10],[2,14]]))
 screen.register_shape("circle", scale([[10,0],[9.51,3.09],[8.09,5.88],[5.88,8.09],[3.09,9.51],[0,10],[-3.09,9.51],[-5.88,8.09],[-8.09,5.88],[-9.51,3.09],[-10,0],[-9.51,-3.09],[-8.09,-5.88],[-5.88,-8.09],[-3.09,-9.51],[-0,-10],[3.09,-9.51],[5.88,-8.09],[8.09,-5.88],[9.51,-3.09]]))
 shape("nisse-old-male")
-pensize(4 * pensize())
+scale = 4
 
 `
 
