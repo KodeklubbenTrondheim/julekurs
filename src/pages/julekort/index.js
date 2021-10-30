@@ -122,16 +122,16 @@ export function JulekortSide() {
                 } catch (error) {
                   setError(error)
                   console.error(error)
-                  if (error.lineNumber && editor) {
-                    const line = error.lineNumber - pythonErrorLineNumberOffset
+                  if (error.lineNumber && error.lineNumber > pythonErrorLineNumberOffset && editor) {
+                    const lineNumberInEditor = error.lineNumber - pythonErrorLineNumberOffset
                     window.monaco.editor.setModelMarkers(
                       'getModel' in editor ? editor.getModel() : editor,
                       'python-editor',
                       [
                         {
-                          startLineNumber: line,
+                          startLineNumber: lineNumberInEditor,
                           startColumn: 0,
-                          endLineNumber: line + 1,
+                          endLineNumber: lineNumberInEditor + 1,
                           endColumn: 0,
                           message: error.type + ': ' + error.message,
                           severity: 3,
