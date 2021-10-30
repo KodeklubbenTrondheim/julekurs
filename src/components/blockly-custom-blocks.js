@@ -300,7 +300,7 @@ Blockly.Python['penSize'] = function (block) {
 
 Blockly.Blocks['write'] = {
   init: function () {
-    this.appendDummyInput().appendField('skriv').appendField(new Blockly.FieldTextInput('Hei'), 'TEXT')
+    this.appendDummyInput().appendField('skriv').appendField(new Blockly.FieldTextInput('God Jul!'), 'TEXT')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
@@ -315,7 +315,7 @@ Blockly.Python['write'] = function (block) {
 
 Blockly.Blocks['fontsize'] = {
   init: function () {
-    this.appendDummyInput().appendField('sett størrelse på tekst').appendField(new Blockly.FieldNumber(16), 'SIZE')
+    this.appendDummyInput().appendField('sett størrelse på tekst').appendField(new Blockly.FieldNumber(24), 'SIZE')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
