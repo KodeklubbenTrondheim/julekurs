@@ -35,7 +35,7 @@ export function OppgaveOversiktSide() {
     <Container>
       <h2>Velg hva du vil lage</h2>
       {tasks.map((task) => (
-        <Link key={task.id} to={'/oppgaver/' + task.id}>
+        <Link key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
           {task.tittel}
         </Link>
       ))}
@@ -46,20 +46,30 @@ export function OppgaveOversiktSide() {
 export function OppgaveSide() {
   const [task, setTask] = useState('')
   const { oppgaveId = null } = useParams()
+  const [isPdf, setIsPdf] = useState(false)
+  const [pdfUrl, setPdfUrl] = useState('')
 
   useEffect(() => {
-    fetch(process.env.PUBLIC_URL + `/oppgaver/${oppgaveId}.md`)
-      .then((r) => r.text())
-      .then((markdown) => {
-        setTask(markdown)
-      })
+    const isPdf = oppgaveId.endsWith('.pdf')
+    setIsPdf(isPdf)
+    if (isPdf) {
+      fetch(process.env.PUBLIC_URL + `/oppgaver/index.json`)
+        .then((r) => r.json())
+        .then((index) => {
+          if ('oppgaver' in index) {
+            setPdfUrl(index.oppgaver.find((task) => task.id === oppgaveId.slice(0, -4))?.pdf || '')
+          }
+        })
+    } else {
+      fetch(process.env.PUBLIC_URL + `/oppgaver/${oppgaveId}.md`)
+        .then((r) => r.text())
+        .then((markdown) => {
+          setTask(markdown)
+        })
+    }
   }, [oppgaveId])
 
-  return (
-    <Container>
-      <Markdown>{task}</Markdown>
-    </Container>
-  )
+  return <Container>{isPdf ? <PDFContainer src={pdfUrl}></PDFContainer> : <Markdown>{task}</Markdown>}</Container>
 }
 
 function Markdown({ children, ...props }) {
@@ -79,6 +89,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  width: 900px;
+  flex: 1 0 auto;
+  box-sizing: border-box;
+`
+
+const PDFContainer = styled.iframe`
+  border: none;
+  width: 100%;
+  flex: 1 0 auto;
 `
 
 const RenderedMarkdown = styled.div`
