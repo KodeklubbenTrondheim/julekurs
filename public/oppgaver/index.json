@@ -1,18 +1,21 @@
 {
   "oppgaver": [
     {
-      "tittel": "Snøflak",
+      "title": "Snøflak",
+      "level": "easy",
       "image": "https://cdn.pixabay.com/photo/2017/11/02/03/47/snowflake-2910087_1280.png",
       "id": "snoflak"
     },
     {
-      "tittel": "Snøball",
+      "title": "Snøball",
+      "level": "easy",
       "id": "snoball",
       "image": "https://user-images.githubusercontent.com/8504538/139929175-32b4bbf2-2955-4961-b7e4-503e5442eb22.png",
       "pdf": "https://docs.google.com/document/d/e/2PACX-1vTiSYGejs4odSuig8zlMRkDDY1xm8W0pfIiQjOYhDxX6gYpn28lE_X0WZ242SsCMN2zAsmlS8AKR28H/pub?embedded=true"
     },
     {
-      "tittel": "Gave",
+      "title": "Gave",
+      "level": "easy",
       "id": "gave",
       "image": "https://user-images.githubusercontent.com/8504538/139928664-8be92744-5820-44b6-920a-f5f71bde34af.png",
       "pdf": "https://docs.google.com/document/d/e/2PACX-1vT6zSY8XOgnMPOTDSU9zYZCVGwUOQVnTs3dVUQ7JiHEm9JFncAr939YRZOGPURwQN61akaX_vNreS5y/pub?embedded=true"
