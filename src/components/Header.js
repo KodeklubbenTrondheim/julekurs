@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom'
 
 export const Header = () => {
   const location = useLocation()
@@ -11,13 +10,13 @@ export const Header = () => {
       <Image src="gradient-christmas-background.png" alt="Christmas image" />
       <TextContainer>
         <StyledLink to="/" $active={path === '/'}>
-          Hjem
+          Se andre julekort 👀
         </StyledLink>
         <StyledLink to="/julekort" $active={path === '/julekort'}>
-          Julekortverkstedet 🔨
+          Lag julekort 🔨
         </StyledLink>
         <StyledLink to="/oppgaver" $active={path.startsWith('/oppgaver')}>
-          Finn oppgaver her 📃
+          Finn oppgaver 📃
         </StyledLink>
       </TextContainer>
     </Container>
@@ -55,5 +54,5 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
-  padding-top: 10vw;
+  padding-top: max(80px, 10vw);
 `
