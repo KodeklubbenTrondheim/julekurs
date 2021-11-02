@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import mdIt from 'markdown-it'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/vs2015.css'
+import { CSSShadows } from '../../constants'
 
 const md = mdIt({
   langPrefix: 'language-',
@@ -32,14 +33,42 @@ export function OppgaveOversiktSide() {
   }, [])
 
   return (
-    <Container>
+    <TasksContainer>
       <h2>Velg hva du vil lage</h2>
-      {tasks.map((task) => (
-        <Link key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
-          {task.tittel}
-        </Link>
-      ))}
-    </Container>
+      <h3>Nivå: Lett</h3>
+      <TaskLevelContainer>
+        {tasks
+          .filter(({ level = '' }) => level === 'easy')
+          .map((task) => (
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+              {task.image && <LinkImage src={task.image} alt={task.title} />}
+              <span>{task.title}</span>
+            </Task>
+          ))}
+      </TaskLevelContainer>
+      <h3>Nivå: Middels</h3>
+      <TaskLevelContainer>
+        {tasks
+          .filter(({ level = '' }) => level === 'medium')
+          .map((task) => (
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+              {task.image && <LinkImage src={task.image} alt={task.title} />}
+              <span>{task.title}</span>
+            </Task>
+          ))}
+      </TaskLevelContainer>
+      <h3>Nivå: Vanskelig</h3>
+      <TaskLevelContainer>
+        {tasks
+          .filter(({ level = '' }) => level === 'hard')
+          .map((task) => (
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+              {task.image && <LinkImage src={task.image} alt={task.title} />}
+              <span>{task.title}</span>
+            </Task>
+          ))}
+      </TaskLevelContainer>
+    </TasksContainer>
   )
 }
 
@@ -69,7 +98,9 @@ export function OppgaveSide() {
     }
   }, [oppgaveId])
 
-  return <Container>{isPdf ? <PDFContainer src={pdfUrl}></PDFContainer> : <Markdown>{task}</Markdown>}</Container>
+  return (
+    <TaskContainer>{isPdf ? <PDFContainer src={pdfUrl}></PDFContainer> : <Markdown>{task}</Markdown>}</TaskContainer>
+  )
 }
 
 function Markdown({ children, ...props }) {
@@ -82,16 +113,55 @@ function Markdown({ children, ...props }) {
   return <RenderedMarkdown dangerouslySetInnerHTML={{ __html: renderedMarkdown }} {...props} />
 }
 
-const Container = styled.div`
+const TasksContainer = styled.div`
   text-align: center;
   padding: 0 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  width: 900px;
   flex: 1 0 auto;
   box-sizing: border-box;
+  width: 100%;
+`
+
+const TaskContainer = styled(TasksContainer)`
+  width: 900px;
+`
+
+const TaskLevelContainer = styled.div`
+  margin-bottom: 2em;
+  width: 100%;
+  max-width: 1300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 1rem;
+  justify-content: space-evenly;
+`
+
+const Task = styled(Link)`
+  > * {
+    transition: transform 0.1s;
+  }
+
+  > span {
+    display: block;
+  }
+
+  :hover {
+    > * {
+      transform: translateY(-10px);
+    }
+  }
+`
+
+const LinkImage = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #fff;
+  ${CSSShadows.large}
 `
 
 const PDFContainer = styled.iframe`
