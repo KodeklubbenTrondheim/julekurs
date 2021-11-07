@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import Editor from '@monaco-editor/react'
 import { createBreakpoint } from 'react-use'
 import styled from 'styled-components'
@@ -29,7 +29,7 @@ const getWidth = (size) => {
   }
 }
 
-export function CodeEditor({ above, below, language = 'python', ...props }) {
+export function CodeEditor({ above, below, language = 'python', onChange, ...props }) {
   const pythonCode = useStore((state) => state.pythonCode)
   const setDownloadablePythonCode = useStore((state) => state.setDownloadablePythonCode)
   const setPythonCode = useStore((state) => state.setPythonCode)
@@ -56,6 +56,7 @@ export function CodeEditor({ above, below, language = 'python', ...props }) {
           } else {
             setJavascriptCode(code)
           }
+          onChange()
         }}
         className="monaco-editor"
         onMount={(editor) => {
@@ -95,37 +96,44 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'speed',
+      blockxml:
+        '<block type="speed"><value name="SPEED"><shadow type="math_number"><field name="NUM">5</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'forward',
+      blockxml:
+        '<block type="forward"><value name="DISTANCE"><shadow type="math_number"><field name="NUM">100</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'backward',
+      blockxml:
+        '<block type="backward"><value name="DISTANCE"><shadow type="math_number"><field name="NUM">100</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'sideways',
+      blockxml:
+        '<block type="sideways"><value name="DISTANCE"><shadow type="math_number"><field name="NUM">100</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'right',
+      blockxml:
+        '<block type="right"><value name="DEGREES"><shadow type="math_number"><field name="NUM">90</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'left',
+      blockxml:
+        '<block type="left"><value name="DEGREES"><shadow type="math_number"><field name="NUM">90</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
-      type: 'goto',
+      blockxml:
+        '<block type="goto"><value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value></block>',
       gap: '4px',
     },
     {
@@ -135,7 +143,8 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'circle',
+      blockxml:
+        '<block type="circle"><value name="RADIUS"><shadow type="math_number"><field name="NUM">100</field></shadow></value><value name="ANGLE"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>',
     },
     {
       kind: 'label',
@@ -153,7 +162,8 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      type: 'penSize',
+      blockxml:
+        '<block type="penSize"><value name="SIZE"><shadow type="math_number"><field name="NUM">5</field></shadow></value></block>',
       gap: '4px',
     },
     {
@@ -338,15 +348,14 @@ const toolboxConfiguration = {
   ],
 }
 
-export function BlocklyEditor({ above, below, ...props }) {
+export function BlocklyEditor({ above, below, onChange, ...props }) {
   const preDefinedPythonCode = useStore((state) => state.preDefinedPythonCode)
   const extraPythonCodeForTheBrowserRendering = useStore((state) => state.extraPythonCodeForTheBrowserRendering)
   const setBlocklyPythonCode = useStore((state) => state.setBlocklyPythonCode)
   const setDownloadablePythonCode = useStore((state) => state.setDownloadablePythonCode)
   const initialXml = useStore((state) => state.blocklyXml)
   const onXmlChange = useStore((state) => state.setBlocklyXml)
-
-  const workspaceRef = useRef()
+  const setBlocklyWorkspace = useStore((state) => state.setBlocklyWorkspace)
 
   const size = useBreakpoint()
 
@@ -380,13 +389,17 @@ export function BlocklyEditor({ above, below, ...props }) {
           scrollbars: true,
         }}
         onInject={(workspace) => {
-          workspaceRef.current = workspace
-          workspaceRef.current.createVariable('variabel', 'int')
-          workspaceRef.current.registerButtonCallback('createVariable', () => {
-            Blockly.Variables.createVariableButtonHandler(workspaceRef.current, null, 'int')
+          setBlocklyWorkspace(workspace)
+          workspace.createVariable('variabel', 'int')
+          workspace.registerButtonCallback('createVariable', () => {
+            Blockly.Variables.createVariableButtonHandler(workspace, null, 'int')
           })
         }}
-        {...{ initialXml, toolboxConfiguration, onWorkspaceChange, onXmlChange }}
+        onXmlChange={(xml) => {
+          onXmlChange(xml)
+          onChange()
+        }}
+        {...{ initialXml, toolboxConfiguration, onWorkspaceChange }}
         {...props}
       />
       {below}

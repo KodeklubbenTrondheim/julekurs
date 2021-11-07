@@ -10,13 +10,16 @@ export const Header = () => {
       <Image src="gradient-christmas-background.png" alt="Christmas image" />
       <TextContainer>
         <StyledLink to="/" $active={path === '/'}>
-          Se andre julekort 👀
-        </StyledLink>
-        <StyledLink to="/julekort" $active={path === '/julekort'}>
-          Lag julekort 🔨
+          Hjem 🏡
         </StyledLink>
         <StyledLink to="/oppgaver" $active={path.startsWith('/oppgaver')}>
           Finn oppgaver 📃
+        </StyledLink>
+        <StyledLink to="/julekort" $active={path.startsWith('/julekort')}>
+          Lag julekort 🔨
+        </StyledLink>
+        <StyledLink to="/galleri" $active={path.startsWith('/galleri')}>
+          Se andre julekort 🤩
         </StyledLink>
       </TextContainer>
     </Container>
@@ -40,6 +43,7 @@ const StyledLink = styled(Link)`
 `
 
 const Image = styled.img`
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;

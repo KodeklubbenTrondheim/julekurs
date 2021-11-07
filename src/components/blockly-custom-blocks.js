@@ -6,19 +6,21 @@ Blockly.setLocale(Nb)
 
 Blockly.Blocks['speed'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(5, 'NUM')
-
-    this.appendValueInput('SPEED')
-      .setCheck('Number')
-      .appendField('hastighet')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Endre hastigheten på avataren (0 er superraskt)')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'hastighet %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'SPEED',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Endre hastigheten på avataren (0 er superraskt)',
+    })
   },
 }
 
@@ -29,19 +31,21 @@ Blockly.Python['speed'] = function (block) {
 
 Blockly.Blocks['forward'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(100, 'NUM')
-
-    this.appendValueInput('DISTANCE')
-      .setCheck('Number')
-      .appendField('fremover')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Flytt avataren fremover')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'fremover %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'DISTANCE',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Flytt avataren fremover',
+    })
   },
 }
 
@@ -52,19 +56,21 @@ Blockly.Python['forward'] = function (block) {
 
 Blockly.Blocks['backward'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(100, 'NUM')
-
-    this.appendValueInput('DISTANCE')
-      .setCheck('Number')
-      .appendField('bakover')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Flytt avataren bakover')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'bakover %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'DISTANCE',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Flytt avataren bakover',
+    })
   },
 }
 
@@ -75,23 +81,27 @@ Blockly.Python['backward'] = function (block) {
 
 Blockly.Blocks['goto'] = {
   init: function () {
-    const shadowX = this.workspace.newBlock('math_number')
-    shadowX.setShadow(true)
-    shadowX.setFieldValue(0, 'NUM')
-    const shadowY = this.workspace.newBlock('math_number')
-    shadowY.setShadow(true)
-    shadowY.setFieldValue(0, 'NUM')
-
-    this.appendDummyInput().appendField('gå til x:')
-    this.appendValueInput('X').setCheck('Number').connection.connect(shadowX.outputConnection)
-    this.appendDummyInput().appendField('y:')
-    this.appendValueInput('Y').setCheck('Number').connection.connect(shadowY.outputConnection)
-    this.appendDummyInput()
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Flytt avataren til en posisjon')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'gå til x: %1 y: %2',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'X',
+          check: 'Number',
+        },
+        {
+          type: 'input_value',
+          name: 'Y',
+          check: 'Number',
+        },
+      ],
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Flytt avataren til en posisjon',
+    })
   },
 }
 
@@ -103,6 +113,7 @@ Blockly.Python['goto'] = function (block) {
 
 Blockly.Blocks['gotoRandom'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('gå til tilfeldig posisjon')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -117,28 +128,38 @@ Blockly.Python['gotoRandom'] = function () {
 
 Blockly.Blocks['circle'] = {
   init: function () {
-    const shadowRadius = this.workspace.newBlock('math_number')
-    shadowRadius.setShadow(true)
-    shadowRadius.setFieldValue(100, 'NUM')
-    const shadowAngle = this.workspace.newBlock('math_number')
-    shadowAngle.setShadow(true)
-    shadowAngle.setFieldValue(360, 'NUM')
-
-    this.appendDummyInput().appendField('gå i sirkel')
-    this.appendDummyInput().appendField('med klokka ↻').appendField(new Blockly.FieldCheckbox(true), 'DIRECTION')
-    this.appendValueInput('RADIUS')
-      .setCheck('Number')
-      .appendField('radius:')
-      .connection.connect(shadowRadius.outputConnection)
-    this.appendValueInput('ANGLE')
-      .setCheck('Number')
-      .appendField('vinkel:')
-      .connection.connect(shadowAngle.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Flytt avataren i en sirkel')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'gå i sirkel',
+      message1: 'med klokka ↻ %1',
+      args1: [
+        {
+          type: 'field_checkbox',
+          name: 'DIRECTION',
+          checked: true,
+        },
+      ],
+      message2: 'radius: %1',
+      args2: [
+        {
+          type: 'input_value',
+          name: 'RADIUS',
+          check: 'Number',
+        },
+      ],
+      message3: 'vinkel: %1',
+      args3: [
+        {
+          type: 'input_value',
+          name: 'ANGLE',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Flytt avataren i en sirkel',
+    })
   },
 }
 
@@ -151,19 +172,21 @@ Blockly.Python['circle'] = function (block) {
 
 Blockly.Blocks['right'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(90, 'NUM')
-
-    this.appendValueInput('DEGREES')
-      .setCheck('Number')
-      .appendField('roter ↻')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Roter avataren antall grader til høyre (med klokka)')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'roter ↻ %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'DEGREES',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Roter avataren antall grader til høyre (med klokka)',
+    })
   },
 }
 
@@ -174,19 +197,21 @@ Blockly.Python['right'] = function (block) {
 
 Blockly.Blocks['left'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(90, 'NUM')
-
-    this.appendValueInput('DEGREES')
-      .setCheck('Number')
-      .appendField('roter ↺')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Roter avataren antall grader til venstre (mot klokka)')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'roter ↺ %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'DEGREES',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Roter avataren antall grader til venstre (mot klokka)',
+    })
   },
 }
 
@@ -197,19 +222,21 @@ Blockly.Python['left'] = function (block) {
 
 Blockly.Blocks['sideways'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(100, 'NUM')
-
-    this.appendValueInput('DISTANCE')
-      .setCheck('Number')
-      .appendField('sidelengs')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(900)
-    this.setTooltip('Flytt avataren sidelengs')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'sidelengs %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'DISTANCE',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 900,
+      tooltip: 'Flytt avataren sidelengs',
+    })
   },
 }
 
@@ -220,6 +247,7 @@ Blockly.Python['sideways'] = function (block) {
 
 Blockly.Blocks['color'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('sett farge').appendField(new Blockly.FieldColour('#ff0000'), 'COLOR')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -235,6 +263,7 @@ Blockly.Python['color'] = function (block) {
 
 Blockly.Blocks['randomColor'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('sett en tilfeldig farge')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -249,6 +278,7 @@ Blockly.Python['randomColor'] = function () {
 
 Blockly.Blocks['penUp'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('ta opp pennen')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -263,6 +293,7 @@ Blockly.Python['penUp'] = function () {
 
 Blockly.Blocks['penDown'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('ta ned pennen')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -277,19 +308,21 @@ Blockly.Python['penDown'] = function () {
 
 Blockly.Blocks['penSize'] = {
   init: function () {
-    const shadow = this.workspace.newBlock('math_number')
-    shadow.setShadow(true)
-    shadow.setFieldValue(5, 'NUM')
-
-    this.appendValueInput('SIZE')
-      .setCheck('Number')
-      .appendField('set penstørrelse til')
-      .connection.connect(shadow.outputConnection)
-
-    this.setPreviousStatement(true)
-    this.setNextStatement(true)
-    this.setColour(280)
-    this.setTooltip('Endre størrelsen på pennen')
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'sett penstørrelse til %1',
+      args0: [
+        {
+          type: 'input_value',
+          name: 'SIZE',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 280,
+      tooltip: 'Endre størrelsen på pennen',
+    })
   },
 }
 
@@ -300,6 +333,7 @@ Blockly.Python['penSize'] = function (block) {
 
 Blockly.Blocks['dot'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('tegn en prikk ⚪')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -314,6 +348,7 @@ Blockly.Python['dot'] = function (block) {
 
 Blockly.Blocks['write'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('skriv').appendField(new Blockly.FieldTextInput('God Jul!'), 'TEXT')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -329,6 +364,7 @@ Blockly.Python['write'] = function (block) {
 
 Blockly.Blocks['fontsize'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('sett størrelse på tekst til').appendField(new Blockly.FieldNumber(24), 'SIZE')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -344,6 +380,7 @@ Blockly.Python['fontsize'] = function (block) {
 
 Blockly.Blocks['fontname'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput()
       .appendField('velg font')
       .appendField(
@@ -375,6 +412,7 @@ Blockly.Python['fontname'] = function (block) {
 
 Blockly.Blocks['fonttype'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput()
       .appendField('velg fonttype')
       .appendField(
@@ -399,6 +437,7 @@ Blockly.Python['fonttype'] = function (block) {
 
 Blockly.Blocks['textalign'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput()
       .appendField('juster tekst til')
       .appendField(
@@ -423,6 +462,7 @@ Blockly.Python['textalign'] = function (block) {
 
 Blockly.Blocks['begin_fill'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('start fyll')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -437,6 +477,7 @@ Blockly.Python['begin_fill'] = function () {
 
 Blockly.Blocks['end_fill'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('slutt fyll')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -451,6 +492,7 @@ Blockly.Python['end_fill'] = function () {
 
 Blockly.Blocks['hideturtle'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('skjul avatar 🙈')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -465,6 +507,7 @@ Blockly.Python['hideturtle'] = function () {
 
 Blockly.Blocks['showturtle'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('vis avatar 🙉')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -479,6 +522,7 @@ Blockly.Python['showturtle'] = function () {
 
 Blockly.Blocks['shape'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput()
       .appendField('endre avatar til')
       .appendField(
@@ -506,6 +550,7 @@ Blockly.Python['shape'] = function (block) {
 
 Blockly.Blocks['stamp'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('stemple avataren')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -520,6 +565,7 @@ Blockly.Python['stamp'] = function () {
 
 Blockly.Blocks['commentStart'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('deaktiver kode etter denne 🚫')
 
     this.setPreviousStatement(true)
@@ -535,6 +581,7 @@ Blockly.Python['commentStart'] = function () {
 
 Blockly.Blocks['commentEnd'] = {
   init: function () {
+    if (!this.jsonInit) return
     this.appendDummyInput().appendField('aktiver koden etter denne ▶')
 
     this.setPreviousStatement(true)

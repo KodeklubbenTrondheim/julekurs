@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useThrottleFn } from 'react-use'
 import { useStore } from '../store'
@@ -9,7 +9,7 @@ import { CodePreview } from './CodePreview'
 
 const colors = ['#ffffff', '#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#000000']
 
-export function Graphics({ props }) {
+export function Graphics({ imageNumber, ...props }) {
   const canvasRef = useRef()
   const canvasGridRef = useRef()
   const canvasCtxRef = useRef()
@@ -20,6 +20,7 @@ export function Graphics({ props }) {
   const error = useStore((state) => state.error)
   const pythonErrorLineNumberOffset = useStore((state) => state.pythonErrorLineNumberOffset)
   const editorMode = useStore((state) => state.editorMode)
+  const setImage = useStore((state) => state.setImage)
 
   const size = useBreakpoint()
 
@@ -93,43 +94,60 @@ export function Graphics({ props }) {
     }
   }, [showGrid, canvasColor])
 
+  const generateImage = useCallback(
+    (download = false) => {
+      if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
+        const turtleCanvas = turtleCanvasContainerRef.current.children[1]
+        if (!turtleCanvas) return
+        const width = turtleCanvas.width
+        const height = turtleCanvas.height
+        canvasRef.current.width = width
+        canvasRef.current.height = height
+        canvasCtxRef.current.fillStyle = canvasColor
+        canvasCtxRef.current.fillRect(0, 0, width, height)
+
+        let first = true
+        for (const canvas of turtleCanvasContainerRef.current.children) {
+          if (first) {
+            first = false
+            continue
+          }
+          canvasCtxRef.current.drawImage(canvas, 0, 0, width, height)
+        }
+
+        const base64String = canvasRef.current.toDataURL('image/png;base64')
+
+        if (download) {
+          const linkElement = document.createElement('a')
+          linkElement.download = 'julekort.png'
+          linkElement.href = base64String
+          linkElement.click()
+        }
+
+        setImage(base64String)
+
+        canvasCtxRef.current.fillStyle = canvasColor
+        canvasCtxRef.current.fillRect(0, 0, width, height)
+      }
+    },
+    [canvasColor, setImage]
+  )
+
   const BottomSettings = () => (
     <BottomContainer>
-      <LinkButton
-        onClick={() => {
-          if (turtleCanvasContainerRef.current && canvasCtxRef.current) {
-            const turtleCanvas = turtleCanvasContainerRef.current.children[1]
-            if (!turtleCanvas) return
-            const width = turtleCanvas.width
-            const height = turtleCanvas.height
-            canvasRef.current.width = width
-            canvasRef.current.height = height
-            canvasCtxRef.current.fillStyle = canvasColor
-            canvasCtxRef.current.fillRect(0, 0, width, height)
-
-            let first = true
-            for (const canvas of turtleCanvasContainerRef.current.children) {
-              if (first) {
-                first = false
-                continue
-              }
-              canvasCtxRef.current.drawImage(canvas, 0, 0, width, height)
-            }
-
-            const linkElement = document.createElement('a')
-            linkElement.download = 'julekort.png'
-            linkElement.href = canvasRef.current.toDataURL('image/png;base64')
-            linkElement.click()
-
-            canvasCtxRef.current.fillStyle = canvasColor
-            canvasCtxRef.current.fillRect(0, 0, width, height)
-          }
-        }}
-      >
+      <LinkButton onClick={() => generateImage(true)}>
         Last ned bilde <i className="fas fa-download" />
       </LinkButton>
     </BottomContainer>
   )
+
+  const preImageNumber = useRef(-1)
+  useEffect(() => {
+    if (preImageNumber.current !== imageNumber) {
+      preImageNumber.current = imageNumber
+      generateImage(false)
+    }
+  }, [imageNumber, generateImage])
 
   return (
     <GraphicsContainer fixedPosition={size === 'L'}>

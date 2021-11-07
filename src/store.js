@@ -68,12 +68,14 @@ forward(100)
     localStorage.setItem('downloadablePythonCode', downloadablePythonCode)
     set(() => ({ downloadablePythonCode }))
   },
-  blocklyXml:
-    localStorage.getItem('blocklyXml') ||
-    `<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat" id="*Q4b-j2Gk=+EI9YKue+?" x="70" y="50"><field name="TIMES">3</field><statement name="DO"><block type="farge" id="m_}Q/PVE/?FoO*BP)l,H"><field name="COLOR">#ff0000</field><next><block type="fremover" id="ZlXa=;^K)n33zp(9fl)~"><field name="DISTANCE">100</field><next><block type="venstre" id=",zS%5o$YQQm8/-Sya8-n"><field name="DEGREES">90</field><next><block type="fremover" id="it;=-):3J-?U/!lQU.7U"><field name="DISTANCE">100</field><next><block type="farge" id="U0k:h\`P{X[8Ed0X^i$_F"><field name="COLOR">#000000</field><next><block type="venstre" id="=o)rvJ_(}bB(;q?9X3RQ"><field name="DEGREES">90</field><next><block type="fremover" id="Z],D3OV-w|#N_wDG(eW}"><field name="DISTANCE">100</field></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>`,
+  blocklyXml: localStorage.getItem('blocklyXml') || `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`,
   setBlocklyXml: (blocklyXml) => {
     localStorage.setItem('blocklyXml', blocklyXml)
     set(() => ({ blocklyXml }))
+  },
+  blocklyWorkspace: null,
+  setBlocklyWorkspace: (blocklyWorkspace) => {
+    set(() => ({ blocklyWorkspace }))
   },
 
   editorMode: localStorage.getItem('editorMode') || 'blockly',
@@ -109,4 +111,13 @@ forward(100)
   error: null,
   setError: (error) => set(() => ({ error })),
   clearError: () => set(() => ({ error: null })),
+
+  userId: null,
+  setUserId: (userId) => set(() => ({ userId })),
+
+  title: null,
+  setTitle: (title) => set(() => ({ title })),
+
+  image: null,
+  setImage: (image) => set(() => ({ image })),
 }))
