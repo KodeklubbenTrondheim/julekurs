@@ -220,6 +220,29 @@ const toolboxConfiguration = {
     },
     {
       kind: 'label',
+      text: 'Endre avatar 🤶🎅',
+    },
+    {
+      kind: 'block',
+      type: 'showturtle',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'hideturtle',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'shape',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
+      type: 'stamp',
+    },
+    {
+      kind: 'label',
       text: 'Repetisjon 🔁',
     },
     {
@@ -238,19 +261,19 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
-      blockxml: '<block type="variables_get"><field name="VAR">variabel</field></block>',
+      blockxml: '<block type="variables_get"><field name="VAR">a</field></block>',
       gap: '4px',
     },
     {
       kind: 'block',
       blockxml:
-        '<block type="variables_set"><field name="VAR">variabel</field><value name="VALUE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+        '<block type="variables_set"><field name="VAR">a</field><value name="VALUE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
       gap: '4px',
     },
     {
       kind: 'block',
       blockxml:
-        '<block type="math_change"><field name="VAR">variabel</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
+        '<block type="math_change"><field name="VAR">a</field><value name="DELTA"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>',
     },
     {
       kind: 'label',
@@ -311,29 +334,6 @@ const toolboxConfiguration = {
     },
     {
       kind: 'label',
-      text: 'Endre avatar 🤶🎅',
-    },
-    {
-      kind: 'block',
-      type: 'showturtle',
-      gap: '4px',
-    },
-    {
-      kind: 'block',
-      type: 'hideturtle',
-      gap: '4px',
-    },
-    {
-      kind: 'block',
-      type: 'shape',
-      gap: '4px',
-    },
-    {
-      kind: 'block',
-      type: 'stamp',
-    },
-    {
-      kind: 'label',
       text: 'Ekstra',
     },
     {
@@ -390,7 +390,7 @@ export function BlocklyEditor({ above, below, onChange, ...props }) {
         }}
         onInject={(workspace) => {
           setBlocklyWorkspace(workspace)
-          workspace.createVariable('variabel', 'int')
+          workspace.createVariable('a', 'int')
           workspace.registerButtonCallback('createVariable', () => {
             Blockly.Variables.createVariableButtonHandler(workspace, null, 'int')
           })
@@ -413,7 +413,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 8px;
   font-size: 16px;
-  margin-top: 40px;
+  margin-top: 56px;
 
   .monaco-editor {
     overflow: hidden;
