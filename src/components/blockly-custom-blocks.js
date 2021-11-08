@@ -342,7 +342,7 @@ Blockly.Blocks['dot'] = {
   },
 }
 
-Blockly.Python['dot'] = function (block) {
+Blockly.Python['dot'] = function () {
   return `dot()\n`
 }
 
@@ -365,7 +365,7 @@ Blockly.Python['write'] = function (block) {
 Blockly.Blocks['fontsize'] = {
   init: function () {
     if (!this.jsonInit) return
-    this.appendDummyInput().appendField('sett størrelse på tekst til').appendField(new Blockly.FieldNumber(24), 'SIZE')
+    this.appendDummyInput().appendField('sett tekststørrelsen til').appendField(new Blockly.FieldNumber(24), 'SIZE')
     this.setPreviousStatement(true)
     this.setNextStatement(true)
     this.setColour(280)
@@ -566,7 +566,7 @@ Blockly.Python['stamp'] = function () {
 Blockly.Blocks['commentStart'] = {
   init: function () {
     if (!this.jsonInit) return
-    this.appendDummyInput().appendField('deaktiver kode etter denne 🚫')
+    this.appendDummyInput().appendField('hopp over koden under 🦘')
 
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -582,7 +582,7 @@ Blockly.Python['commentStart'] = function () {
 Blockly.Blocks['commentEnd'] = {
   init: function () {
     if (!this.jsonInit) return
-    this.appendDummyInput().appendField('aktiver koden etter denne ▶')
+    this.appendDummyInput().appendField('hopp inn i koden igjen 🦘')
 
     this.setPreviousStatement(true)
     this.setNextStatement(true)
@@ -597,3 +597,4 @@ Blockly.Python['commentEnd'] = function () {
 
 Blockly.Msg.MATH_CHANGE_TITLE = 'endre %1 med %2'
 Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = ''
+Blockly.Msg.MATH_RANDOM_INT_TITLE = 'tilfeldig tall fra: %1 til: %2'
