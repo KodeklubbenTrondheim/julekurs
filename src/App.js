@@ -109,7 +109,7 @@ function App() {
                     "
                   </li>
                   <li>
-                    Lagre verket ditt med "Lagre koden <i className="fas fa-save" />
+                    Lagre verket ditt med "Lagre julekortet <i className="fas fa-save" />
                     "-knappen
                   </li>
                   <li>
