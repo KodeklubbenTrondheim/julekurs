@@ -230,7 +230,7 @@ const GraphicsContainer = styled.div`
   height: 400px;
   background-color: transparent;
   border-radius: 8px;
-  margin-top: 44px;
+  margin-top: 56px;
   margin-bottom: 44px;
   ${CSSShadows.large}
 
