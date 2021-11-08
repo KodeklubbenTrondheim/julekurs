@@ -473,6 +473,11 @@ const StyledEditorHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 8px;
+  overflow-x: auto;
+
+  > button {
+    white-space: pre;
+  }
 `
 
 const RunButton = styled(Button)`
