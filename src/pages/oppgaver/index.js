@@ -98,8 +98,18 @@ export function OppgaveSide() {
     }
   }, [oppgaveId])
 
+  if (isPdf) {
+    return (
+      <PDFContainer>
+        <PDF src={pdfUrl} />
+      </PDFContainer>
+    )
+  }
+
   return (
-    <TaskContainer>{isPdf ? <PDFContainer src={pdfUrl}></PDFContainer> : <Markdown>{task}</Markdown>}</TaskContainer>
+    <TaskContainer>
+      <Markdown>{task}</Markdown>
+    </TaskContainer>
   )
 }
 
@@ -126,7 +136,17 @@ const TasksContainer = styled.div`
 `
 
 const TaskContainer = styled(TasksContainer)`
-  width: 900px;
+  width: 830px;
+  max-width: calc(100% - 2rem);
+`
+
+const PDFContainer = styled(TaskContainer)`
+  padding: 0;
+  margin: 0 1rem 1rem;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  ${CSSShadows.large}
 `
 
 const TaskLevelContainer = styled.div`
@@ -164,7 +184,7 @@ const LinkImage = styled.img`
   ${CSSShadows.large}
 `
 
-const PDFContainer = styled.iframe`
+const PDF = styled.iframe`
   border: none;
   width: 100%;
   flex: 1 0 auto;
