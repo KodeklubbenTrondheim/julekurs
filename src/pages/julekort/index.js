@@ -58,7 +58,7 @@ export function JulekortSide() {
 
   useEffect(() => {
     if (prosjektId && (projectData === null || prosjektId !== projectData.id)) {
-      if ((blocklyWorkspace, userId)) {
+      if (blocklyWorkspace) {
         const getProject = async () => {
           isLoadingProject.current = true
           const docSnap = await getDoc(doc(getFirestore(), 'projects', prosjektId))
@@ -81,7 +81,7 @@ export function JulekortSide() {
             if (data.canvasColor) setCanvasColor(data.canvasColor)
             setTitle(data.title)
             setProjectData({ id: prosjektId, ...data })
-            setYouAreOwner(data.author === '/users/' + userId)
+            setYouAreOwner(data.author === '/users/' + (userId || ''))
             console.log('Document data:', docSnap.data())
           } else {
             console.log('Fant ikke dokumentet :(')
@@ -161,18 +161,18 @@ export function JulekortSide() {
         <SaveButton onClick={codeGotSaved ? () => {} : save}>
           {codeGotSaved ? (
             <>
-              Koden ble lagret <i className="fas fa-check" />
+              Julekortet ble lagret <i className="fas fa-check" />
             </>
           ) : (
             <>
-              Lagre koden <i className="fas fa-save" />
+              Lagre julekortet <i className="fas fa-save" />
             </>
           )}
         </SaveButton>
       )}
       {!prosjektId && (
         <SaveButton onClick={create}>
-          Lagre koden <i className="fas fa-save" />
+          Lagre julekortet <i className="fas fa-save" />
         </SaveButton>
       )}
       {prosjektId && !youAreOwner && (
