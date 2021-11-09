@@ -129,6 +129,9 @@ function App() {
             <Route path="/julekort" exact>
               <JulekortSide />
             </Route>
+            <Route path="/julekort/:prosjektId/embedded">
+              <JulekortSide embedded />
+            </Route>
             <Route path="/julekort/:prosjektId">
               <JulekortSide />
             </Route>

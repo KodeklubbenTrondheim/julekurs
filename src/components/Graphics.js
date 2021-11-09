@@ -9,7 +9,7 @@ import { CodePreview } from './CodePreview'
 
 const colors = ['#ffffff', '#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#000000']
 
-export function Graphics({ imageNumber, ...props }) {
+export function Graphics({ imageNumber, fullScreen = false, ...props }) {
   const canvasRef = useRef()
   const canvasGridRef = useRef()
   const canvasCtxRef = useRef()
@@ -152,7 +152,7 @@ export function Graphics({ imageNumber, ...props }) {
   }, [imageNumber, generateImage])
 
   return (
-    <GraphicsContainer fixedPosition={size === 'L'}>
+    <GraphicsContainer $fixedPosition={size === 'L' && !fullScreen} $fullScreen={fullScreen}>
       <TopContainer>
         <ToggleGrid isSelected={showGrid} onClick={() => setShowGrid(!showGrid)}>
           <i className="fas fa-border-all" />
@@ -223,29 +223,6 @@ export function Graphics({ imageNumber, ...props }) {
   )
 }
 
-const GraphicsContainer = styled.div`
-  position: ${(props) => (props.fixedPosition ? 'absolute' : 'relative')};
-  z-index: 999;
-  top: ${(props) => (props.fixedPosition ? '51px' : 'unset')};
-  right: ${(props) => (props.fixedPosition ? '16px' : 'unset')};
-  width: 400px;
-  height: 400px;
-  background-color: transparent;
-  border-radius: 8px;
-  margin-top: 56px;
-  margin-bottom: 44px;
-  ${CSSShadows.large}
-
-  canvas {
-    width: 400px !important;
-    height: 400px !important;
-  }
-
-  canvas + canvas {
-    margin-top: -400px !important;
-  }
-`
-
 const CanvasContainer = styled.div`
   position: absolute;
   top: 0;
@@ -274,6 +251,35 @@ const TopContainer = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: 8px;
+`
+
+const GraphicsContainer = styled.div`
+  --width: ${(props) => (props.$fullScreen ? 'min(60vh, 90vw)' : '400px')};
+
+  position: ${(props) => (props.$fixedPosition ? 'absolute' : 'relative')};
+  z-index: 999;
+  top: ${(props) => (props.$fixedPosition ? '51px' : 'unset')};
+  right: ${(props) => (props.$fixedPosition ? '16px' : 'unset')};
+  width: var(--width);
+  height: var(--width);
+  background-color: transparent;
+  border-radius: 8px;
+  margin-top: 56px;
+  margin-bottom: 44px;
+  ${CSSShadows.large}
+
+  canvas {
+    width: var(--width) !important;
+    height: var(--width) !important;
+  }
+
+  canvas + canvas {
+    margin-top: calc(-1 * var(--width)) !important;
+  }
+
+  ${TopContainer} {
+    justify-content: ${(props) => (props.$fullScreen ? 'flex-start' : 'space-between')};
+  }
 `
 
 const VerticalDivider = styled.div`
