@@ -7,7 +7,7 @@ export const Header = () => {
 
   return (
     <Container>
-      <Image src="gradient-christmas-background.png" alt="Christmas image" />
+      <Image src={process.env.PUBLIC_URL + '/bilder/gradient-christmas-background.png'} alt="Christmas image" />
       <TextContainer>
         <StyledLink to="/" $active={path === '/'}>
           Hjem 🏡

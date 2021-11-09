@@ -53,8 +53,8 @@ function App() {
   const setUserId = useStore((store) => store.setUserId)
 
   useEffect(() => {
-    setUserId(user?.email)
-  }, [user, setUserId])
+    if (!loading) setUserId(user?.email || '')
+  }, [user, loading, setUserId])
 
   return (
     <Router>
@@ -72,7 +72,7 @@ function App() {
           {user && (
             <>
               <span>Hei, {user.email}!</span>
-              <LinkButton href="#/profil" $color="#333" $hoverColor="#222" $size="12px">
+              <LinkButton href={process.env.PUBLIC_URL + '#/profil'} $color="#333" $hoverColor="#222" $size="12px">
                 Se dine julekort
               </LinkButton>
               <Button onClick={logout} $color="#333" $hoverColor="#222" $size="12px">
@@ -96,14 +96,14 @@ function App() {
                 <ol>
                   <li>
                     Finn en oppgave på "
-                    <a href="#/oppgaver" target="_blank">
+                    <a href={process.env.PUBLIC_URL + '#/oppgaver'} target="_blank" rel="noreferrer">
                       Finn oppgaver 📃
                     </a>
                     " (se øverst på siden)
                   </li>
                   <li>
                     Åpne "
-                    <a href="#/julekort" target="_blank">
+                    <a href={process.env.PUBLIC_URL + '#/julekort'} target="_blank" rel="noreferrer">
                       Lag julekort 🔨
                     </a>
                     "
@@ -114,7 +114,7 @@ function App() {
                   </li>
                   <li>
                     Nyt verket ditt på "
-                    <a href="#/galleri" target="_blank">
+                    <a href={process.env.PUBLIC_URL + '#/galleri'} target="_blank" rel="noreferrer">
                       Se andre julekort 🤩
                     </a>
                     "

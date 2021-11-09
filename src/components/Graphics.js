@@ -21,6 +21,7 @@ export function Graphics({ imageNumber, ...props }) {
   const pythonErrorLineNumberOffset = useStore((state) => state.pythonErrorLineNumberOffset)
   const editorMode = useStore((state) => state.editorMode)
   const setImage = useStore((state) => state.setImage)
+  const title = useStore((state) => state.title)
 
   const size = useBreakpoint()
 
@@ -119,7 +120,7 @@ export function Graphics({ imageNumber, ...props }) {
 
         if (download) {
           const linkElement = document.createElement('a')
-          linkElement.download = 'julekort.png'
+          linkElement.download = (title || 'julekort').replace(/[^a-zøæå ]/gi, '') + '.png'
           linkElement.href = base64String
           linkElement.click()
         }
@@ -130,7 +131,7 @@ export function Graphics({ imageNumber, ...props }) {
         canvasCtxRef.current.fillRect(0, 0, width, height)
       }
     },
-    [canvasColor, setImage]
+    [canvasColor, setImage, title]
   )
 
   const BottomSettings = () => (

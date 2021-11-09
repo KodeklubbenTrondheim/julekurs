@@ -385,16 +385,27 @@ Blockly.Blocks['fontname'] = {
       .appendField('velg font')
       .appendField(
         new Blockly.FieldDropdown([
-          [{ src: process.env.PUBLIC_URL + '/helvetica.png', width: 100, height: 28, alt: 'Helvetica' }, 'Helvetica'],
           [
-            { src: process.env.PUBLIC_URL + '/comic-sans-ms.png', width: 90, height: 28, alt: 'Comic Sans MS' },
+            { src: process.env.PUBLIC_URL + '/bilder/helvetica.png', width: 100, height: 28, alt: 'Helvetica' },
+            'Helvetica',
+          ],
+          [
+            { src: process.env.PUBLIC_URL + '/bilder/comic-sans-ms.png', width: 90, height: 28, alt: 'Comic Sans MS' },
             'Comic Sans MS',
           ],
           [
-            { src: process.env.PUBLIC_URL + '/handwritten.png', width: 120, height: 28, alt: 'Monotype Corsiva' },
+            {
+              src: process.env.PUBLIC_URL + '/bilder/handwritten.png',
+              width: 120,
+              height: 28,
+              alt: 'Monotype Corsiva',
+            },
             'Monotype Corsiva',
           ],
-          [{ src: process.env.PUBLIC_URL + '/monospace.png', width: 100, height: 28, alt: 'Monospace' }, 'Monospace'],
+          [
+            { src: process.env.PUBLIC_URL + '/bilder/monospace.png', width: 100, height: 28, alt: 'Monospace' },
+            'Monospace',
+          ],
         ]),
         'NAME'
       )
@@ -417,9 +428,9 @@ Blockly.Blocks['fonttype'] = {
       .appendField('velg fonttype')
       .appendField(
         new Blockly.FieldDropdown([
-          [{ src: process.env.PUBLIC_URL + '/normal.png', width: 60, height: 24, alt: 'normal' }, 'normal'],
-          [{ src: process.env.PUBLIC_URL + '/bold.png', width: 60, height: 24, alt: 'bold' }, 'bold'],
-          [{ src: process.env.PUBLIC_URL + '/italic.png', width: 60, height: 24, alt: 'italic' }, 'italic'],
+          [{ src: process.env.PUBLIC_URL + '/bilder/normal.png', width: 60, height: 24, alt: 'normal' }, 'normal'],
+          [{ src: process.env.PUBLIC_URL + '/bilder/bold.png', width: 60, height: 24, alt: 'bold' }, 'bold'],
+          [{ src: process.env.PUBLIC_URL + '/bilder/italic.png', width: 60, height: 24, alt: 'italic' }, 'italic'],
         ]),
         'TYPE'
       )

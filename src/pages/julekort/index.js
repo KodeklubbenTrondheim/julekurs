@@ -58,7 +58,7 @@ export function JulekortSide() {
 
   useEffect(() => {
     if (prosjektId && (projectData === null || prosjektId !== projectData.id)) {
-      if (blocklyWorkspace) {
+      if (blocklyWorkspace && typeof userId === 'string') {
         const getProject = async () => {
           isLoadingProject.current = true
           const docSnap = await getDoc(doc(getFirestore(), 'projects', prosjektId))
@@ -190,6 +190,12 @@ export function JulekortSide() {
           Slett julekortet <i className="fas fa-trash" />
         </Button>
       )}
+      {prosjektId && (
+        // TODO: Dele med andre (modal(ref YT)? QR-kode, link, last ned bilde)
+        <Button onClick={() => {}}>
+          Del julekortet med andre <i className="fas fa-share" />
+        </Button>
+      )}
       <RunButton onClick={runCodeFunction}>
         Kjør koden <i className="fas fa-play" />
       </RunButton>
@@ -247,12 +253,15 @@ export function JulekortSide() {
       author: '/users/' + email,
       blocklyXml,
       created: new Date(),
-      image: await captureAndUploadImage(prosjektId),
       modified: new Date(),
       pythonCode,
       title: getTitle(),
       usingPython: false,
       canvasColor,
+    })
+
+    await updateDoc(doc(getFirestore(), 'projects', docRef.id), {
+      image: await captureAndUploadImage(docRef.id),
     })
 
     await updateDoc(doc(getFirestore(), 'collections', 'trondheim-julekurs-2021'), {
@@ -366,8 +375,8 @@ export function JulekortSide() {
                         width: 1600,
                         height: 1600,
                         assets: {
-                          'nisse-old-female': process.env.PUBLIC_URL + '/nisse-old-female.png',
-                          'nisse-old-male': process.env.PUBLIC_URL + '/nisse-old-male.png',
+                          'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
+                          'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
                         },
                       },
                     })
@@ -415,8 +424,8 @@ export function JulekortSide() {
                         width: 1600,
                         height: 1600,
                         assets: {
-                          'nisse-old-female': process.env.PUBLIC_URL + '/nisse-old-female.png',
-                          'nisse-old-male': process.env.PUBLIC_URL + '/nisse-old-male.png',
+                          'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
+                          'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
                         },
                       },
                     })

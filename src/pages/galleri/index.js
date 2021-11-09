@@ -22,10 +22,7 @@ export function GalleriSide() {
             .map(({ id, title, image }) => {
               return (
                 <Project key={id}>
-                  <LinkButton
-                    href={window.location.origin + process.env.PUBLIC_URL + '#/julekort/' + id}
-                    target="_blank"
-                  >
+                  <LinkButton href={process.env.PUBLIC_URL + '#/julekort/' + id} target="_blank">
                     <ThumbnailImage src={image} alt={title} />
                   </LinkButton>
                 </Project>

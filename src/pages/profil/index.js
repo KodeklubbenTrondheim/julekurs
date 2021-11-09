@@ -35,7 +35,7 @@ function ProjectItem({ id }) {
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Henter julekort ...</span>}
       {data && (
-        <LinkButton href={window.location.origin + process.env.PUBLIC_URL + '#/julekort/' + id} target="_blank">
+        <LinkButton href={process.env.PUBLIC_URL + '#/julekort/' + id} target="_blank">
           <ThumbnailImage src={data.image} alt={data.title} />
         </LinkButton>
       )}
