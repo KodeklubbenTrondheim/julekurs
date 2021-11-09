@@ -14,13 +14,16 @@ import {
 } from 'firebase/firestore'
 import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage'
 import { setOptions, setEngine, runCode } from 'client-side-python-runner'
+import QRCode from 'qrcode.react'
 import { CodeEditor, BlocklyEditor } from '../../components/CodeEditor'
 import { Graphics } from '../../components/Graphics'
 import { Button } from '../../components/Button'
 import { useStore } from '../../store'
 import { useParams, useHistory } from 'react-router'
+import { useCopyToClipboard } from 'react-use'
 import Blockly from 'blockly'
 import { login } from '../../App'
+import { CSSShadows } from '../../constants'
 
 export function JulekortSide() {
   const { prosjektId = null } = useParams()
@@ -30,6 +33,9 @@ export function JulekortSide() {
   const [youAreOwner, setYouAreOwner] = useState(false)
   const [codeGotSaved, setCodeGotSaved] = useState(false)
   const [imageNumber, updateImageNumber] = useState(0)
+  const [shareModal, openShareModal] = useState(false)
+  const [waitingToDownloadImage, waitToDownloadImage] = useState(false)
+  const [, copyToClipboard] = useCopyToClipboard()
 
   const userId = useStore((state) => state.userId)
   const title = useStore((store) => store.title)
@@ -192,7 +198,7 @@ export function JulekortSide() {
       )}
       {prosjektId && (
         // TODO: Dele med andre (modal(ref YT)? QR-kode, link, last ned bilde)
-        <Button onClick={() => {}}>
+        <Button onClick={() => openShareModal(true)}>
           Del julekortet med andre <i className="fas fa-share" />
         </Button>
       )}
@@ -340,6 +346,67 @@ export function JulekortSide() {
     setCodeGotSaved(false)
   }
 
+  const runPythonCode = async () => {
+    await setEngine('skulpt', '1.0.0')
+    clearError()
+    if (editor) {
+      window.monaco.editor.setModelMarkers('getModel' in editor ? editor.getModel() : editor, 'python-editor', [])
+    }
+    try {
+      await runCode(preDefinedPythonCode + extraPythonCodeForTheBrowserRendering + pythonCode, {
+        turtleGraphics: {
+          target: 'julekort-grafikk-turtle',
+          width: 1600,
+          height: 1600,
+          assets: {
+            'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
+            'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
+          },
+        },
+      })
+      afterCodeRun()
+    } catch (error) {
+      setError(error)
+      console.error(error)
+      if (error.lineNumber && error.lineNumber > pythonErrorLineNumberOffset && editor) {
+        const lineNumberInEditor = error.lineNumber - pythonErrorLineNumberOffset
+        window.monaco.editor.setModelMarkers('getModel' in editor ? editor.getModel() : editor, 'python-editor', [
+          {
+            startLineNumber: lineNumberInEditor,
+            startColumn: 0,
+            endLineNumber: lineNumberInEditor + 1,
+            endColumn: 0,
+            message: error.type + ': ' + error.message,
+            severity: 3,
+            source: '',
+          },
+        ])
+      }
+    }
+  }
+
+  const runBlocklyCode = async () => {
+    await setEngine('skulpt', '1.0.0')
+    clearError()
+    try {
+      await runCode(blocklyPythonCode, {
+        turtleGraphics: {
+          target: 'julekort-grafikk-turtle',
+          width: 1600,
+          height: 1600,
+          assets: {
+            'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
+            'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
+          },
+        },
+      })
+      afterCodeRun()
+    } catch (error) {
+      setError(error)
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <EditableTitle
@@ -356,91 +423,70 @@ export function JulekortSide() {
               setCodeGotSaved(false)
             }}
             language="python"
-            above={
-              <EditorHeader
-                runCodeFunction={async () => {
-                  await setEngine('skulpt', '1.0.0')
-                  clearError()
-                  if (editor) {
-                    window.monaco.editor.setModelMarkers(
-                      'getModel' in editor ? editor.getModel() : editor,
-                      'python-editor',
-                      []
-                    )
-                  }
-                  try {
-                    await runCode(preDefinedPythonCode + extraPythonCodeForTheBrowserRendering + pythonCode, {
-                      turtleGraphics: {
-                        target: 'julekort-grafikk-turtle',
-                        width: 1600,
-                        height: 1600,
-                        assets: {
-                          'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
-                          'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
-                        },
-                      },
-                    })
-                    afterCodeRun()
-                  } catch (error) {
-                    setError(error)
-                    console.error(error)
-                    if (error.lineNumber && error.lineNumber > pythonErrorLineNumberOffset && editor) {
-                      const lineNumberInEditor = error.lineNumber - pythonErrorLineNumberOffset
-                      window.monaco.editor.setModelMarkers(
-                        'getModel' in editor ? editor.getModel() : editor,
-                        'python-editor',
-                        [
-                          {
-                            startLineNumber: lineNumberInEditor,
-                            startColumn: 0,
-                            endLineNumber: lineNumberInEditor + 1,
-                            endColumn: 0,
-                            message: error.type + ': ' + error.message,
-                            severity: 3,
-                            source: '',
-                          },
-                        ]
-                      )
-                    }
-                  }
-                }}
-              />
-            }
+            above={<EditorHeader runCodeFunction={runPythonCode} />}
           />
         ) : (
           <BlocklyEditor
             onChange={() => {
               setCodeGotSaved(false)
             }}
-            above={
-              <EditorHeader
-                runCodeFunction={async () => {
-                  await setEngine('skulpt', '1.0.0')
-                  clearError()
-                  try {
-                    await runCode(blocklyPythonCode, {
-                      turtleGraphics: {
-                        target: 'julekort-grafikk-turtle',
-                        width: 1600,
-                        height: 1600,
-                        assets: {
-                          'nisse-old-female': process.env.PUBLIC_URL + '/bilder/nisse-old-female.png',
-                          'nisse-old-male': process.env.PUBLIC_URL + '/bilder/nisse-old-male.png',
-                        },
-                      },
-                    })
-                    afterCodeRun()
-                  } catch (error) {
-                    setError(error)
-                    console.error(error)
-                  }
-                }}
-              />
-            }
+            above={<EditorHeader runCodeFunction={runBlocklyCode} />}
           />
         )}
         {pythonEngineLoading ? `Laster inn Python (${pythonEngineLoading}) ...` : ''}
       </Container>
+      {shareModal && (
+        <ShareModalContainer onClick={() => openShareModal(false)}>
+          <ShareModal onClick={(e) => e.stopPropagation()}>
+            <h3>Del prosjektet</h3>
+            <LinkShareContainer>
+              Kopier link
+              <LinkShare
+                value={window.location.origin + process.env.PUBLIC_URL + '#/julekort/' + prosjektId}
+                readOnly
+              />
+              <CopyLinkButton
+                onClick={() => {
+                  copyToClipboard(window.location.origin + process.env.PUBLIC_URL + '#/julekort/' + prosjektId)
+                }}
+              />
+            </LinkShareContainer>
+            <LinkShareContainer>
+              Scan QR-kode
+              <QRCode value={window.location.origin + process.env.PUBLIC_URL + '#/julekort/' + prosjektId} />
+            </LinkShareContainer>
+            <Button
+              onClick={async () => {
+                if (!window.image) {
+                  waitToDownloadImage(true)
+                  if (editorMode === 'python') {
+                    await runPythonCode()
+                  } else {
+                    await runBlocklyCode()
+                  }
+                }
+                waitToDownloadImage(false)
+                setTimeout(() => {
+                  const linkElement = document.createElement('a')
+                  linkElement.download = (title || 'julekort').replace(/[^a-zøæå ]/gi, '') + '.png'
+                  linkElement.href = window.image
+                  linkElement.click()
+                }, 1000)
+              }}
+            >
+              {waitingToDownloadImage ? (
+                <>
+                  Vent et par sekunder! Må tegne julekortet først <i className="fas fa-sync fa-spin" />
+                </>
+              ) : (
+                <>
+                  Last ned bilde <i className="fas fa-download" />
+                </>
+              )}
+            </Button>
+          </ShareModal>
+        </ShareModalContainer>
+      )}
     </>
   )
 }
@@ -499,3 +545,64 @@ const RunButton = styled(Button)`
 `
 
 const SaveButton = styled(Button)``
+
+const ShareModalContainer = styled.div`
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #0002;
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ShareModal = styled.div`
+  background-color: #000;
+  border-radius: 8px;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 640px;
+  margin: 16px;
+  padding: 16px;
+  ${CSSShadows.large}
+`
+
+const LinkShareContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  position: relative;
+`
+
+const LinkShare = styled.input`
+  flex: 1 0 200px;
+  background: #fff2;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: 12px calc(8px + 36px) 12px 8px;
+  font-size: 16px;
+`
+
+const CopyLinkButton = styled.i.attrs({
+  className: 'fas fa-copy',
+})`
+  cursor: pointer;
+  flex: 0 0 auto;
+  position: absolute;
+  right: 16px;
+`

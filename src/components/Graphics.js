@@ -125,6 +125,7 @@ export function Graphics({ imageNumber, ...props }) {
           linkElement.click()
         }
 
+        window.image = base64String
         setImage(base64String)
 
         canvasCtxRef.current.fillStyle = canvasColor
