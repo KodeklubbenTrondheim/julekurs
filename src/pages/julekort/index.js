@@ -438,7 +438,8 @@ export function JulekortSide() {
       {shareModal && (
         <ShareModalContainer onClick={() => openShareModal(false)}>
           <ShareModal onClick={(e) => e.stopPropagation()}>
-            <h3>Del prosjektet</h3>
+            <CloseModalButton onClick={() => openShareModal(false)} />
+            <h3 style={{ marginTop: 16 }}>Del prosjektet</h3>
             <LinkShareContainer>
               Kopier link
               <LinkShare
@@ -562,6 +563,7 @@ const ShareModalContainer = styled.div`
 `
 
 const ShareModal = styled.div`
+  position: relative;
   background-color: #000;
   border-radius: 8px;
   overflow: auto;
@@ -605,4 +607,13 @@ const CopyLinkButton = styled.i.attrs({
   flex: 0 0 auto;
   position: absolute;
   right: 16px;
+`
+
+const CloseModalButton = styled.i.attrs({
+  className: 'fas fa-close',
+})`
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  cursor: pointer;
 `
