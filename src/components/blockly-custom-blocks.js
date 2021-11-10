@@ -261,6 +261,50 @@ Blockly.Python['color'] = function (block) {
   return `color("${value}")\n`
 }
 
+Blockly.Blocks['rgba'] = {
+  init: function () {
+    if (!this.jsonInit) return
+    this.jsonInit({
+      message0: 'sett farge',
+      message1: 'rød: %1 grønn: %2 blå: %3 gjennomsiktig: %4',
+      args1: [
+        {
+          type: 'input_value',
+          name: 'RED',
+          check: 'Number',
+        },
+        {
+          type: 'input_value',
+          name: 'GREEN',
+          check: 'Number',
+        },
+        {
+          type: 'input_value',
+          name: 'BLUE',
+          check: 'Number',
+        },
+        {
+          type: 'input_value',
+          name: 'ALPHA',
+          check: 'Number',
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: 280,
+      tooltip: 'Endre gjennomsiktigheten på streken',
+    })
+  },
+}
+
+Blockly.Python['rgba'] = function (block) {
+  const r = Blockly.Python.valueToCode(block, 'RED', Blockly.Python.ORDER_ATOMIC) || '0'
+  const g = Blockly.Python.valueToCode(block, 'GREEN', Blockly.Python.ORDER_ATOMIC) || '0'
+  const b = Blockly.Python.valueToCode(block, 'BLUE', Blockly.Python.ORDER_ATOMIC) || '0'
+  const a = Blockly.Python.valueToCode(block, 'ALPHA', Blockly.Python.ORDER_ATOMIC) || '0'
+  return `color(max(0, min(1, ${r} / 255)), max(0, min(1, ${g} / 255)), max(0, min(1, ${b} / 255)), max(0, min(1, ${a} / 255)))\n`
+}
+
 Blockly.Blocks['randomColor'] = {
   init: function () {
     if (!this.jsonInit) return
@@ -273,7 +317,7 @@ Blockly.Blocks['randomColor'] = {
 }
 
 Blockly.Python['randomColor'] = function () {
-  return `color(random.random(), random.random(), random.random())\n`
+  return `randomColor()\n`
 }
 
 Blockly.Blocks['penUp'] = {

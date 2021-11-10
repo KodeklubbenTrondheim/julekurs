@@ -157,6 +157,12 @@ const toolboxConfiguration = {
     },
     {
       kind: 'block',
+      blockxml:
+        '<block type="rgba"><value name="RED"><shadow type="math_number"><field name="NUM">255</field></shadow></value><value name="GREEN"><shadow type="math_number"><field name="NUM">255</field></shadow></value><value name="BLUE"><shadow type="math_number"><field name="NUM">255</field></shadow></value><value name="ALPHA"><shadow type="math_number"><field name="NUM">255</field></shadow></value></block>',
+      gap: '4px',
+    },
+    {
+      kind: 'block',
       type: 'randomColor',
       gap: '4px',
     },

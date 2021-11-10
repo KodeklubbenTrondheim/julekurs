@@ -12,6 +12,11 @@ def sideways(distance):
   [x, y] = pos()
   goto(x + distance * cos(direction), y + distance * sin(direction))
 
+def randomColor():
+  hue, d = random.random() * pi * 2, pi * 2 / 3
+  r, g, b = sin(hue - d) + 1, sin(hue) + 1, sin(hue + d) + 1
+  color(r / 2, g / 2, b / 2)
+
 fontname, fontsize, fonttype, textalign = "Arial", 24, "normal", "left"
 pensize(scale)
 
