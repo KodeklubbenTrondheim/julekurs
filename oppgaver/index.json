@@ -1,31 +1,123 @@
 {
   "oppgaver": [
     {
-      "title": "Snøflak",
-      "level": "easy",
-      "image": "https://cdn.pixabay.com/photo/2017/11/02/03/47/snowflake-2910087_1280.png",
-      "id": "snoflak"
-    },
-    {
       "title": "Snøball",
       "level": "easy",
       "id": "snoball",
       "image": "https://user-images.githubusercontent.com/8504538/139929175-32b4bbf2-2955-4961-b7e4-503e5442eb22.png",
-      "pdf": "https://docs.google.com/document/d/e/2PACX-1vTiSYGejs4odSuig8zlMRkDDY1xm8W0pfIiQjOYhDxX6gYpn28lE_X0WZ242SsCMN2zAsmlS8AKR28H/pub?embedded=true"
-    },
-    {
-      "title": "Gave",
-      "level": "easy",
-      "id": "gave",
-      "image": "https://user-images.githubusercontent.com/8504538/139928664-8be92744-5820-44b6-920a-f5f71bde34af.png",
-      "pdf": "https://docs.google.com/document/d/e/2PACX-1vT6zSY8XOgnMPOTDSU9zYZCVGwUOQVnTs3dVUQ7JiHEm9JFncAr939YRZOGPURwQN61akaX_vNreS5y/pub?embedded=true"
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vTiSYGejs4odSuig8zlMRkDDY1xm8W0pfIiQjOYhDxX6gYpn28lE_X0WZ242SsCMN2zAsmlS8AKR28H/pub"
     },
     {
       "title": "Julekule",
       "level": "easy",
       "id": "julekule",
       "image": "https://user-images.githubusercontent.com/8504538/140666441-d70f7bdc-f777-4d53-acda-c56b23200fcb.png",
-      "pdf": "https://docs.google.com/document/d/e/2PACX-1vRBfpSZA44bi7sVRjyJr00sJSkDLnbeU60cDJUvw4LApLp4w9GIQOZkWUbX68npexbNdq-cnp-xV6mP/pub?embedded=true"
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRBfpSZA44bi7sVRjyJr00sJSkDLnbeU60cDJUvw4LApLp4w9GIQOZkWUbX68npexbNdq-cnp-xV6mP/pub"
+    },
+    {
+      "title": "Juletre",
+      "level": "easy",
+      "id": "juletre",
+      "image": "https://user-images.githubusercontent.com/8504538/141026191-de10487b-285a-4e49-a9f3-05012acb15e8.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vSDbBIvfdvZ19LSkDPiAW9CD5sG-FP2nI3H9IH3LkHzbfiJ1wFjEGiRourPT33i-hULQij14j_u4Lox/pub"
+    },
+    {
+      "title": "Julekopp",
+      "level": "easy",
+      "id": "julekopp",
+      "image": "https://user-images.githubusercontent.com/8504538/141026273-84e97e68-fc63-42b1-bcf8-e4498bdf349a.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRHzDoIuL7welNWnPCOAzNpOn6fmEBDXkS19jKlESFOXH4ugxxOq82p-mmc_CK6VpYZYULG0WtRAeTi/pub"
+    },
+    {
+      "title": "Julelue",
+      "level": "easy",
+      "id": "julelue",
+      "image": "https://user-images.githubusercontent.com/8504538/141026479-3c605a54-b6e5-483b-b452-9c4e280fe8bd.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRjXzu34UYTSGtSufhyjt3N37iFfrPRPpFClfvXK__fBZvu2qC2uhC0s_2HkWpm_-COenXa0ug6j6V2/pub"
+    },
+    {
+      "title": "Pepperkake",
+      "level": "easy",
+      "id": "pepperkake",
+      "image": "https://user-images.githubusercontent.com/8504538/141026760-a8024572-495f-443d-aa78-de70959ecf76.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vTPY3lwARxTczo4ngunvviasGpXGJGo-c0C_fZfFU50jNkIzzgjAKMwO8X02cch1yWe7VqCLUauY0AW/pub"
+    },
+    {
+      "title": "Snø",
+      "level": "easy",
+      "id": "sno",
+      "image": "https://user-images.githubusercontent.com/8504538/141026942-6b39d0b0-b937-4d17-94d9-eb7751ed57cf.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vS-yGEtecrHI4Go5mSgtKFCgQO7pIykgg27UUc7AWIVmteOnFqu7e6k7vZOeez68eLkGnUgKf_cFvQ-/pub"
+    },
+    {
+      "title": "Stearinlys",
+      "level": "easy",
+      "id": "stearinlys",
+      "image": "https://user-images.githubusercontent.com/8504538/141027228-f230a277-a557-46aa-a644-936acfd67231.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRtrJ2mOU4ACy4Lr3r2S1UJ8S4M0PxCkJHQJAydp2Gqw3LRGeMgMrFQwXzuIYZRLzdZZCdVlLOuXXK_/pub"
+    },
+    {
+      "title": "Fjell med snø i lufta",
+      "level": "medium",
+      "id": "fjell-med-sno-i-lufta",
+      "image": "https://user-images.githubusercontent.com/8504538/141024874-703ffc78-12c3-4538-80f5-7c2af67e6eef.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vTgvJOnElY6zXTCkRS1eHSb08RVwsYllKvQi3btvD4Ovwbw_TACdMbB0eMu-M0kyY8jliuhK3cyLNA4/pub"
+    },
+    {
+      "title": "Julestjerne",
+      "level": "medium",
+      "id": "julestjerne",
+      "image": "https://user-images.githubusercontent.com/8504538/141026031-a43eac60-0105-4efa-986a-fb1bde4d551a.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vSMw7BMVAWV0bYmujzRIRGpOP6pWtbFQofl3ympi84_CvwcoU0jxDqnun9uP__88JlyQDd9g3NM62UR/pub"
+    },
+    {
+      "title": "Snøflak",
+      "level": "medium",
+      "id": "snoflak",
+      "image": "https://user-images.githubusercontent.com/8504538/141030353-f0633ada-6125-48e7-9d55-57b2cf5188b0.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRnDjlobLzILrojxGCiP0Ei-GQZVoqAkHodR_YU8_fFijjaOu_Fay5JPOnfq3Xj5xDzibjqECNZh7VY/pub"
+    },
+    {
+      "title": "Gave",
+      "level": "medium",
+      "id": "gave",
+      "image": "https://user-images.githubusercontent.com/8504538/139928664-8be92744-5820-44b6-920a-f5f71bde34af.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vT6zSY8XOgnMPOTDSU9zYZCVGwUOQVnTs3dVUQ7JiHEm9JFncAr939YRZOGPURwQN61akaX_vNreS5y/pub"
+    },
+    {
+      "title": "Julekurv",
+      "level": "hard",
+      "id": "julekurv",
+      "image": "https://user-images.githubusercontent.com/8504538/141025963-2b794725-c995-44c9-8891-5adbfb19528a.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vSfZfvf0Nvm9YFVGtnFl4ps_dlXxoItBgrh3vdouasGKMldyU6Y4oAyDDB3062scG70ejo3roR_XbSq/pub"
+    },
+    {
+      "title": "Julekule",
+      "level": "hard",
+      "id": "julekule-vanskelig",
+      "image": "https://user-images.githubusercontent.com/8504538/141025093-bc1c898e-7db6-48f2-a014-63a01f55b0b8.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRxn56VghBK3Dq8DckvX7Rv_livOBZ2R1pSKvjWqfvLL36X08SihP2oYfB3SIc_ASe32to01__XjrHk/pub"
+    },
+    {
+      "title": "Julekopp",
+      "level": "hard",
+      "id": "julekopp-vanskelig",
+      "image": "https://user-images.githubusercontent.com/8504538/141026348-095a7723-4668-47d7-889a-81e206249bc4.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vR2_wZOBcwzfmh0KFpcxf1iQl5kNyQzEKM_Hs9JfEthWs7x33Gi_sJKwz0Fjlr1ZP6Iic6_5Mo_Cjfl/pub"
+    },
+    {
+      "title": "Nordlys",
+      "level": "hard",
+      "id": "nordlys",
+      "image": "https://user-images.githubusercontent.com/8504538/141026561-9f0114fd-7394-444b-b848-e1f8f79b3339.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vQNqhgLhD-5vFcqMVmftcwc5Vk6QWg_BhDrmtMDqCi7xhm_lqG2p1gS6V5XAYH7KVNUTajCXDr6_Fr6/pub"
+    },
+    {
+      "title": "Reinsdyr",
+      "level": "hard",
+      "id": "reinsdyr",
+      "image": "https://user-images.githubusercontent.com/8504538/141026886-e0837a65-6a05-4757-86ad-6b1f2b76e52f.png",
+      "googleDocs": "https://docs.google.com/document/d/e/2PACX-1vRJlK_XdzxqwKPq0eQj5ciD3N1MnaxGr8e3K3mxUI2LPJHb5j-2q8fX6uQrkdX5m5bSjwQTeQ8z_HoA/pub"
     }
   ]
 }
