@@ -344,6 +344,7 @@ export function JulekortSide({ embedded = false }) {
     })
 
     history.push('/julekort/' + docRef.id)
+    alert('Nå har du laget et nytt prosjekt!')
   }
 
   const deleteProject = async () => {
