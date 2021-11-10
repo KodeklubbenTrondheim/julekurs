@@ -66,7 +66,7 @@ export function JulekortSide({ embedded = false }) {
 
   useEffect(() => {
     if (prosjektId && (projectData === null || prosjektId !== projectData.id)) {
-      if ((embedded || blocklyWorkspace) && typeof userId === 'string') {
+      if ((embedded || blocklyWorkspace || editor) && typeof userId === 'string') {
         const getProject = async () => {
           isLoadingProject.current = true
           const docSnap = await getDoc(doc(getFirestore(), 'projects', prosjektId))
@@ -113,6 +113,7 @@ export function JulekortSide({ embedded = false }) {
     setTitle,
     blocklyWorkspace,
     embedded,
+    editor,
     history,
     userId,
   ])
@@ -255,7 +256,7 @@ export function JulekortSide({ embedded = false }) {
         modified: new Date(),
         pythonCode,
         title: getTitle(),
-        usingPython: false,
+        usingPython: editorMode === 'python',
         canvasColor,
         ...(image ? { image } : {}),
       },
@@ -277,7 +278,7 @@ export function JulekortSide({ embedded = false }) {
       modified: new Date(),
       pythonCode,
       title: getTitle(),
-      usingPython: false,
+      usingPython: editorMode === 'python',
       canvasColor,
     })
 
@@ -312,7 +313,7 @@ export function JulekortSide({ embedded = false }) {
       modified: new Date(),
       pythonCode,
       title: getTitle(),
-      usingPython: false,
+      usingPython: editorMode === 'python',
       canvasColor,
     })
 
