@@ -140,7 +140,7 @@ export function JulekortSide({ embedded = false }) {
       {editorMode === 'python' && (
         <>
           <Button onClick={() => setEditorMode('blockly')}>
-            Gå tilbake til blokker <i className="fas fa-shapes" />
+            Blokker <i className="fas fa-shapes" />
           </Button>
         </>
       )}
@@ -151,7 +151,7 @@ export function JulekortSide({ embedded = false }) {
             setPythonCode(downloadablePythonCode)
           }}
         >
-          Gjør om til Python <i className="fas fa-code" />
+          Python <i className="fas fa-code" />
         </Button>
       )}
       {editorMode === 'python' && false && (
@@ -171,6 +171,9 @@ export function JulekortSide({ embedded = false }) {
           </Button>
         </>
       )}
+      <Button onClick={newProject}>
+        Lag nytt julekort <i className="fas fa-plus" />
+      </Button>
       {prosjektId && youAreOwner && (
         <SaveButton onClick={codeGotSaved || codeIsSaving ? () => {} : save}>
           {codeGotSaved ? (
@@ -210,7 +213,7 @@ export function JulekortSide({ embedded = false }) {
       )}
       {prosjektId && (
         <Button onClick={() => openShareModal(true)}>
-          Del julekortet med andre <i className="fas fa-share" />
+          Del julekortet <i className="fas fa-share" />
         </Button>
       )}
       <RunButton onClick={runCodeFunction}>
@@ -243,6 +246,17 @@ export function JulekortSide({ embedded = false }) {
       return await getDownloadURL(imageRef)
     }
     return ''
+  }
+
+  const newProject = async () => {
+    if (prosjektId && prompt('Er du sikker? Skriv "ja" for å gå videre') === 'ja') {
+      setTitle('')
+      localStorage.clear()
+      history.push('/julekort')
+      window.location.reload()
+    } else {
+      alert('Du skrev ikke "ja". Prøv igjen om du vil starte et nytt prosjekt...')
+    }
   }
 
   const save = async () => {
