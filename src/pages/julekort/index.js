@@ -249,7 +249,7 @@ export function JulekortSide({ embedded = false }) {
   }
 
   const newProject = async () => {
-    if (prosjektId && prompt('Er du sikker? Skriv "ja" for å gå videre') === 'ja') {
+    if (prompt('Er du sikker? Skriv "ja" for å gå videre') === 'ja') {
       setTitle('')
       localStorage.clear()
       history.push('/julekort')
