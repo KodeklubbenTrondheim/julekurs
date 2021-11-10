@@ -31,6 +31,7 @@ export function JulekortSide({ embedded = false }) {
   const [projectData, setProjectData] = useState(null)
   const isLoadingProject = useRef(false)
   const [youAreOwner, setYouAreOwner] = useState(false)
+  const [codeIsSaving, setCodeIsSaving] = useState(false)
   const [codeGotSaved, setCodeGotSaved] = useState(false)
   const [imageNumber, updateImageNumber] = useState(0)
   const [shareModal, openShareModal] = useState(false)
@@ -170,10 +171,14 @@ export function JulekortSide({ embedded = false }) {
         </>
       )}
       {prosjektId && youAreOwner && (
-        <SaveButton onClick={codeGotSaved ? () => {} : save}>
+        <SaveButton onClick={codeGotSaved || codeIsSaving ? () => {} : save}>
           {codeGotSaved ? (
             <>
               Julekortet ble lagret <i className="fas fa-check" />
+            </>
+          ) : codeIsSaving ? (
+            <>
+              Lagrer julekortet <i className="fas fa-sync fa-spin" />
             </>
           ) : (
             <>
@@ -240,6 +245,7 @@ export function JulekortSide({ embedded = false }) {
   }
 
   const save = async () => {
+    setCodeIsSaving(true)
     const image = await captureAndUploadImage(prosjektId)
     await setDoc(
       doc(getFirestore(), 'projects', prosjektId),
@@ -256,11 +262,13 @@ export function JulekortSide({ embedded = false }) {
       { merge: true }
     )
     setCodeGotSaved(true)
+    setCodeIsSaving(false)
   }
 
   const create = async () => {
     const email = userId || (await login())
 
+    setCodeIsSaving(true)
     const docRef = await addDoc(collection(getFirestore(), 'projects'), {
       author: '/users/' + email,
       blocklyXml,
@@ -286,6 +294,7 @@ export function JulekortSide({ embedded = false }) {
     })
 
     setCodeGotSaved(true)
+    setCodeIsSaving(false)
 
     history.push('/julekort/' + docRef.id)
   }
