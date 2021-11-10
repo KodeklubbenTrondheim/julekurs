@@ -86,10 +86,16 @@ function App() {
             <Route path="/" exact>
               <h1>Velkommen til julekortverkstedet</h1>
               <p>Lyst til å programmere digitale julekort som dette?</p>
-              <IntroImage
-                src="https://firebasestorage.googleapis.com/v0/b/kodeklubben-trondheim-julekurs.appspot.com/o/projects%2FDwG3PrNjLsCXwDR22TwU.png?alt=media&token=34802d5d-da2a-4a55-be91-31515a1c8f17"
-                alt="Velkommen til julekurs"
-              />
+              <IntroImages>
+                <IntroImage
+                  src="https://firebasestorage.googleapis.com/v0/b/kodeklubben-trondheim-julekurs.appspot.com/o/projects%2FDwG3PrNjLsCXwDR22TwU.png?alt=media&token=34802d5d-da2a-4a55-be91-31515a1c8f17"
+                  alt="Velkommen til julekurs"
+                />
+                <IntroImage
+                  src="https://firebasestorage.googleapis.com/v0/b/kodeklubben-trondheim-julekurs.appspot.com/o/projects%2FMpUxmjDU6yB6GBk7oxW5.png?alt=media&token=ad405435-b2aa-44d2-af48-628fff7a3ff5"
+                  alt="Snøflak"
+                />
+              </IntroImages>
               <p>Da har du kommet til riktig sted!</p>
               <div style={{ textAlign: 'left', margin: 16 }}>
                 <h3>Slik starter du:</h3>
@@ -188,6 +194,13 @@ const LoginContainer = styled.div`
   :empty {
     display: none;
   }
+`
+
+const IntroImages = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  margin: 16px;
 `
 
 const IntroImage = styled.img`

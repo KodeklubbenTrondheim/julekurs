@@ -40,7 +40,7 @@ export function OppgaveOversiktSide() {
         {tasks
           .filter(({ level = '' }) => level === 'easy')
           .map((task) => (
-            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.googleDocs ? '.docs' : '')}>
               {task.image && <LinkImage src={task.image} alt={task.title} />}
               <span>{task.title}</span>
             </Task>
@@ -51,7 +51,7 @@ export function OppgaveOversiktSide() {
         {tasks
           .filter(({ level = '' }) => level === 'medium')
           .map((task) => (
-            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.googleDocs ? '.docs' : '')}>
               {task.image && <LinkImage src={task.image} alt={task.title} />}
               <span>{task.title}</span>
             </Task>
@@ -62,7 +62,7 @@ export function OppgaveOversiktSide() {
         {tasks
           .filter(({ level = '' }) => level === 'hard')
           .map((task) => (
-            <Task key={task.id} to={'/oppgaver/' + task.id + (task.pdf ? '.pdf' : '')}>
+            <Task key={task.id} to={'/oppgaver/' + task.id + (task.googleDocs ? '.docs' : '')}>
               {task.image && <LinkImage src={task.image} alt={task.title} />}
               <span>{task.title}</span>
             </Task>
@@ -75,18 +75,18 @@ export function OppgaveOversiktSide() {
 export function OppgaveSide() {
   const [task, setTask] = useState('')
   const { oppgaveId = null } = useParams()
-  const [isPdf, setIsPdf] = useState(false)
-  const [pdfUrl, setPdfUrl] = useState('')
+  const [isDocs, setIsDocs] = useState(false)
+  const [docsUrl, setDocsUrl] = useState('')
 
   useEffect(() => {
-    const isPdf = oppgaveId.endsWith('.pdf')
-    setIsPdf(isPdf)
-    if (isPdf) {
+    const isDocs = oppgaveId.endsWith('.docs')
+    setIsDocs(isDocs)
+    if (isDocs) {
       fetch(process.env.PUBLIC_URL + `/oppgaver/index.json`)
         .then((r) => r.json())
         .then((index) => {
           if ('oppgaver' in index) {
-            setPdfUrl(index.oppgaver.find((task) => task.id === oppgaveId.slice(0, -4))?.pdf || '')
+            setDocsUrl(index.oppgaver.find((task) => task.id === oppgaveId.slice(0, -5))?.googleDocs || '')
           }
         })
     } else {
@@ -98,11 +98,11 @@ export function OppgaveSide() {
     }
   }, [oppgaveId])
 
-  if (isPdf) {
+  if (isDocs) {
     return (
-      <PDFContainer>
-        <PDF src={pdfUrl} />
-      </PDFContainer>
+      <GoogleDocsContainer>
+        <GoogleDocsEmbedded src={docsUrl + '?embedded=true'} />
+      </GoogleDocsContainer>
     )
   }
 
@@ -140,7 +140,7 @@ const TaskContainer = styled(TasksContainer)`
   max-width: calc(100% - 2rem);
 `
 
-const PDFContainer = styled(TaskContainer)`
+const GoogleDocsContainer = styled(TaskContainer)`
   padding: 0;
   margin: 0 1rem 1rem;
   background-color: white;
@@ -184,7 +184,7 @@ const LinkImage = styled.img`
   ${CSSShadows.large}
 `
 
-const PDF = styled.iframe`
+const GoogleDocsEmbedded = styled.iframe`
   border: none;
   width: 100%;
   flex: 1 0 auto;
