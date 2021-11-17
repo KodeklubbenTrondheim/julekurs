@@ -18,7 +18,7 @@ export function GalleriSide() {
         {value &&
           value.docs
             .map((doc) => ({ id: doc.id, ...doc.data() }))
-            .filter((doc) => !doc.hide)
+            .filter((doc) => !doc.hide && doc.image)
             .sort((a, b) => b.modified.seconds - a.modified.seconds)
             .map(({ id, title, image }) => {
               return (
