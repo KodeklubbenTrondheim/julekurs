@@ -20,7 +20,9 @@ const auth = getAuth(firebaseApp)
 
 export const login = async () => {
   const email = prompt('Email:')
-  const password = prompt('Passord: (finnes ikke brukeren fra før lager vi en ny bruker med dette passordet)')
+  const password = prompt(
+    'Passord: (Minst 6 tegn. Finnes ikke brukeren fra før lager vi en ny bruker med dette passordet)'
+  )
   try {
     await signInWithEmailAndPassword(auth, email, password)
   } catch (error) {
@@ -29,12 +31,22 @@ export const login = async () => {
         alert('Du må bruke en gyldig e-post, slik som dette: eksempel@hotmail.com')
         break
       case 'auth/user-not-found':
-        await createUserWithEmailAndPassword(auth, email, password)
-        await setDoc(doc(getFirestore(), 'users', email), {
-          projects: [],
-        })
-        alert('Vi lagde en ny bruker med denne e-posten: ' + email)
-        await signInWithEmailAndPassword(auth, email, password)
+        try {
+          await createUserWithEmailAndPassword(auth, email, password)
+          await setDoc(doc(getFirestore(), 'users', email), {
+            projects: [],
+          })
+          alert('Vi lagde en ny bruker med denne e-posten: ' + email)
+          await signInWithEmailAndPassword(auth, email, password)
+        } catch (error2) {
+          switch (error2.code) {
+            case 'auth/weak-password':
+              alert('Du må ha et sterkere passord. Minst 6 tegn. Prøv på nytt!')
+              break
+            default:
+              alert('Du fikk en ukjent error: ' + error2.code + '. Du må prøve på nytt!')
+          }
+        }
         break
       default:
         alert('Du fikk en ukjent error: ' + error.code)
