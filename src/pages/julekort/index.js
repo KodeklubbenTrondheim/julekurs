@@ -198,7 +198,7 @@ export function JulekortSide({ embedded = false }) {
       )}
       {prosjektId && !youAreOwner && (
         <Button onClick={remix}>
-          Lag en kopi av julekortet <i className="fas fa-copy" />
+          Lagre julekortet / Lag en kopi av julekortet <i className="fas fa-copy" />
         </Button>
       )}
       {prosjektId && youAreOwner && (
