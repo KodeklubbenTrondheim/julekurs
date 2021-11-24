@@ -2,7 +2,7 @@
 
 :construction_worker: Her bygges det en nettside som skal inneholde det splitter nye julekurset fra oss i Kodeklubben Trondheim!
 
-Om du vil bidra er det bare å sende inn en issue [her](https://github.com/niklasmh/kodeklubben-trondheim-julekurs/issues), så legger vi deg til! The more the merrier :raised_hands:
+Om du vil bidra er det bare å sende inn en issue [her](https://github.com/kodeklubbentrondheim/julekurs/issues), så legger vi deg til! The more the merrier :raised_hands:
 
 ## :computer: Sette opp prosjektet på din maskin
 
@@ -34,8 +34,8 @@ Nå må vi hente prosjektet fra GitHub. Det gjøres slik:
 1. Åpne terminal (Powershell (Windows) eller Terminal (Mac OS))
 2. Skriv `pwd` for å sjekke hvor du er nå
 3. Naviger deg til der du vil installere prosjektet (skriv `cd mappenavn` for å gå inn i en mappe og `cd ..` for å gå ut)
-4. Skriv så `git clone https://github.com/niklasmh/kodeklubben-trondheim-julekurs.git` (Hvis du har SSH, kjør denne i stedet: `git clone git@github.com:niklasmh/kodeklubben-trondheim-julekurs.git`)
-5. Gå inn i mappen: `cd kodeklubben-trondheim-julekurs`
+4. Skriv så `git clone https://github.com/kodeklubbentrondheim/julekurs.git` (Hvis du har SSH, kjør denne i stedet: `git clone git@github.com:kodeklubbentrondheim/julekurs.git`)
+5. Gå inn i mappen: `cd julekurs`
 6. Skriv `npm install`
 7. Skriv `npm start`
 8. Nå skal det kjøre! Bare å spørre kodeklubben trondheim om hjelp om du stod fast på et steg.
